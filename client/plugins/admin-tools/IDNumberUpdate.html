@@ -1,0 +1,45 @@
+<template name="IDNumberUpdate">
+	<!-- title -->
+	<div class="page-header">
+		<div class="page-header-content">
+			<div class="page-title">
+				<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Admin</span> - webeeID Updater</h4>
+			</div>
+			<div class="heading-elements">
+			</div>
+			<a class="heading-elements-toggle"><i class="icon-menu"></i></a>
+		</div>
+
+		<div class="breadcrumb-line">
+			<ul class="breadcrumb">
+				<li><a href="/__admin"><i class="icon-home2 position-left"></i> Admin</a></li>
+				<li><a href="/__admin/webeeID">webeeID</a></li>
+				<li class="active">Updater</li>
+			</ul>
+			<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+		</div>
+	</div>
+	<!-- /title -->
+
+	<!-- content -->
+	<div class="content">
+		<div class="row">
+			<h1>webeeID Updater</h1>
+			Please select your file (in .csv format)
+		</div>
+		<div class="row">
+			<div class="input-group">
+				<input class="form-control" type="file" id="uploadFile" value="Select your CSV file">
+				<span id="uploadBtn" class="input-group-addon btn btn-info">GO!</span>
+			</div>
+		</div>
+
+		<div class="row"></div>
+
+		<div class="row">
+			<div id="result" class="well">
+				Result
+			</div>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,42 @@
+.sidebar-main {
+	background-color: #222 !important;
+	/*background-color: #1E88E5 !important;*/
+}
+
+.catbox {
+	display: inline-block;
+	vertical-align: top;
+	float: none;
+	width: 250px;
+}
+.catbox .panel {
+	height: 310px;
+	overflow-y: scroll;
+}
+
+#home-head {
+	position: absolute;
+	top: 0;
+	/*left: 50%;*/
+	z-index: 9000;
+	width: 100%;
+	/*border: 1px red solid;*/
+	/*margin-left: -640px;*/
+	margin-top: 10px;
+}
+
+img.lazy {
+	opacity: 0;
+	transition: opacity .3s ease-in;
+}
+
+.pagination-group {
+	width: 100%;
+	text-align: center;
+}
+
+.pagination-group .paging-btn {
+	margin-left: auto;
+	margin-right: auto;
+	padding:5px 10px;
+}

@@ -1,0 +1,49 @@
+<template name="mainHeader2">
+
+	<div id="nav-header" class="navbar navbar-inverse bg-purple-800">
+			<div class="container">
+
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/"><strong>webeme</strong></a>
+
+					<ul class="nav navbar-nav visible-xs-block">
+						<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+						<li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+					</ul>
+				</div>
+
+				<div class="navbar-collapse collapse" id="navbar-mobile">
+
+					<ul class="nav navbar-nav navbar-right">
+
+						{{#if currentUser}}
+						<li class="dropdown dropdown-user">
+							<a class="dropdown-toggle" data-toggle="dropdown">
+								<img src="/images/placeholder.jpg" alt="">
+								<span>{{currentUser.profile.name}}</span>
+								<i class="caret"></i>
+							</a>
+
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+								<li><a href="#"><i class="icon-coins"></i> My balance</a></li>
+								<li><a href="#"><span class="badge bg-teal-400 pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
+								<li class="divider"></li>
+								<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
+								<li><a href="#logout" class="logout"><i class="icon-switch2"></i> Logout</a></li>
+							</ul>
+						</li>
+						{{else}}
+						<li>
+							<a href="/login"><i class="icon-user-check"></i> Login</a>
+						</li>
+						<!-- <li>
+							<a href="/register"><i class="icon-user-plus"></i> Register</a>
+						</li> -->
+						{{/if}}
+
+					</ul>
+				</div>
+			</div>
+	</div>
+</template>

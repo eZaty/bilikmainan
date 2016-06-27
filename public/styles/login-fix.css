@@ -1,0 +1,18 @@
+.page-container{
+	position: fixed;
+}
+
+.login-container{
+	position: fixed;
+	top:50%;
+	left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.webe-greetings {
+	font-size: 25px;
+	font-weight:bold;
+	margin-top:150px;
+	margin-bottom:30px;
+}

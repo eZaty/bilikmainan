@@ -1,0 +1,83 @@
+<template name="adminMenu">
+	<div id="sidebar-menu" class="sidebar sidebar-main">
+				<div class="sidebar-content">
+
+					<!-- User menu -->
+					{{#if currentUser}}
+					<div class="sidebar-user">
+						<div class="category-content">
+							<div class="media">
+								<a href="#" class="media-left"><img src="{{profile_s3 currentUser._id}}" class="img-circle img-sm" alt=""></a>
+								<div class="media-body">
+									<span class="media-heading text-semibold">{{currentUser.profile.name}}</span>
+									<!-- <div class="text-size-mini text-muted">
+										<i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
+									</div> -->
+								</div>
+
+								<div class="media-right media-middle">
+									<ul class="icons-list">
+										<li>
+											<a href="#"><i class="icon-cog3"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					{{/if}}
+					<!-- /user menu -->
+
+
+					<!-- Main navigation -->
+					<div class="sidebar-category sidebar-category-visible">
+						<div class="category-content no-padding ">
+							<ul id="menu-nav" class="navigation navigation-main navigation-accordion">
+
+								<!-- Main -->
+								<li class="navigation-header bg-primary-600"><span>Main</span> <i class="icon-menu" title="" data-original-title="Main pages"></i></li>
+								<li id="menu-adminDashboard" class="route"><a href="/__admin"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+								<li id="menu-adminUsers">
+									<a href="#"><i class="icon-stack2"></i> <span>Users</span></a>
+									<ul>
+										<li id="menu-adminUserList" class="route"><a href="/__admin/users">Users List</a></li>
+										<li id="menu-adminUserGroup" class="route"><a href="/__admin/groups">Groups</a></li>
+										<li id="menu-adminUserWebeeID" class="route"><a href="/__admin/webeeID">webee ID</a></li>
+									</ul>
+								</li>
+								<li id="menu-adminMobile">
+									<a href="#"><i class="icon-stack2"></i> <span>Gallery</span></a>
+									<ul>
+										<li id="menu-adminPhotoGallery" class="route"><a href="/__admin/photo-gallery">Photo gallery</a></li>
+									</ul>
+								</li>
+								<li id="menu-adminBlog">
+									<a href="#"><i class="icon-stack2"></i> <span>Blog</span></a>
+									<ul>
+										<li id="menu-adminBlogList"><a href="/__admin/blog">Blogs List</a></li>
+										<li id="menu-adminMyBlogPost"><a href="/__admin/blog/mine">My Blog Posts</a></li>
+									</ul>
+								</li>
+								<li id="menu-adminAnnouncement">
+									<a href="#"><i class="icon-stack2"></i> <span>Announcement</span></a>
+									<ul>
+										<li id="menu-adminMailingList"><a href="/__admin/announcement/mailing-list">Mailing List</a></li>
+										<li id="menu-adminChannelList"><a href="/__admin/announcement/channels">Channels List</a></li>
+										<li id="menu-adminMyAnnouncement"><a href="/__admin/announcement/mine">My Announcements</a></li>
+									</ul>
+								</li>
+								<li id="menu-adminPolls">
+									<a href="#"><i class="icon-stack2"></i> <span>Polls</span></a>
+									<ul>
+										<li id="menu-adminPolls" class="route"><a href="/__admin/polls">Polls</a></li>
+									</ul>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+					<!-- /main navigation -->
+
+				</div>
+			</div>
+</template>

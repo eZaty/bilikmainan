@@ -1,0 +1,120 @@
+<template name="home">
+
+    <!-- {{>videoHeader}} -->
+
+    <!-- content -->
+    {{> homeHead}}
+
+    <section class='vidContain vid'>
+        <video id="bgvids" width="100%" height="100%" autoplay="true" loop="true" muted="true" poster="/images/video_alternate.jpg">
+            <!-- <source src="https://webe-community-video.s3.amazonaws.com/webe/video/webe_home.webm" type="video/webm">
+            <source src="https://webe-community-video.s3.amazonaws.com/webe/video/webe_home.mp4" type="video/mp4">
+            <source src="https://webe-community-video.s3.amazonaws.com/webe/video/webe_home.ogv" type="video/ogv"> -->
+            <source src="/videos/webe_playroom.mp4" type="video/mp4" />
+            <source src="/videos/webe_playroom.webm" type="video/webm" />
+            <source src="/videos/webe_playroom.ogv" type="video/ogv" />
+        </video>
+    </section>
+    <!-- /content -->
+
+
+    <div class="content">
+        <div class="container">
+            <h2 class="text-center content-group">
+                <img src="{{quoteImage}}">
+            </h2>
+
+            <!-- modules block -->
+            <div id="modules-block" class="row">
+                <!-- first row -->
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <a href="https://magz-playroom.webe.com.my/news" data-internalonly="news" target="_blank" class="module module-internal col-md-12">
+                                    <div class="module-highlights lazy" data-src="/images/modules/highlights.jpg">
+                                        <div class="bg-layer">
+                                            highlights
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <a href="/webeme" class="module col-md-12">
+                                    <div class="module-webeme">
+                                        <div class="bg-layer">
+                                            webeme
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <a href="/playbook" target="_blank" class="module col-md-12">
+                            <div class="module-playbook tall">
+                                <div class="bg-layer">
+                                    playbook
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <a href="https://magz-playroom.webe.com.my/marketbeats" data-internalonly="marketbeats" target="_blank" class="module module-internal col-md-12">
+                                    <div class="module-marketbeats">
+                                        <div class="bg-layer">
+                                            marketbeats
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <a href="http://ccpuan.com" target="_blank" class="module col-md-12">
+                                    <div class="module-ccpuan">
+                                        <div class="bg-layer">
+                                            cc's blog
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /modules block -->
+
+        </div>
+    </div>
+
+
+    <!-- map -->
+    <!-- <div class="bg-primary-300 mt-20" style="">
+    <div class="container">
+    <h1 class="text-center content-group">
+    Discover and build a successful future with playroom
+    <small class="display-block">Be at the forefront of innovation</small>
+</h1>
+</div>
+</div> -->
+
+<!-- <a id="pop-layer" href="#pop-layer">
+<img src="/images/footer.png" style="width:100%;margin-top:50px;">
+</a> -->
+
+{{>footer}}
+
+<!-- {{>videoModal}} -->
+
+<!-- {{>poplayer}} -->
+
+</template>

@@ -1,0 +1,88 @@
+#modules-block {
+	margin-top: 40px;
+}
+
+#modules-block .module {
+	padding: 5px;
+}
+#modules-block .module > div {
+	background-color: #000;
+	color: #fff;
+	min-height: 230px;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	padding-top: 90px;
+}
+#modules-block .module > div.tall {
+	height: 470px;
+	padding-top: 185px;
+}
+
+#modules-block .tl-radius {
+	border-top-left-radius: 10px;
+}
+#modules-block .bl-radius {
+	border-bottom-left-radius: 10px;
+}
+#modules-block .tr-radius {
+	border-top-right-radius: 10px;
+}
+#modules-block .br-radius {
+	border-bottom-right-radius: 10px;
+}
+
+/* playroom */
+.module-highlights {
+	background: #333 url(/images/modules/highlights.jpg) no-repeat center center;
+	background-size:100% auto;
+	background-position: bottom;
+}
+.module-webeme {
+	background: #333 url(/images/modules/webeme.jpg) no-repeat center center;
+	background-size: 100% auto;
+}
+.module-marketbeats {
+	background: #333 url(/images/modules/marketbeats.jpg) no-repeat center center;
+	background-size: 100% auto;
+}
+.module-ccpuan {
+	background: #333 url(/images/modules/cc.jpg) no-repeat center center;
+	background-size:100% auto;
+	background-position: right;
+}
+.module-playbook {
+	background: #333 url(/images/modules/playbook.jpg) no-repeat center center;
+	background-size:auto 100%;
+}
+
+/* webeme */
+.module-buzz {
+	background: #333 url(/images/modules/webeme/buzzhcd.jpg) no-repeat center center;
+	background-size:100% auto;
+}
+.module-engage {
+	background: #333 url(/images/modules/webeme/engage.jpg) no-repeat center center;
+	background-size:auto 100%;
+}
+.module-scool {
+	background: #333 url(/images/modules/webeme/scool.jpg) no-repeat center center;
+	background-size:auto 100%;
+}
+.module-facilities {
+	background: #333 url(/images/modules/webeme/facilities.jpg) no-repeat center center;
+	background-size:auto 100%;
+}
+.module-selfservice {
+	background: #333 url(/images/modules/webeme/selfservice.jpg) no-repeat center center;
+	background-size: 100% auto;
+}
+.module-toolkit {
+	background: #333 url(/images/modules/webeme/toolkit.jpg) no-repeat center center;
+	background-size:auto 100%;
+}
+.module-career {
+	background: #333 url(/images/modules/webeme/career2.jpg) no-repeat center center;
+	background-size:auto 100%;
+	background-position: right;
+}

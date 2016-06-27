@@ -1,0 +1,107 @@
+<template name="webeme">
+
+    <!-- content -->
+    {{> homeHead}}
+
+    <section class='vidContain vid'>
+    	<section class="vid bg-black">
+            <video id="bgvids" width="100%" height="100%" autoplay="true" loop="true" muted="true" poster="/images/video_alternate.png">
+                <source id="webm" src="https://webe-community-video.s3.amazonaws.com/webe/video/webe_home.webm" type="video/webm">
+                <source id="mp4" src="https://webe-community-video.s3.amazonaws.com/webe/video/webe_home.mp4" type="video/mp4">
+                <source id="ogv" src="https://webe-community-video.s3.amazonaws.com/webe/video/webe_home.ogv" type="video/ogv">
+            </video>
+
+            <div class="vid-content">
+                <div class="container">
+                    <div class="vid-center">
+                        <h1><span id="js-rotating">buzzhcd, career, scool, engage+u, facilities, playbook, selfservice</span><strong class="text-orange-800">@webeme</strong></h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+	</section>
+	<!-- /content -->
+
+
+	<div class="content">
+		<div class="container">
+            <h2 class="text-center content-group">
+                <img src="{{quoteImage}}">
+			</h2>
+
+            <!-- modules block -->
+            <div id="modules-block" class="row">
+                <!-- first row -->
+                <div class="col-md-30">
+                    <div class="row">
+                        <a target="_blank" data-internalonly="buzzhcd" href="http://packetnet.greenpacket.com/HCDPortal/Lists/Ticketing%20System%20for%20HCD/AllItems.aspx" class="module module-internal col-md-12">
+                            <div class="module-buzz">
+                                <div class="bg-layer">
+                                    buzzhcd
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="engage+u" href="https://magz-playroom.webe.com.my/engage" class="module module-internal col-md-6">
+                            <div class="module-engage">
+                                <div class="bg-layer">
+                                    engage+u
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="scool" href="http://packetnet.greenpacket.com/lnd/default2.aspx" class="module module-internal col-md-6">
+                            <div class="module-scool">
+                                <div class="bg-layer">
+                                    scool
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-15">
+                    <div class="row">
+                        <a target="_blank" href="http://www.jobstreet.com.my/career/webe.htm" class="module col-md-12">
+                            <div class="module-career tall">
+                                <div class="bg-layer">
+                                    career
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-30">
+                    <div class="row">
+                        <a target="_blank" data-internalonly="facilities" href="http://packetnet.greenpacket.com/effi" class="module module-internal col-md-6">
+                            <div class="module-facilities">
+                                <div class="bg-layer">
+                                    facilities
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="toolkit" href="http://packetnet.greenpacket.com/emptoolkit/default.aspx" class="module module-internal col-md-6">
+                            <div class="module-toolkit">
+                                <div class="bg-layer">
+                                    toolkit
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="selfservice" href="http://192.168.250.91/eSolution/Login.aspx" class="module module-internal col-md-12">
+                            <div class="module-selfservice">
+                                <div class="bg-layer">
+                                    selfservice
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /modules block -->
+
+		</div>
+	</div>
+
+    {{>footer}}
+
+    <!-- {{>poplayer}} -->
+</template>

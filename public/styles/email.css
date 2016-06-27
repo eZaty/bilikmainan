@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Panton';
+  src: url('https://playroom.webe.com.my/fonts/panton/Panton-Regular.eot?#iefix') format('embedded-opentype'),  url('https://playroom.webe.com.my/fonts/panton/Panton-Regular.otf')  format('opentype'),
+	     url('https://playroom.webe.com.my/fonts/panton/Panton-Regular.woff') format('woff'), url('https://playroom.webe.com.my/fonts/panton/Panton-Regular.ttf')  format('truetype'), url('https://playroom.webe.com.my/fonts/panton/Panton-Regular.svg#Panton-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Panton Bold';
+  src: url('https://playroom.webe.com.my/fonts/panton/Panton-Bold.eot?#iefix') format('embedded-opentype'),  url('https://playroom.webe.com.my/fonts/panton/Panton-Bold.otf')  format('opentype'),
+	     url('https://playroom.webe.com.my/fonts/panton/Panton-Bold.woff') format('woff'), url('https://playroom.webe.com.my/fonts/panton/Panton-Bold.ttf')  format('truetype'), url('https://playroom.webe.com.my/fonts/panton/Panton-Bold.svg#Panton-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+body, p, td, span, div, input, button {
+  font-family: 'Panton'
+  color: #333;
+  font-size: 12px;
+}

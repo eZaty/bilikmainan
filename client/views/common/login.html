@@ -1,0 +1,65 @@
+<template name="logout"></template>
+<template name="login">
+
+    <div class="webe-greetings text-white">
+        <div>
+            {{#if greetWeekend}}
+            <strong>happy weekend webee :)</strong>
+            {{/if}}
+            {{#if greetMorning}}
+            <strong>hello, good morning webee :)</strong>
+            {{/if}}
+            {{#if greetAfternoon}}
+            <strong>hello, good afternoon webee :)</strong>
+            {{/if}}
+            {{#if greetEvening}}
+            <strong>hello, good evening webee :)</strong>
+            {{/if}}
+        </div>
+    </div>
+
+    <!-- Simple login form -->
+    <form class="form-login">
+        <div class="panel panel-body login-form">
+            <div class="text-center mb-20">
+                <!-- <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div> -->
+                <!-- <h5 class="content-group">WELCOME TO WEBEME <small class="display-block">Enter your credentials below</small></h5> -->
+                <img src="/images/webe-playroom-beta.png" style="height:30px;">
+            </div>
+
+            <div class="alertBox"></div>
+
+            <div class="form-group-xlg has-feedback has-feedback-left mb-10">
+                <!-- <input type="text" name="loginEmail" class="form-control" placeholder="Login ID"> -->
+                <input type="text" name="loginId" class="form-control" placeholder="Username">
+                <div class="form-control-feedback">
+                    <i class="icon-mention text-muted"></i>
+                </div>
+            </div>
+
+            <div class="form-group-xlg has-feedback has-feedback-left mb-10">
+                <input type="password" name="loginPassword" class="form-control" placeholder="Password">
+                <div class="form-control-feedback">
+                    <i class="icon-lock2 text-muted"></i>
+                </div>
+            </div>
+
+            <div class="form-group mt-10">
+                <button type="submit" class="btn btn-primary btn-block"><strong style="font-size:120%;">let's go!</strong> <i class="icon-circle-right2 position-right"></i></button>
+            </div>
+
+            <!-- <div class="text-center">
+            <a href="/register">Register</a>
+        </div> -->
+
+        <!-- Footer -->
+        <div class="footer" style="font-size:12px;color:#eee;">
+            webe playroom &copy; {{thisYear}}
+        </div>
+        <!-- /footer -->
+    </div>
+
+
+</form>
+
+</template>

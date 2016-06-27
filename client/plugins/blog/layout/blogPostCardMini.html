@@ -1,0 +1,22 @@
+<template name="blogPostCardMini">
+
+    <div class="card-mini" style="background: url('{{blog_post_cover _id}}') no-repeat; background-size: 100% 100%; display: table;  height: 200px;  position: relative;  width: 100%; ">
+        <div class="text-vcenter">
+            <div class="blog-title card-mini-title">
+                <a href="/{{blog_root}}/{{blog_path blog_id}}/{{slug}}">
+                    {{title}}
+                </a>
+            </div>
+        </div>
+    </div>
+	<!-- <div class="card-mini">
+        <a class="img-card-mini" href="/{{blog_root}}/{{blog_path blog_id}}/{{slug}}">
+            <img src="{{blog_post_cover _id}}" /> 
+        </a>
+        <h4 class="card-mini-title">
+            <a href="/{{blog_root}}/{{blog_path blog_id}}/{{slug}}">
+                {{title}}
+            </a>
+        </h4>
+    </div> -->
+</template>

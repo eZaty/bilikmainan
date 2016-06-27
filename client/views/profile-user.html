@@ -1,0 +1,181 @@
+<template name="profileUser">
+	<div class="page">
+		{{> homeHead}}
+
+		<!-- Cover area -->
+		<div class="profile-cover">
+			<div class="profile-cover-img" style="background-image:url({{cover_photo currentUser._id}})"></div>
+			<div class="media container">
+				<div class="media-left">
+					<a href="#" class="profile-thumb" style="background:#{{getColor}} url({{profile_s3 currentUser._id 'full'}}) no-repeat center center;">
+						<img id="profPic" src="/images/blank.png" class="img-circle" alt="">
+					</a>
+				</div>
+
+				<div class="media-body">
+					<h1>{{getNickName}}<h6 class="display-block no-margin">{{currentUser.profile.title}}, {{currentUser.profile.department}}</h6></h1>
+				</div>
+
+				<div class="media-right media-middle">
+					<ul class="list-inline list-inline-condensed no-margin-bottom text-nowrap">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /cover area -->
+
+
+		<form id="profInfo" action="#">
+
+			<!-- Toolbar -->
+			<!-- <div class="head fixed"> -->
+			<div class="navbar navbar-default navbar-xs content-group head-fixed">
+				<div class="container">
+					<ul class="nav navbar-nav visible-xs-block">
+						<li class="full-width text-center"><a data-toggle="collapse" data-target="#navbar-filter"><i class="icon-menu7"></i></a></li>
+					</ul>
+
+					<div class="navbar-collapse collapse" id="navbar-filter">
+						<ul class="nav nav-lg nav-tabs nav-tabs-solid">
+							<li><a href="#webeeid" class="smooth-scroll"><i class="icon-address-book position-left"></i> webee directory</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- </div> -->
+			</div>
+			<!-- /toolbar -->
+
+
+			<!-- Content area -->
+			<div class="content">
+
+				<!-- User profile -->
+				<div class="row">
+					<div class="container tabbable">
+						<div class="tab-content">
+
+							<div class="col-md-8">
+								<div class="tab-pane fade in active" id="webeeid">
+									<!-- webeeid -->
+									<div class="panel panel-flat">
+										<div class="panel-heading">
+											<h3 class="panel-title">webee profile</h3>
+										</div>
+
+										<div class="panel-body">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="card-preview" style="background-color:#{{getColor}}">
+														<div class="photo-container" style="background-color:#{{getColor}}">
+															<div class="photo" id="photo">
+																<i id="loading-pic" class="icon-spinner4 spinner icon-2x no-edge-top hide"></i>
+																<img src="{{profile_s3 currentUser._id 'full'}}" style="height:auto;width:100%;">
+															</div>
+														</div>
+														<div class="name-block quickfit">
+															<span class="greeting">{{getGreeting}}</span>
+															<span class="name">{{getNickName}}</span>
+														</div>
+														<div class="webeeid">wb{{getWebeeId}}</div>
+														<div class="logo">
+															<img src="/images/logos/webe_id_logo.png" id="logo" width="150">
+														</div>
+														<div class="pattern">
+															<img src="{{getPattern}}" id="pattern" width="65">
+														</div>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="content-group well profile-box">
+														<dl>
+															<dt class="text-size-small text-primary">webee Name</dt>
+															<dd>{{currentUser.profile.nickName}}</dd>
+
+															<dt class="text-size-small text-primary">webee ID</dt>
+															<dd>wb{{currentUser.profile.webeeId}}</dd>
+
+															<dt class="text-size-small text-primary">Full Name</dt>
+															<dd>{{currentUser.profile.name}}</dd>
+
+															<dt class="text-size-small text-primary">Email</dt>
+															<dd>{{currentUser.profile.email}}</dd>
+
+															<dt class="text-size-small text-primary">Title</dt>
+															<dd>{{titleize currentUser.profile.title}}</dd>
+
+															<dt class="text-size-small text-primary">Department</dt>
+															<dd>{{titleize (currentUser.profile.department)}}</dd>
+
+															{{#if isNotEmpty currentUser.profile.phone}}
+															<dt class="text-size-small text-primary">Mobile Phone</dt>
+															<dd>{{currentUser.profile.phone}}</dd>
+															{{/if}}
+
+															{{#if isNotEmpty currentUser.profile.ipPhone}}
+															<dt class="text-size-small text-primary">IP Phone</dt>
+															<dd>{{currentUser.profile.ipPhone}}</dd>
+															{{/if}}
+														</dl>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<!-- /webeeid -->
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="tab-pane fade in active" id="webeeLists">
+									<!-- webeeid -->
+									<div class="panel panel-flat">
+										<div class="panel-heading">
+											<h3 class="panel-title">webee directory</h3>
+										</div>
+
+										<div class="panel-body">
+											<div class="form-group has-feedback has-feedback-left">
+												<input type="text" id="search-keyword" class="form-control" placeholder="Search by webee name, email or department..." />
+												<div class="form-control-feedback">
+													<i class="icon-search4 text-size-base"></i>
+												</div>
+											</div>
+
+											<ul class="media-list media-list-bordered">
+												{{#each user in searchedUsers}}
+												<li class="media link" data-href="/profile/user/{{user._id}}">
+													<div class="media-left">
+														<a href="/profile/user/{{user._id}}"><img src="{{profile_s3 user._id}}" class="img-circle thumbpic" alt=""></a>
+													</div>
+													<div class="media-body">
+														<h6 class="media-heading"><strong>{{user.profile.nickName}}</strong></h6>
+														<div class="name">{{user.profile.name}}</div>
+														<div class="department">{{user.profile.department}}</div>
+													</div>
+												</li>
+												{{/each}}
+												<li class="btn-group pagination-group">
+													{{#each page in pagings}}
+													<a href="#{{page.number}}" class="btn btn-default paging-btn page-{{page.number}}" data-skip="{{page.skip}}">{{page.number}}</a>
+													{{/each}}
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- </div> -->
+
+				</div>
+				<!-- /user profile -->
+			</div>
+			<!-- /content area -->
+
+		</form>
+
+		{{>footer}}
+	</div>
+</template>

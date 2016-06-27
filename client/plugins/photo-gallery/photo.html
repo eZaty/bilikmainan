@@ -1,0 +1,29 @@
+<template name="photo">
+    <div class="result-item photo-item new">
+        <div class="photo">
+            <a href="#show-photo" data-photoid="{{gallery._id}}" target="_blank" class="zoom-link">
+                <img src="{{gallery_photo gallery._id}}">
+                <!-- <img src="/images/placeholder.jpg"> -->
+            </a>
+        </div>
+        {{#if isNotEmpty gallery.title}}
+        <div class="title">
+            {{gallery.title}}
+        </div>
+        {{/if}}
+
+        {{#if isNotEmpty gallery.description}}
+        <div class="desc">
+            {{gallery.description}}
+        </div>
+        {{/if}}
+
+        <div class="social">
+            <i class="icon-comment-discussion position-left"></i> {{totalComments gallery._id}}
+        </div>
+
+        <!-- <div class="user text-muted">
+            {{user_nickname gallery.userId}}
+        </div> -->
+    </div>
+</template>

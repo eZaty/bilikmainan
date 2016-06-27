@@ -1,0 +1,131 @@
+<template name="adminPhotoGallery">
+
+	<!-- title -->
+	<div class="page-header">
+		<div class="page-header-content">
+			<div class="page-title">
+				<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Admin</span> - Mobile CMS: Photo gallery</h4>
+			</div>
+			<div class="heading-elements">
+				<div class="heading-btn-group">
+					<a href="#" data-toggle="modal" data-target="#modal-create" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-task"></i></b> Add photo</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="breadcrumb-line">
+			<ul class="breadcrumb">
+				<li><a href="/__admin"><i class="icon-home2 position-left"></i> Admin</a></li>
+				<li><a href="/__admin/photo-gallery">Mobile CMS</a></li>
+				<li class="active">Photo gallery</li>
+			</ul>
+			<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+		</div>
+	</div>
+	<!-- /title -->
+
+	<!-- content -->
+	<div class="content">
+		<!-- Media library -->
+		<div class="panel panel-white">
+			<table class="table table-striped media-library table-lg">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th>Preview</th>
+						<th>Tags/Albums</th>
+						<th>Name</th>
+						<th>Author</th>
+						<th>Date</th>
+						<th>File info</th>
+						<th class="text-center">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each gallery in galleries}}
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>
+							<a href="{{gallery.url store='galleryImages'}}" data-popup="lightbox">
+								<img src="{{gallery.url store='galleryThumbs'}}" alt="" class="img-rounded img-preview">
+								<!-- <img src="{{gallery.url}}" data-src="{{gallery.url}}" alt="" class="img-rounded img-preview lazy"> -->
+							</a>
+						</td>
+						<td>{{getTags gallery._id}}</td>
+						<td><a href="#">{{gallery.title}}</a></td>
+						<td><a href="#">{{getUser gallery.userId}}</a></td>
+						<td>{{formatDate gallery.uploadedAt}}</td>
+						<td>
+							{{getFormattedSize gallery.copies.galleryImages.size}} KB
+							<br>
+							{{gallery.copies.galleryImages.type}}
+
+
+
+
+						</td>
+						<td class="text-center">
+							<ul class="icons-list">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-menu9"></i>
+									</a>
+
+									<ul class="dropdown-menu dropdown-menu-right">
+										<!-- <li><a href="#"><i class="icon-pencil7"></i> Edit file</a></li>
+										<li><a href="#"><i class="icon-copy"></i> Copy file</a></li>
+										<li><a href="#"><i class="icon-eye-blocked"></i> Unpublish</a></li>
+										<li class="divider"></li> -->
+										<li><a href="#" class="delete-photo" data-id="{{gallery._id}}"><i class="icon-bin"></i> Move to trash</a></li>
+									</ul>
+								</li>
+							</ul>
+						</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+		<!-- /media library -->
+	</div>
+	<!-- /content -->
+
+
+	<!-- modal template -->
+    <div id="modal-create" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="form-photo">
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h6 class="modal-title">Add new photo</h6>
+					</div>
+
+					<div class="modal-body">
+						<h6 class="text-semibold">Photo</h6>
+						<input id="upload-photo" type="file" class="file-input" data-show-upload="false">
+
+						<h6 class="text-semibold">Tags (Albums)</h6>
+						<input id="tags" type="text" class="form-control" placeholder="Tags / Albums (separated by ,)">
+
+						<h6 class="text-semibold">Title</h6>
+						<input id="title" type="text" value="" class="form-control" placeholder="Photo title">
+
+						<h6 class="text-semibold">Description</h6>
+						<textarea id="description" row="3" class="form-control" placeholder="Short description"></textarea>
+
+						<!-- <h6 class="text-semibold">Announcement (* Experimental)</h6>
+						<input type="checkbox" id="announcement" checked="false"> -->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close btn-link" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /modal template -->
+
+</template>

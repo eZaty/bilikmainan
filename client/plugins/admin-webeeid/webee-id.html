@@ -1,0 +1,406 @@
+<template name="adminWebeeID">
+	<!-- title -->
+	<div class="page-header">
+		<div class="page-header-content">
+			<div class="page-title">
+				<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Admin</span> - webee ID</h4>
+			</div>
+
+		</div>
+
+		<div class="breadcrumb-line">
+			<ul class="breadcrumb">
+				<li><a href="/__admin"><i class="icon-home2 position-left"></i> Admin</a></li>
+				<li><a href="#"> Users</a></li>
+				<li><a href="/__admin/webeeID">webee ID</a></li>
+			</ul>
+			<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+		</div>
+	</div>
+	<!-- /title -->
+
+	<div class="content">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-lg-3">
+				<!-- <img src="/images/avatar_default.jpg" class="img-responsive"> -->
+				Total Active Users: <b>{{nbUsers}}</b>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-9 col-lg-9">
+				<div id="overviewChart">
+				</div>
+			</div> -->
+		</div>
+
+		<div class="row">
+			<!-- Nav tabs -->
+		 	<ul id="webeeIDTabs" class="nav nav-tabs" role="tablist">
+		  		<li role="presentation" class="active"><a href="#pending" aria-controls="pending" role="tab" data-toggle="tab">Pending <span class="badge">{{nbwebeeIDPending}}</span></a></li>
+		    	<li role="presentation"><a href="#new" id="tab-new" aria-controls="new" role="tab" data-toggle="tab">New <span class="badge">{{nbwebeeIDNew}}</span></a></li>
+		    	<li role="presentation"><a href="#approved" id="tab-approved" aria-controls="approved" role="tab" data-toggle="tab">Approved <span class="badge">{{nbwebeeIDApproved}}</span></a></li>
+		    	<li role="presentation"><a href="#rejected" id="tab-rejected" aria-controls="rejected" role="tab" data-toggle="tab">Rejected <span class="badge">{{nbwebeeIDRejected}}</span></a></li>
+		    	<li role="presentation"><a href="#printed" id="tab-printed" aria-controls="printed" role="tab" data-toggle="tab">Printed <span class="badge">{{nbwebeeIDPrinted}}</span></a></li>
+		    	<li role="presentation"><a href="#collected" id="tab-collected" aria-controls="collected" role="tab" data-toggle="tab">Collected <span class="badge">{{nbwebeeIDCollected}}</span></a></li>
+		  	</ul>
+			<!-- / Nav tabs -->
+
+			<div class="tab-content webee-id-admin" >
+			  	<div role="tabpanel" class="tab-pane fade in active" id="pending">
+			  		<div style="text-align: right;">
+			  			<button class="btn btn-warning btn-reminder">Send Reminder to All</button>
+			  		</div>
+			  		<div class="form-group">
+					    <label for="search-pending">Search</label>
+					    <input id="search-pending" class="form-control" type="text" placeholder="search">
+					</div>
+			  		<div class="panel panel-flat">
+						<!-- <div class="panel-heading">
+							<div class="heading-elements">
+								<ul class="icons-list">
+			                		<li><a data-action="collapse"></a></li>
+			                		<li><a data-action="reload"></a></li>
+			                		<li><a data-action="close"></a></li>
+			                	</ul>
+			            	</div>
+						<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div> -->
+
+						<div class="panel-body">
+							<ul class="media-list media-list-bordered">
+								{{#each users}}
+								<li class="media">
+									<div class="media-left">
+										<a href="#"><img src="/images/placeholder.jpg" class="img-circle" alt=""></a>
+									</div>
+
+									<div class="media-body">
+										<ul class="icons-list pull-right">
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+													<i class="icon-three-bars"></i>
+													<span class="caret"></span>
+												</a>
+												<ul class="dropdown-menu dropdown-menu-right">
+													<li><a href="#" class="btn-reminder-individual" data-userid="{{_id}}"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> Send Reminder</a></li>
+												</ul>
+											</li>
+										</ul>
+										<h6 class="media-heading"><strong>{{profile.name}}</strong></h6>
+										{{username}} <i class="icon-arrow-small-right text-muted"></i> {{profile.email}}
+										<br>
+										{{profile.department}}
+									</div>
+								</li>
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+			  	</div>
+			  	<div role="tabpanel" class="tab-pane fade" id="new">
+			  		<div class="form-group">
+					    <label for="search-new">Search</label>
+					    <input id="search-new" class="form-control" type="text" placeholder="search">
+					</div>
+			  		{{#each new_users}}
+			  		<div class="pull-left card-container">
+				  		<div id="card-{{_id}}" class="card-preview" style="background-color:#{{getColor _id}}">
+							<div class="photo-container" style="background-color:#{{getColor _id}}">
+								<div class="photo">
+									<img src="{{profile_s3 _id 'full' true}}" style="height:auto;width:100%;">
+								</div>
+							</div>
+							<div class="card-info">
+								<div class="name-block quickfit">
+									<span class="greeting">{{profile.greeting}}</span>
+									<span class="name">{{profile.nickName}}</span>
+								</div>
+								{{#if isAdminWebeeID _id}}
+									<div class="webeeid">{{profile.webeeId}}</div>
+								{{else}}
+									<div class="webeeid">wb{{profile.webeeId}}</div>
+								{{/if}}
+								<div class="logo">
+									<img src="/images/atmwhite.png" id="logo-{{_id}}" width="120">
+								</div>
+								<div class="pattern">
+									<img src="/images/patterns/{{getPattern _id}}.png" id="pattern" width="50">
+								</div>
+							</div>
+							<div class="card-details hidden">
+								{{profile.name}}<br>
+								{{#if isAdminWebeeID _id}}
+									{{profile.webeeId}}<br>
+								{{else}}
+									wb{{profile.webeeId}}<br>
+								{{/if}}
+								{{profile.email}}<br>
+								{{profile.phone}}<br>
+								{{profile.title}} @ {{profile.department}}
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group" aria-label="...">
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-success btn-approve" data-userid="{{_id}}">
+						    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Approve</button>
+						  </div>
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-info btn-user-details" data-userid="{{_id}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Details</button>
+						  </div>
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-warning btn-reject" data-toggle="modal" data-target="#modal-webee-id" data-userid="{{_id}}">
+						    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Reject</button>
+						  </div>
+						</div>
+					</div>
+					{{/each}}
+			  	</div>
+			  	<div role="tabpanel" class="tab-pane fade" id="approved">
+			  		<div class="form-group">
+					    <label for="search-approved">Search</label>
+					    <input id="search-approved" class="form-control" type="text" placeholder="search">
+					</div>
+
+			  		{{#each approved_users}}
+			  		<div class="pull-left card-container">
+				  		<div id="card-{{_id}}" class="card-preview" style="background-color:#{{getColor _id}}">
+							<div class="photo-container" style="background-color:#{{getColor _id}}">
+								<div class="photo">
+									<img id="photo-{{_id}}" src="{{profile_s3_internal _id 'full'}}" style="height:auto;width:100%;">
+								</div>
+							</div>
+							<div class="card-info">
+								<div class="name-block quickfit">
+									<span class="greeting">
+									{{#if isEqual profile.greeting ''}}
+										Hi, i'm
+									{{else}}
+										{{profile.greeting}}
+									{{/if}}
+									</span>
+									<span class="name">{{profile.nickName}}</span>
+								</div>
+								{{#if isAdminWebeeID _id}}
+									<div class="webeeid">{{profile.webeeId}}</div>
+								{{else}}
+									<div class="webeeid">wb{{profile.webeeId}}</div>
+								{{/if}}
+								<div class="logo">
+									<img src="/images/atmwhite.png" id="logo-{{_id}}" width="120">
+								</div>
+								<div class="pattern">
+									<img src="/images/patterns/{{getPattern _id}}.png" id="pattern-{{_id}}" width="50">
+								</div>
+							</div>
+							<div class="card-details hidden">
+								{{profile.name}}<br>
+								{{#if isAdminWebeeID _id}}
+									{{profile.webeeId}}<br>
+								{{else}}
+									wb{{profile.webeeId}}<br>
+								{{/if}}
+								{{profile.email}}<br>
+								{{profile.phone}}<br>
+								{{profile.title}} @ {{profile.department}}
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group" aria-label="...">
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-success btn-print" data-userid="{{_id}}">
+						    <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+						  </div>
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-info btn-user-details" data-userid="{{_id}}">
+						    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Details</button>
+						  </div>
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-warning btn-reject" data-toggle="modal" data-target="#modal-webee-id" data-userid="{{_id}}">
+						    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Reject</button>
+						  </div>
+						</div>
+					</div>
+					{{/each}}
+			  	</div>
+			  	<div role="tabpanel" class="tab-pane fade" id="rejected">
+			  		<div class="form-group">
+					    <label for="search-rejected">Search</label>
+					    <input id="search-rejected" class="form-control" type="text" placeholder="search">
+					</div>
+			  		{{#each rejected_users}}
+			  		<div class="pull-left card-container">
+				  		<div id="card-{{_id}}" class="card-preview" style="background-color:#{{getColor _id}}">
+							<div class="photo-container" style="background-color:#{{getColor _id}}">
+								<div class="photo">
+									<img  src="{{profile_s3 _id 'full' true}}" style="height:auto;width:100%;">
+								</div>
+							</div>
+							<div class="card-info">
+								<div class="name-block quickfit">
+									<span class="greeting">{{profile.greeting}}</span>
+									<span class="name">{{profile.nickName}}</span>
+								</div>
+								{{#if isAdminWebeeID _id}}
+									<div class="webeeid">{{profile.webeeId}}</div>
+								{{else}}
+									<div class="webeeid">wb{{profile.webeeId}}</div>
+								{{/if}}
+								<div class="logo">
+									<img src="/images/atmwhite.png" id="logo-{{_id}}" width="120">
+								</div>
+								<div class="pattern">
+									<img src="/images/patterns/{{getPattern _id}}.png" id="pattern" width="50">
+								</div>
+							</div>
+							<div class="card-details hidden">
+								{{profile.name}}<br>
+								{{#if isAdminWebeeID _id}}
+									{{profile.webeeId}}<br>
+								{{else}}
+									wb{{profile.webeeId}}<br>
+								{{/if}}
+								{{profile.email}}<br>
+								{{profile.phone}}<br>
+								{{profile.title}} @ {{profile.department}}
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group" aria-label="...">
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-success btn-approve" data-userid="{{_id}}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Approve</button>
+						  </div>
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-info btn-user-details" data-userid="{{_id}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Details</button>
+						  </div>
+						  <!-- <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-warning btn-reject" data-toggle="modal" data-target="#modal-webee-id" data-userid="{{_id}}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Reject</button>
+						  </div> -->
+						</div>
+					</div>
+					{{/each}}
+			  	</div>
+			  	<div role="tabpanel" class="tab-pane fade" id="printed">
+			  		<div class="form-group">
+					    <label for="search-printed">Search</label>
+					    <input id="search-printed" class="form-control" type="text" placeholder="search">
+					</div>
+			  		{{#each printed_users}}
+			  		<div class="pull-left card-container">
+				  		<div id="card-{{_id}}" class="card-preview" style="background-color:#{{getColor _id}}">
+				  			<div class="photo-container" style="background-color:#{{getColor _id}}">
+								<div class="photo">
+									<img  src="{{profile_s3 _id 'full' true}}" style="height:auto;width:100%;">
+								</div>
+							</div>
+							<div class="card-info">
+								<div class="name-block quickfit">
+									<span class="greeting">{{profile.greeting}}</span>
+									<span class="name">{{profile.nickName}}</span>
+								</div>
+								{{#if isAdminWebeeID _id}}
+									<div class="webeeid">{{profile.webeeId}}</div>
+								{{else}}
+									<div class="webeeid">wb{{profile.webeeId}}</div>
+								{{/if}}
+								<div class="logo">
+									<img src="/images/logos/webe_id_logo.png" id="logo-{{_id}}" width="120">
+								</div>
+								<div class="pattern">
+									<img src="/images/patterns/{{getPattern _id}}.png" id="pattern" width="50">
+								</div>
+							</div>
+							<div class="card-details hidden">
+								{{profile.name}}<br>
+								{{#if isAdminWebeeID _id}}
+									{{profile.webeeId}}<br>
+								{{else}}
+									wb{{profile.webeeId}}<br>
+								{{/if}}
+								{{profile.email}}<br>
+								{{profile.phone}}<br>
+								{{profile.title}} @ {{profile.department}}
+							</div>
+						</div>
+						<div class="btn-group btn-group-justified" role="group" aria-label="...">
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-success btn-collect" data-userid="{{_id}}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Collect</button>
+						  </div>
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-info btn-user-details" data-userid="{{_id}}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Details</button>
+						  </div>
+						  <div class="btn-group" role="group">
+						    <button type="button" class="btn btn-warning btn-renew" data-userid="{{_id}}"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Re-New</button>
+						  </div>
+						</div>
+					</div>
+					{{/each}}
+			  	</div>
+			  	<div role="tabpanel" class="tab-pane fade" id="collected">
+			  		<div class="form-group">
+					    <label for="search-collected">Search</label>
+					    <input id="search-collected" class="form-control" type="text" placeholder="search">
+					</div>
+			  		<div class="panel panel-flat">
+						<!-- <div class="panel-heading">
+							<div class="heading-elements">
+								<ul class="icons-list">
+			                		<li><a data-action="collapse"></a></li>
+			                		<li><a data-action="reload"></a></li>
+			                		<li><a data-action="close"></a></li>
+			                	</ul>
+			            	</div>
+						<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div> -->
+
+						<div class="panel-body">
+							<ul class="media-list media-list-bordered">
+								{{#each collected_IDs}}
+								<li class="media">
+									<div class="media-left">
+										<a href="#"><img src="{{profile_s3 _id 'full' true}}" class="img-circle" alt=""></a>
+									</div>
+
+									<div class="media-body">
+										<ul class="icons-list pull-right">
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+													<i class="icon-three-bars"></i>
+													<span class="caret"></span>
+												</a>
+												<ul class="dropdown-menu dropdown-menu-right">
+													<li><a href="#" class="btn-renew" data-userid="{{_id}}"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Re-New</a></li>
+													<li><a href="#" class="btn-to-printed" data-userid="{{_id}}"><span class="glyphicon glyphicon-level-up" aria-hidden="true"></span> Not Collected</a></li>
+												</ul>
+											</li>
+										</ul>
+										<h6 class="media-heading"><strong>{{profile.name}}</strong></h6>
+										{{username}} <i class="icon-arrow-small-right text-muted"></i> {{profile.email}}
+										<br>
+										{{profile.department}}
+									</div>
+								</li>
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- modal -->
+	<div id="modal-webee-id" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="form-webee-id">
+					<div class="modal-body">
+                        <!-- <h6 class="text-semibold">Your comment</h6>
+						<textarea id="webee-id-comment" rows="10" class="form-control"></textarea> -->
+						Do you really want to reject this webeeID?
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close btn-link" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-primary btn-submit-webee-id-comment">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+	<!-- /modal -->
+
+</template>

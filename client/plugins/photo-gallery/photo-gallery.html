@@ -1,0 +1,85 @@
+<template name="photoGallery">
+    <div class="page photo-gallery">
+        <div class="header">
+            {{> homeHead}}
+        </div>
+        <div class="container">
+            <div id="result-container">
+                <div class="grid-sizer"></div>
+                {{#each gallery in galleries}}
+                {{> photo gallery=gallery}}
+                {{/each}}
+            </div>
+            {{#if hasMore}}
+            <div class="text-center">
+                <button class="load-more btn btn-default btn-rounded"><i class="icon-spinner4 position-left"></i>  Load more ...</button>
+            </div>
+            {{/if}}
+        </div>
+        {{>footer}}
+
+        <div id="photo-zoom" class="zoom-backdrop hide">
+            {{#with zoomphoto}}
+            <div class="detail">
+                <div class="photo-container">
+                    <img src="{{gallery_photo _id 'full'}}" id="thePhoto">
+                </div>
+                <div class="sender">
+                    <img src="{{profile_s3 userId}}" class="img-circle">
+                    <div class="posted">
+                        Posted by <br>
+                        <a href="/profile/user/{{userId}}" class="profile-link">{{user_nickname userId}}</a>
+                    </div>
+                </div>
+                <div class="text">
+                    <blockquote class="no-margin">
+                        <div class="title">{{title}}</div>
+                        <div class="desc">{{description}}</div>
+                    </blockquote>
+                </div>
+                <div class="comments">
+                    <div class="panel panel-flat">
+                        <div class="panel-heading">
+                            <h5 class="panel-title text-semiold"><i class="icon-bubbles4 position-left"></i> Comments</h5>
+                            <div class="heading-elements">
+                                <a href="#" class="btn bg-blue btn-xs btn-icon" id="focus-comment"><i class="icon-plus2"></i></a>
+                            </div>
+                            <a class="heading-elements-toggle"><i class="icon-menu"></i></a></div>
+
+                            <div class="panel-body">
+                                <ul class="media-list content-group-lg stack-media-on-mobile">
+                                    {{#each comment in comments}}
+                                    <li class="media">
+                                        <div class="media-left">
+                                            <a href="/profile/user/{{comment.userId}}"><img src="{{profile_s3 comment.userId}}" class="img-circle img-sm" alt=""></a>
+                                        </div>
+
+                                        <div class="media-body">
+                                            <div class="media-heading">
+                                                <a href="/profile/user/{{comment.userId}}" class="text-semibold">{{user_nickname comment.userId}}</a>
+                                                <span class="media-annotation dotted">{{time_age comment.createdAt}}</span>
+                                            </div>
+
+                                            <p>{{{nl2br comment.message}}}</p>
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ul>
+
+                            <h6 class="text-semibold"><i class="icon-pencil7 position-left"></i> Your comment</h6>
+                            <form id="comment-form">
+                                <textarea id="comment-msg" class="form-control content-group" rows="2" cols="1" placeholder="Enter your comment..."></textarea>
+
+                                <div class="text-right">
+                                    <button type="submit" class="btn bg-blue"><i class="icon-plus22"></i> Add comment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/with}}
+        </div>
+
+    </div>
+</template>

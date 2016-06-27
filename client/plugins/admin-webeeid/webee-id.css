@@ -1,0 +1,93 @@
+.webee-id-admin .card-container {
+    width: 290px !important;
+    margin: 10px;
+}
+.webee-id-admin .card-preview {
+    color: #1f376b;
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    height: 439px; /* 350 x 1.58588235 */
+    width: 290px !important;
+    background-color: #efefef;
+    overflow: hidden;
+    /*background: top left url('/images/photos/cardbg.png') no-repeat;*/
+    background-size: auto 100%;
+    position: relative;
+    margin-left: auto;
+    /*margin-right: auto;*/
+}
+.webee-id-admin .card-preview .photo-container {
+    width: 100%;
+    height: 232px;
+    margin: -15px;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    overflow: hidden !important;
+    z-index: 100;
+    text-align: center;
+    background-color: #ccc;
+    background-size: 100% 100%;
+}
+.webee-id-admin .card-preview .photo img {
+    position: relative;
+    /*height: 280px !important;
+    width: auto !important;*/
+    height: 280px;
+    width: 100%;
+}
+.webee-id-admin .card-preview .name-block {
+    position: absolute;
+    top: 250px;
+    left: 30px;
+    font-size: 26px;
+    font-weight: bold;
+    text-transform: lowercase;
+    color: #fff;
+    max-width: 280px;
+    max-height: 40px;
+    overflow: hidden;
+}
+.webee-id-admin .card-preview .webeeid {
+    position: absolute;
+    top: 290px;
+    left: 30px;
+    font-size: 20px;
+    text-transform: lowercase;
+    color: #fff;
+}
+.webee-id-admin .card-preview .logo {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+.webee-id-admin .card-preview .pattern {
+    position: absolute;
+    bottom: 35px;
+    left: 30px;
+}
+.webee-id-admin .card-preview .taghole {
+    position: absolute;
+    border-radius: 10px;
+    width: 50px;
+    height: 8px;
+    top: 20px;
+    left: 150px;
+    background-color: #fff;
+}
+.webee-id-admin .file-preview-frame {
+    width: 100% !important;
+}
+.webee-id-admin .profile-thumb {
+    background-size: auto 100% !important;
+    display: block;
+    border-radius: 50%;
+}
+
+.webee-id-admin .card-preview .card-details{
+    position: absolute;
+    top: 250px;
+    left: 15px;
+    color: white;
+    /*visibility: hidden;*/
+}

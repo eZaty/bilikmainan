@@ -1,0 +1,49 @@
+<template name="videoModal">
+    <div id="videomodal">
+        <!-- Video Modal -->
+        <div class="modal fade" id="introVideoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <b>webe</b> forum 2016
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="embed-responsive embed-responsive-16by9 video-iframe">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $("#introVideoModal").on('show.bs.modal', function () {
+                var htmlStr = '<video autoplay controls>'
+                htmlStr += '<source src="/videos/webe-community-forum.mp4" type="video/mp4">';
+                htmlStr += '<param name="wmode" value="opaque" />';
+                htmlStr += '<embed src="/videos/webe-community-forum.mp4" wmode="opaque" autostart=true>';
+                htmlStr += '<param name="wmode" value="opaque" />';
+                htmlStr += '<param name="autoplay" value="true" />';
+                htmlStr += '<param name="autostart" value="true" />';
+                htmlStr += '</embed>';
+                htmlStr += 'Your browser does not support the video tag.';
+                htmlStr += '</video>';
+                $('.video-iframe').html(htmlStr);
+                $('#feedback').hide();
+                $('#float-btn').hide();
+                $('.dropdown-user').hide();
+            });
+            $("#introVideoModal").on('hidden.bs.modal', function () {
+                $('.video-iframe').html('');
+                $('#feedback').show();
+                $('.dropdown-user').show();
+                $('#float-btn').show();
+            });
+
+            $('#introVideoModal').modal('show');
+        });
+        </script>
+    </div>
+</template>

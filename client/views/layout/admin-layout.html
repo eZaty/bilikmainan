@@ -1,0 +1,15 @@
+<template name="adminLayout">
+    {{#if isLoggedIn}}
+      	{{> adminHeader }}
+    	<div class="page-container">
+    		<div class="page-content">
+    			{{> adminMenu }}
+    			<div class="content-wrapper">
+    				{{> yield }}
+    			</div>
+    		</div>
+    	</div>
+    {{else}}
+        {{> loading}}
+    {{/if}}
+</template>

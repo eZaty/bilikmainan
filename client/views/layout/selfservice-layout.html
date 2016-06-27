@@ -1,0 +1,12 @@
+<template name="selfservice.layout">
+  	{{> selfserviceHeader }}
+	<div class="page-container">
+		<div class="page-content">
+			{{> selfserviceMenu }}
+
+			<div class="content-wrapper">
+				{{> yield }}
+			</div>
+		</div>
+	</div>
+</template>

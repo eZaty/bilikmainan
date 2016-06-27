@@ -1,0 +1,44 @@
+<template name="poplayer">
+
+	<!-- modal template -->
+    <div id="modal-poplayer" class="modal fade">
+		<div class="modal-dialog modal-lg">
+            <div class="poplayer-header row">
+                <div class="col-md-8 text-white">
+                    Please click on title to read.
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="#playroom" id="proceed-playroom" class="text-white">Proceed to playroom <i class="icon-arrow-right7"></i></a>
+                </div>
+            </div>
+			<div class="modal-content">
+				<!-- <a href="http://ccpuan.com/do-you-love-your-telco-brand/" target="_blank">
+					<img src="/images/poplayer.png" style="width:100%">
+				</a> -->
+                <div class="modal-body ads-modal-body">
+                    <div id="adsGallery">
+                       {{#each post}}
+                            <div class="webePost" id="webePost-{{_id}}">
+                                {{{getSite link}}}
+                                <img src="{{getImage content.rendered}}" id="img-{{_id}}" class="ads-img" />
+                                <div class="caption caption-middle">
+                                    <div class="title">{{title.rendered}}</div>
+                                    <!-- {{trimString content.rendered 0 250}} -->
+                                </div>
+                                <div class="caption-middle read-more" style="opacity:0;">
+                                    <a href="{{link}}" target="newWindow" class="btn border-white text-white">  READ MORE LA..  </a>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                 </div>
+            </div>
+
+			<div class="text-center pt-10">
+				<a href="http://ideabank.packet-1.com/news" class="btn btn-primary btn-lg">Read more ..</a>
+			</div>
+        </div>
+    </div>
+    <!-- /modal template -->
+
+</template>

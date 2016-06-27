@@ -1,0 +1,59 @@
+/* video modal - fahmi 31/03/2016 */
+
+#videomodal .modal {
+    text-align: center;
+    padding: 0!important;
+    z-index: 2000;
+    background-color: rgba(0, 76, 154, 1);
+}
+
+#videomodal .modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+}
+
+#videomodal .modal-dialog {
+    top: 10px;
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    width: 80%;
+}
+
+#videomodal .modal-content{
+    background: rgba(255,255,255,1);
+}
+
+#videomodal .modal-body{
+    padding: 5px;
+}
+
+#videomodal .modal-header{
+    text-align: center;
+    padding-top: 10px;
+}
+
+#videomodal .modal-header .close {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -5px;
+}
+
+@media (min-width: 768px) {
+    .webe-greetings {
+        font-size:60px;
+    }
+}
+
+@media (max-width: 768px) {
+    #videomodal .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        width: 90%;
+    }
+}

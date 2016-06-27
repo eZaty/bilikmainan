@@ -1,0 +1,121 @@
+<template name="adminPolls">
+
+	<!-- title -->
+	<div class="page-header">
+		<div class="page-header-content">
+			<div class="page-title">
+				<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Admin</span> - Mobile CMS: Polls</h4>
+			</div>
+			<div class="heading-elements">
+				<div class="heading-btn-group">
+					<a href="#" data-toggle="modal" data-target="#modal-create" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-task"></i></b> Add poll</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="breadcrumb-line">
+			<ul class="breadcrumb">
+				<li><a href="/__admin"><i class="icon-home2 position-left"></i> Admin</a></li>
+				<li><a href="/__admin/polls">Polls</a></li>
+				<li class="active">Polls</li>
+			</ul>
+			<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+		</div>
+	</div>
+	<!-- /title -->
+
+	<!-- content -->
+	<div class="content">
+		<!-- Media library -->
+		<div class="panel panel-white">
+			<table class="table table-striped media-library table-lg">
+				<thead>
+					<tr>
+						<th><input type="checkbox"></th>
+						<th>Question</th>
+						<th>Option</th>
+						<th>Author</th>
+						<th>Start</th>
+						<th>Ending</th>
+						<th>Channel</th>
+						<th class="text-center">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each poll in polls}}
+					<tr>
+						<td><input type="checkbox"></td>
+						<td><a href="#">{{poll.question}}</a></td>
+						<td>{{poll.total}}</td>
+						<td>{{getUser poll.userId}}</td>
+						<td>{{formatDate poll.createdAt}}</td>
+						<td>{{formatDate poll.ending}}</td>
+						<td>{{poll.channel}}</td>
+						<td class="text-center">
+							<ul class="icons-list">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										<i class="icon-menu9"></i>
+									</a>
+
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li><a href="#" class="delete-poll" data-id="{{poll._id}}"><i class="icon-bin"></i> Move to trash</a></li>
+									</ul>
+								</li>
+							</ul>
+						</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+		<!-- /media library -->
+	</div>
+	<!-- /content -->
+
+
+	<!-- modal template -->
+    <div id="modal-create" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="form-submit">
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h6 class="modal-title">Add new poll</h6>
+					</div>
+
+					<div class="modal-body">
+						<h6 class="text-semibold">Channel</h6>
+						<input id="channel" class="form-control" type="text" name="channel">
+
+						<h6 class="text-semibold">Ending</h6>
+						<input id="ending" class="form-control" type="date" name="date">
+
+						<h6 class="text-semibold">Question</h6>
+						<textarea id="question" row="3" class="form-control" placeholder="Enter a question"></textarea>
+
+						<h6 class="text-semibold">Options</h6>
+						<input id="option_1" type="text" value="" class="form-control mt-5" placeholder="Option #1">
+						<input id="option_2" type="text" value="" class="form-control mt-5" placeholder="Option #2">
+						<input id="option_3" type="text" value="" class="form-control mt-5" placeholder="Option #3">
+						<input id="option_4" type="text" value="" class="form-control mt-5" placeholder="Option #4">
+						<input id="option_5" type="text" value="" class="form-control mt-5" placeholder="Option #5">
+						<input id="option_6" type="text" value="" class="form-control mt-5" placeholder="Option #6">
+						<input id="option_7" type="text" value="" class="form-control mt-5" placeholder="Option #7">
+						<input id="option_8" type="text" value="" class="form-control mt-5" placeholder="Option #8">
+						<input id="option_9" type="text" value="" class="form-control mt-5" placeholder="Option #9">
+						<input id="option_10" type="text" value="" class="form-control mt-5" placeholder="Option #10">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close btn-link" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /modal template -->
+
+</template>

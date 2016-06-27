@@ -1,0 +1,25 @@
+<template name="blogPostCard">
+	<div class="card">
+        <a class="img-card" href="/{{blog_root}}/{{blog_path blog_id}}/{{slug}}">
+            <img src="{{blog_post_cover _id}}" />
+        </a>
+        <br />
+        <div class="card-content">
+            <h4 class="card-title">
+                <a href="/{{blog_root}}/{{blog_path blog_id}}/{{slug}}">
+                    {{title}}
+                </a>
+            </h4>
+            <div class="card-date">{{formatDateCustom created_at "Do MMM YYYY"}}</div>
+            <div class="card-content-preview">
+                {{blog_post_content_preview content}}
+            </div>
+        </div>
+        <div class="card-footer">
+        by {{getFullname created_by}}
+            <!-- <a class="btn btn-link btn-block" href="/{{blog_root}}/{{blog_path blog_id}}/{{slug}}">
+                Read More
+            </a> -->
+        </div>
+    </div>
+</template>

@@ -1,0 +1,179 @@
+.page.photo-gallery {
+    background-color: #E9E9E9 !important;
+}
+.photo-gallery .result-item {
+    margin-bottom: 10px;
+    width: 236px;
+}
+.photo-gallery .header {
+    padding: 20px;
+    background-color: #17294E;
+    margin-bottom: 30px;
+    height: 65px;
+}
+/*.photo-gallery .container {
+border: 1px solid red;
+}*/
+.photo-gallery .grid-sizer,
+.photo-gallery .result-item img {
+    width: 236px;
+}
+
+@media (max-width: 999px) and (min-width: 0) {
+    .photo-gallery .container {
+        width: 750px !important;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+@media (max-width: 1249px) and (min-width: 1000px) {
+    .photo-gallery .container {
+        width: 1000px !important;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+/*@media (max-width: 1499px) and (min-width: 1250px){*/
+@media (max-width: 1749px) and (min-width: 1250px) {
+    .photo-gallery .container {
+        width: 1250px !important;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+/*@media (max-width: 1749px) and (min-width: 1500px) {
+.container {
+width: 1500px !important;
+}
+}*/
+
+.photo-gallery .photo-item {
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    font-size: 11px;
+    position: absolute;
+    left: -1000px;
+    top: -1000px;
+}
+.photo-gallery .photo-item .photo {
+    width: 100%;
+}
+.photo-gallery .photo-item .title {
+    padding: 10px 10px 0 10px;
+    font-weight: bold;
+    font-size: 12px;
+    border-top: 1px #eee solid;
+}
+.photo-gallery .photo-item .desc {
+    padding: 5px 10px;
+    /*border-top: 1px #eee solid;*/
+    width: 236px;
+}
+.photo-gallery .photo-item .user {
+    padding: 5px 10px;
+    border-top: 1px #eee solid;
+}
+
+.photo-gallery .photo-item .social {
+    padding: 5px 10px 10px 10px;
+    font-size: 10px;
+    color: #bbb;
+    /*text-align: right;*/
+}
+
+.photo-gallery .photo-item .social i {
+    font-size: 12px;
+    margin-right: 2px;
+}
+
+/* zoom */
+.photo-gallery .zoom-backdrop {
+    background-color: rgba(239,239,239,0.96);
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.photo-gallery .load-more {
+    margin-top: 50px;
+}
+
+#photo-zoom {
+    overflow-y: scroll;
+}
+
+#photo-zoom .photo-container {
+    width: 640px;
+    min-height: 100px;
+    background-color: #ddd;
+    border-radius: 8px;
+}
+
+#photo-zoom .detail {
+    background-color: #fff;
+    border-radius: 8px;
+    margin: auto;
+    margin-top: 65px;
+    margin-bottom: 65px;
+    width: 704px;
+    padding: 32px;
+}
+
+#photo-zoom #thePhoto {
+    width: 640px;
+    border-radius: 8px;
+}
+
+#photo-zoom .detail .sender {
+    margin-top: 10px;
+}
+#photo-zoom .detail .sender img {
+    width: 40px;
+    height: 40px;
+}
+#photo-zoom .detail .sender div.posted {
+    position: relative;
+    top: 10px;
+    margin-left: 10px;
+    display: inline-block;
+}
+#photo-zoom .detail .sender div.posted a {
+    margin-top: -4px;
+    display: block;
+}
+#photo-zoom .detail .text {
+    margin-top: 15px;
+    display: block;
+    clear: both;
+}
+#photo-zoom .detail .text .title {
+    font-size: 15px;
+    font-weight: bold;
+    width: 236px;
+    overflow: hidden;
+}
+#photo-zoom .detail .text .desc {
+    font-size: 14px;
+    word-wrap: break-word;
+}
+#photo-zoom .detail .comments {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px #ddd solid;
+}
+
+#photo-zoom .detail .comments .panel {
+    border: none !important;
+    border-radius: 0 !important;
+}
+#photo-zoom .detail .comments .panel-body {
+    padding: 0;
+}
+#photo-zoom .detail .comments .panel-heading {
+    padding-left: 0;
+    padding-right: 0;
+}

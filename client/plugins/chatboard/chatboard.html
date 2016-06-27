@@ -1,0 +1,88 @@
+<template name="chatBoard">
+    <!-- chat layer-->
+    <button id="float-btn" class="btn btn-fab"><i class="icon-bubbles" style="font-size:24px; color:white;" ></i></button>
+
+    <!-- Messages -->
+    <div id="chat-container" class="chat-container animated hide">
+        <div id="panel-container">
+            <div class="panel-heading">
+                <div class="row">
+                    <h3 class="panel-title text-center"><strong>let's chat</strong></h3>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <!-- <li><a data-action="collapse"></a></li> -->
+                            <!-- <li><a data-action="reload"></a></li>
+                            <li><a data-action="close"></a></li> -->
+                            <li><a href="#close-chat" class="close-chat"><i class="icon-cross2"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="panel-chat" class="panel-body">
+                <ul class="media-list chat-list content-group">
+                    <li class="media date-step">
+                        <span>{{date}}</span>
+                    </li>
+
+                    {{#if Template.subscriptionsReady}}
+                    {{#each chats}}
+                    {{#if isMyChat sender}}
+
+                    {{#if isExceedTime time}}
+                    <li class="time"><hr><div class="text-center text-muted"><span>{{chatTimestamp time}}</span></div></li>
+                    {{/if}}
+
+                    {{#if isNotSameUser sender}}
+                    <li><div class="media-annotation text-right">{{currentUser.profile.nickName}}</div></li>
+                    {{/if}}
+
+                    <li class="media reversed">
+                        <div class="media-body">
+                            <div id="msg-{{_id}}" class="media-content" data-popup="tooltip" data-placement="left" data-original-title="{{chatTimestamp time}}">{{text}} &nbsp;</div>
+                        </div>
+
+                        <div class="media-right">
+                            <a href="/profile/user/{{sender}}" class="profile-link">
+                                <img src="{{profile_s3 sender}}" class="img-circle" alt="" data-id={{_id}}>
+                                <!-- <img src="/images/default-id.png" data-src="{{profile_s3 sender}}" class="lazy img-circle" alt="" data-id={{_id}}> -->
+                            </a>
+                        </div>
+                    </li>
+
+                    {{else}}
+
+                    {{#if isExceedTime time}}
+                    <li class="time"><hr><div class="text-center text-muted"><span>{{chatTimestamp time}}</span></div></li>
+                    {{/if}}
+
+                    {{#if isNotSameUser sender}}
+                    <li><div class="media-annotation text-left">{{senderName}}</div></li>
+                    {{/if}}
+                    <li class="media">
+                        <div class="media-left">
+                            <a href="/profile/user/{{sender}}" class="profile-link">
+                                <img src="{{profile_s3 sender}}" class="img-circle" alt="" data-id={{_id}}>
+                                <!-- <img src="/images/default-id.png" data-src="{{profile_s3 sender}}" class="lazy img-circle" alt="" data-id={{_id}}> -->
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <div id="msg-{{_id}}" class="media-content" data-popup="tooltip" data-placement="right" data-original-title="{{chatTimestamp time}}">{{text}} &nbsp;</div>
+                        </div>
+                    </li>
+                    {{/if}}
+                    {{/each}}
+                    {{/if}}
+                </ul>
+                <div class="chat-form">
+                    <form id="chat-form">
+                        <input type="text" id="text-chat" class="form-control" placeholder="send us a message" autocomplete="off">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /messages -->
+    <!--/chat layer -->
+</template>

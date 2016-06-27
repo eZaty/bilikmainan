@@ -1,0 +1,162 @@
+<template name="adminMyBlog">
+	<!-- title -->
+	<div class="page-header">
+		<div class="page-header-content">
+			<div class="page-title">
+				<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Admin</span> - My Blog</h4>
+			</div>
+			<div class="heading-elements">
+				<div class="heading-btn-group">
+					<a href="#" data-toggle="modal" data-target="#modal-blog-post" class="btn bg-blue btn-labeled heading-btn add-post"><b><i class="icon-task"></i></b> Add Post</a>
+				</div>
+			</div>
+			<a class="heading-elements-toggle"><i class="icon-menu"></i></a>
+		</div>
+
+		<div class="breadcrumb-line">
+			<ul class="breadcrumb">
+				<li><a href="/__admin"><i class="icon-home2 position-left"></i> Admin</a></li>
+				<li><a href="/__admin/myblog">My Blog</a></li>
+			</ul>
+			<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+		</div>
+	</div>
+	<!-- /title -->
+
+	<!-- content -->
+	<div class="content">
+		<div class="panel panel-flat">
+			<!-- <div class="panel-heading">
+				<div class="heading-elements">
+					<ul class="icons-list">
+                		<li><a data-action="collapse"></a></li>
+                		<li><a data-action="reload"></a></li>
+                		<li><a data-action="close"></a></li>
+                	</ul>
+            	</div>
+			<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div> -->
+
+			<div class="panel-body">
+				<ul class="media-list media-list-bordered">
+					{{#each posts}}
+					<li class="media">
+						<div class="media-left">
+							<a href="#"><img src="{{blog_post_cover_thumb _id}}" class="img-circle" alt=""></a>
+						</div>
+
+						<div class="media-body">
+							<ul class="icons-list pull-right">
+								{{#if isFeatured _id}}
+								<li><span class="label label-info">Featured</span></li>
+								{{/if}}
+
+								{{#if isPublished _id}}
+								<li><span class="label label-success">Published</span></li>
+								{{/if}}
+								{{#if isDraft _id}}
+								<li><span class="label label-warning">Draft</span></li>
+								{{/if}}
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										<i class="icon-three-bars"></i>
+										<span class="caret"></span>
+									</a>
+
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li><a href="#" data-toggle="modal" data-target="#modal-blog-post" class="edit-post" data-blogpostid="{{_id}}"><i class="icon-pencil pull-right"></i> Edit Post</a></li>
+
+										{{#if isFeatured _id}}
+											<li><a href="#" class="revoke-featured" data-blogpostid="{{_id}}"><i class="icon-star pull-right"></i> Revoke "Featured"</a></li>
+										{{else}}
+											<li><a href="#" class="set-featured" data-blogpostid="{{_id}}"><i class="icon-star pull-right"></i> Set as "Featured"</a></li>
+										{{/if}}
+
+										{{#if isPublished _id}}
+											<li><a href="#" class="unpublish" data-blogpostid="{{_id}}"><i class="icon-star pull-right"></i> Unpublish</a></li>
+										{{else}}
+											<li><a href="#" class="publish" data-blogpostid="{{_id}}"><i class="icon-star pull-right"></i> Publish</a></li>
+										{{/if}}
+
+										<li><a href="#" class="delete-post" data-blogpostid="{{_id}}"><i class="icon-trash pull-right"></i> Delete Post</a></li>
+									</ul>
+								</li>
+							</ul>
+							<h6 class="media-heading"><span class="label label-default">{{blog_path blog_id}}</span> <strong><a href="/{{blog_root}}/{{blog_path blog_id}}/{{slug}}" target="_blank">{{title}}</a></strong></h6>
+							{{getFullname created_by}} - <i class="blog-post-date">{{formatDate created_at}}</i>
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /content -->
+
+	<!-- modal template -->
+    <div id="modal-blog-post" class="modal fade">
+		<div id="blog-modal-dialog" class="modal-dialog fullscreen">
+			<div id="blog-modal-content" class="modal-content fullscreen">
+				<form id="form-blog-post">
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h6 class="modal-title">Add New Post</h6>
+					</div>
+
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<h6 class="text-semibold">Blog</h6>
+								<select id="post-blog" class="form-control">
+									<option value="-1">Select a blog</option>
+									{{#each blogs}}
+									<option value="{{_id}}">{{title}}</option>
+									{{/each}}
+								</select>
+
+								<h6 class="text-semibold">Title</h6>
+								<input id="post-title" type="text" value="" class="form-control" disabled>
+
+								<h6 class="text-semibold">Path</h6>
+								<div class="input-group">
+		            				<div class="input-group-addon">/{{blog_root}}/{{blog_path}}/</div>
+									<input id="post-slug" disabled type="text" value="" class="form-control">
+								</div>
+
+								<h6 class="text-semibold">Tags</h6>
+								<input id="post-tags" type="text" value="" class="form-control" disabled>
+
+								<!-- <h6 class="text-semibold">Status</h6>
+								<input type="checkbox" id="post-status" class="js-switch form-control" disabled data-on-text="Published" data-off-text="Draft" /> -->
+								<input type="hidden" name="post-status" id="post-status" value="draft" disabled>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<h6 class="text-semibold">Cover Photo</h6>
+								<input type="file" id="post-cover-photo" class="form-control" disabled>
+								<span class="help-block">Accepted formats: gif, png, jpg, jpeg. Max file size 2Mb</span>
+								<span style="color: red; font-weight: bold" id="upload-msg"></span>
+
+								<img class="img-responsive" style="width:100%;" id="preview-cover-photo" src="/images/placeholder.jpg">
+							</div>
+						</div>
+
+
+						<!-- <div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<h6 class="text-semibold">Content</h6>
+								<div class="wysiwyg"></div>
+							</div>
+						</div> -->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close btn-link" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" disabled>Create</button>
+                        <input type="hidden" id="mode" value="create">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /modal template -->
+
+</template>

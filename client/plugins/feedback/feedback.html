@@ -1,0 +1,93 @@
+<template name="feedback">
+      <div class="feedback-form hide">
+        <div class="row">
+            <div class="col-md-12">
+                <form id="feedback-formid">
+                      <div class="feedback-bg"></div>
+                      <div class="panel panel-flat panel-right">
+                        <div class="panel-heading">
+                          <div class="row">
+                            <div class="heading-elements">
+                                <a href="#" data-action="close" class="close-feedback pull-right"><i class="icon-x"></i></a>
+                            </div>
+                            <h3 class="panel-title text-center"><strong>let us know what you think :)</strong></h3>
+                          </div>
+                        </div>
+
+                        <div class="panel-body">
+                          <div class="tabbable">
+                            <ul id="feedbck-pill" class="nav nav-pills">
+                              <li class="active" data-type="idea"><a href="#left-icon-pill1" data-toggle="tab"><i class="icon-brain position-left"></i>idea</a></li>
+                              <li data-type="question"><a href="#left-icon-pill2" data-toggle="tab"><i class="icon-question4 position-left"></i> question</a></li>
+                              <li data-type="praise"><a href="#left-icon-pill3" data-toggle="tab"><i class="icon-heart5 position-left"></i> praise</a></li>
+                              <!-- <li><a href="#left-icon-pill2" data-toggle="tab"><i class="icon-mention position-left"></i> Inactive</a></li> -->
+                              <li data-type="problem" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-warning22 position-left"></i> problem <span class="caret"></span></a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                  <li data-sub="function"><a href="#left-icon-pill4" data-toggle="tab">functionality</a></li>
+                                  <li data-sub="interface"><a href="#left-icon-pill5" data-toggle="tab">user-interface</a></li>
+                                  <li data-sub="others"><a href="#left-icon-pill6" data-toggle="tab">others</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane active" id="left-icon-pill1">
+                                <div id="feedback-msg1" class="form-group text-center">
+                                  <label><h5>your ideas?</h5></label>
+                                  <textarea id="feedback-idea" rows="5" cols="3" class="form-control" placeholder="enter your thoughts here"></textarea>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane" id="left-icon-pill2">
+                                <div id="feedback-msg2" class="form-group text-center">
+                                  <label><h5>your questions?</h5></label>
+                                  <textarea id="feedback-question" rows="5" cols="3" class="form-control" placeholder="enter your thoughts here"></textarea>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane" id="left-icon-pill3">
+                                <div id="feedback-msg3" class="form-group text-center">
+                                  <label><h5>your compliments?</h5></label>
+                                  <textarea id="feedback-praise" rows="5" cols="3" class="form-control" placeholder="enter your thoughts here"></textarea>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane" id="left-icon-pill4">
+                                <div id="feedback-msg4" class="form-group text-center">
+                                  <label><h5>your problems : functionality?</h5></label>
+                                  <textarea id="feedback-function" rows="5" cols="3" class="form-control" placeholder="enter your thoughts here"></textarea>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane" id="left-icon-pill5">
+                                <div id="feedback-msg5" class="form-group text-center">
+                                  <label><h5>your problems : user-interface?</h5></label>
+                                  <textarea id="feedback-interface" rows="5" cols="3" class="form-control" placeholder="enter your thoughts here"></textarea>
+                                </div>
+                              </div>
+
+                              <div class="tab-pane" id="left-icon-pill6">
+                                <div id="feedback-msg6" class="form-group text-center">
+                                  <label><h5>your problems : others?</h5></label>
+                                  <textarea id="feedback-others" rows="5" cols="3" class="form-control" placeholder="enter your thoughts here"></textarea>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div id="alert-tq" class="alert alert-success alert-styled-left alert-arrow-left alert-bordered hide">
+                              <span class="text-semibold">Thank you!</span> for sharing your thoughts with us :)
+                              </div>
+
+                              <div class="text-center">
+                                <button type="submit"  class="btn btn-primary btn-xl btn-block">submit<i class="icon-arrow-right13 position-right"></i></button>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                </form>
+            </div>
+        </div>
+      </div>
+      <div id="feedback-layer" class="hide"></div>
+</template>

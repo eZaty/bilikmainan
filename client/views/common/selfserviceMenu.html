@@ -1,0 +1,53 @@
+<template name="selfserviceMenu">
+    <div class="navbar navbar-default" id="navbar-second">
+		<ul class="nav navbar-nav no-border visible-xs-block">
+			<li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i class="icon-menu7"></i></a></li>
+		</ul>
+
+        <div class="container">
+    		<div class="navbar-collapse collapse" id="navbar-second-toggle">
+
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <!-- menu -->
+                    <!-- <li id="toggle-sidebar" class="navigation-header bg-primary-600" style="cursor:pointer;"><i class="icon-paragraph-justify3" title="" data-original-title="Self Service Menu"></i> <span><i class="icon-paragraph-justify3"></i></span></li> -->
+                    <li id="menu-selfservice"><a href="/selfservice"><i class="icon-meter-fast position-left text-primary"></i> <span class="text-primary">Dashboard</span></a></li>
+                    <li id="menu-payslip"><a href="/selfservice/payslip"><i class="icon-wallet position-left"></i> <span>Payslip</span></a></li>
+                    <li id="menu-leave"><a href="/selfservice/leave"><i class="icon-airplane3 position-left"></i> <span>Leave</span></a></li>
+                    <li id="menu-claim"><a href="/selfservice/claim"><i class="icon-cash3 position-left"></i> <span>Claim</span></a></li>
+                    <li id="menu-benefit"><a href="/selfservice/benefit"><i class="icon-trophy3 position-left"></i> <span>Benefits</span></a></li>
+                    <!-- /menu -->
+                </ul>
+                <!-- /main navigation -->
+
+
+    			<ul class="nav navbar-nav navbar-right">
+    				<li>
+    					<a href="changelog.html">
+    						<i class="icon-history position-left"></i>
+    						Changelog
+    						<span class="label label-inline position-right bg-success-400">1.2</span>
+    					</a>
+    				</li>
+
+    				<li class="dropdown">
+    					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    						<i class="icon-cog3"></i>
+    						<span class="visible-xs-inline-block position-right">Share</span>
+    						<span class="caret"></span>
+    					</a>
+
+    					<ul class="dropdown-menu dropdown-menu-right">
+    						<li><a href="#"><i class="icon-user-lock"></i> Account security</a></li>
+    						<li><a href="#"><i class="icon-statistics"></i> Analytics</a></li>
+    						<li><a href="#"><i class="icon-accessibility"></i> Accessibility</a></li>
+    						<li class="divider"></li>
+    						<li><a href="#"><i class="icon-gear"></i> All settings</a></li>
+    					</ul>
+    				</li>
+    			</ul>
+    		</div>
+        </div>
+	</div>
+
+</template>

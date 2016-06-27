@@ -1,0 +1,127 @@
+.card-preview {
+    color: #1f376b;
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    height: 530px; /* 350 x 1.58588235 */
+    width: 350px !important;
+    background-color: #efefef;
+    overflow: hidden;
+    /*background: top left url('/images/photos/cardbg.png') no-repeat;*/
+    background-size: auto 100%;
+    position: relative;
+    margin-left: auto;
+    /*margin-right: auto;*/
+}
+.card-preview .photo-container {
+    width: 100%;
+    height: 280px;
+    margin: -15px;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    overflow: hidden !important;
+    z-index: 100;
+    text-align: center;
+    background-color: #ccc;
+    background-size: 100% 100%;
+}
+.card-preview .photo img {
+    position: relative;
+    /*height: 280px !important;
+    width: auto !important;*/
+    height: 280px;
+    width: 100%;
+}
+.card-preview .name-block {
+    position: absolute;
+    top: 300px;
+    left: 15px;
+    font-size: 35px;
+    font-weight: bold;
+    text-transform: lowercase;
+    color: #fff;
+    max-width: 320px;
+    max-height: 55px;
+    overflow: hidden;
+}
+.card-preview .webeeid {
+    position: absolute;
+    top: 350px;
+    left: 15px;
+    font-size: 25px;
+    text-transform: lowercase;
+    color: #fff;
+}
+.card-preview .logo {
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+}
+.card-preview .pattern {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+}
+.card-preview .taghole {
+    position: absolute;
+    border-radius: 10px;
+    width: 50px;
+    height: 8px;
+    top: 20px;
+    left: 150px;
+    background-color: #fff;
+}
+.file-preview-frame {
+    width: 100% !important;
+}
+.profile-thumb {
+    background-size: auto 100% !important;
+    display: block;
+    border-radius: 50%;
+}
+
+.profile-box {
+    font-size: 120%;
+}
+.profile-box .text-size-small {
+    font-size: 14px;
+}
+.profile-box dt {
+    margin-bottom: -5px;
+}
+#webeeid .panel {
+    padding-bottom: 30px;
+}
+
+
+/* webee lists */
+#webeeLists .panel {
+    height: 654px;
+}
+#webeeLists .panel ul {
+    height: 500px;
+    overflow: scroll;
+}
+#webeeLists .panel li .name,
+#webeeLists .panel li .department {
+    font-size: 90%;
+}
+
+.media-list .link {
+    padding-top: 10px !important;
+    margin-top: 10px !important;
+}
+.media-list .link:hover {
+    background-color: rgba(255, 235, 59, 0.2);
+    cursor: pointer;
+    padding-bottom: 10px;
+    margin-bottom: -10px;
+}
+
+#loading-pic {
+    color: #fff;
+    position: absolute;
+    z-index: 10;
+    left: 160px;
+    top: 10px;
+}
