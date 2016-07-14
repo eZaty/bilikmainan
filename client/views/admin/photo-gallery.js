@@ -11,6 +11,7 @@ var Helpers = {
 					userId: Meteor.userId(),
 					userName: Meteor.user().profile.nickName,
 					title: fileObj.title,
+					video: fileObj.video,
 					description: fileObj.description,
 					photoKey: gallery.copies.galleryImages.key
 				});
@@ -122,7 +123,11 @@ Template.adminPhotoGallery.onRendered(function() {
 
 Template.adminPhotoGallery.helpers({
 	galleries: function() {
-		return Galleries.find();
+		return Galleries.find({}, {
+			sort: {
+				uploadedAt: -1
+			}
+		});
 	},
 
 	getUser: function(userId) {
@@ -171,6 +176,7 @@ Template.adminPhotoGallery.events({
 			var newFile = new FS.File(file);
 			newFile.userId = Meteor.userId();
 			newFile.title = $('#title').val();
+			newFile.video = $('#video').val();
 			newFile.description = $('#description').val();
 
 			Galleries.insert(newFile, function(err, fileObj){
