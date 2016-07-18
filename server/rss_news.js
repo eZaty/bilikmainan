@@ -14,7 +14,8 @@ RSS_News.allow({
     }
 });
 
-var RSS_URL = "http://english.astroawani.com/rss/national/public";
+// var RSS_URL = "http://english.astroawani.com/rss/national/public";
+var RSS_URL = "https://www.digitalnewsasia.com/rss-feed.xml";
 
 Meteor.startup(function () {
     // code to run on server at startup
