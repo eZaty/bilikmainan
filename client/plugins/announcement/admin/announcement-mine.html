@@ -1,0 +1,221 @@
+<template name="adminMyAnnouncement">
+	<!-- title -->
+	<div class="page-header">
+		<div class="page-header-content">
+			<div class="page-title">
+				<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Admin</span> - My Announcements</h4>
+			</div>
+			<div class="heading-elements">
+				<div class="heading-btn-group">
+					<a href="#" data-toggle="modal" data-target="#modal-announcement-post" class="btn bg-blue btn-labeled heading-btn add-post"><b><i class="icon-task"></i></b> Add Post</a>
+					<a href="#" data-toggle="modal" data-target="#modal-announcement-post" class="btn bg-blue btn-labeled heading-btn add-video-post"><b><i class="icon-task"></i></b> Add Video Post</a>
+				</div>
+			</div>
+			<a class="heading-elements-toggle"><i class="icon-menu"></i></a>
+		</div>
+
+		<div class="breadcrumb-line">
+			<ul class="breadcrumb">
+				<li><a href="/__admin"><i class="icon-home2 position-left"></i> Admin</a></li>
+				<li><a href="/__admin/myannouncement">Announcement</a></li>
+				<li><a href="/__admin/myannouncement">My Announcements</a></li>
+			</ul>
+			<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+		</div>
+	</div>
+	<!-- /title -->
+
+	<!-- content -->
+	<div class="content">
+		<div class="panel panel-flat">
+			<!-- <div class="panel-heading">
+				<div class="heading-elements">
+					<ul class="icons-list">
+                		<li><a data-action="collapse"></a></li>
+                		<li><a data-action="reload"></a></li>
+                		<li><a data-action="close"></a></li>
+                	</ul>
+            	</div>
+			<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div> -->
+
+			<div class="panel-body">
+				<ul class="media-list media-list-bordered">
+					{{#each posts}}
+					<li class="media">
+						<div class="media-left">
+							<a href="#"><img src="{{announcement_post_cover_thumb _id}}" class="img-circle" alt=""></a>
+						</div>
+
+						<div class="media-body">
+							<ul class="icons-list pull-right">
+								{{#if isFeatured _id}}
+								<li><span class="label label-info">Featured</span></li>
+								{{/if}}
+
+								{{#if isPublished _id}}
+								<li><span class="label label-success">Published</span></li>
+								{{/if}}
+								{{#if isDraft _id}}
+								<li><span class="label label-warning">Draft</span></li>
+								{{/if}}
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										<i class="icon-three-bars"></i>
+										<span class="caret"></span>
+									</a>
+
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li><a href="#" data-toggle="modal" data-target="#modal-announcement-post" class="edit-post" data-announcementpostid="{{_id}}"><i class="icon-pencil pull-right"></i> Edit Post</a></li>
+
+										{{#if isFeatured _id}}
+											<li><a href="#" class="revoke-featured" data-announcementpostid="{{_id}}"><i class="icon-star pull-right"></i> Revoke "Featured"</a></li>
+										{{else}}
+											<li><a href="#" class="set-featured" data-announcementpostid="{{_id}}"><i class="icon-star pull-right"></i> Set as "Featured"</a></li>
+										{{/if}}
+
+										{{#if isPublished _id}}
+											<li><a href="#" class="unpublish" data-announcementpostid="{{_id}}"><i class="icon-star pull-right"></i> Unpublish</a></li>
+										{{else}}
+											<li><a href="#" class="publish" data-announcementpostid="{{_id}}"><i class="icon-star pull-right"></i> Publish</a></li>
+										{{/if}}
+
+										<li><a href="#" class="delete-post" data-announcementpostid="{{_id}}"><i class="icon-trash pull-right"></i> Delete Post</a></li>
+									</ul>
+								</li>
+							</ul>
+							<h6 class="media-heading"><span class="label label-default">{{announcement_channel_path channel_id}}</span> <strong><a href="/{{announcement_root}}/{{announcement_channel_path channel_id}}/{{slug}}" target="_blank">{{title}}</a></strong></h6>
+							{{getFullname created_by}} - <i class="announcement-post-date">{{formatDate created_at}}</i>
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /content -->
+
+	<!-- modal template -->
+    <div id="modal-announcement-post" class="modal fade">
+		<div id="announcement-modal-dialog" class="modal-dialog fullscreen">
+			<div id="announcement-modal-content" class="modal-content fullscreen">
+				<form id="form-announcement-post">
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h6 class="modal-title">Add New Post</h6>
+					</div>
+
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<h6 class="text-semibold">Announcement Channel</h6>
+								<select id="post-channel" class="form-control">
+									<option value="-1">Select a channel</option>
+									{{#each channels}}
+									<option value="{{_id}}">{{title}}</option>
+									{{/each}}
+								</select>
+
+								<h6 class="text-semibold">Title</h6>
+								<input id="post-title" type="text" value="" class="form-control" disabled>
+
+								<h6 class="text-semibold">Path</h6>
+								<div class="input-group">
+		            				<div class="input-group-addon">/{{announcement_root}}/{{announcement_channel_path}}/</div>
+									<input id="post-slug" disabled type="text" value="" class="form-control">
+								</div>
+
+								
+								<h6 class="text-semibold">Recipients</h6>
+								<b>To:</b>
+								<br>
+								<select id="post-recipients-to" multiple="multiple">
+								{{#each recipients}}
+									{{#if isEqual type 'mailing_list'}}
+									<option value="{{id}}" data-icon="glyphicon-list">
+										{{name}}
+									</option>
+									{{/if}}
+
+									{{#if isEqual type 'employee'}}
+									<option value="{{id}}" data-icon="glyphicon-user">
+										{{name}}
+									</option>
+									{{/if}}
+									
+								{{/each}}
+								</select>
+								<br>
+
+								<b>Cc:</b>
+								<br>
+								<select id="post-recipients-cc" multiple="multiple">
+								{{#each recipients}}
+									<option value="{{id}}">{{name}}</option>
+								{{/each}}
+								</select>
+								<br>
+
+								<b>Bcc:</b>
+								<br>
+								<select id="post-recipients-bcc" multiple="multiple">
+								{{#each recipients}}
+									<option value="{{id}}">{{name}}</option>
+								{{/each}}
+								</select>
+							</div>
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<h6 class="text-semibold">Tags</h6>
+								<input id="post-tags" type="text" value="" class="form-control" disabled>
+
+								<!-- <h6 class="text-semibold">Status</h6>
+								<div style="padding-left: 15px;">
+									<input type="checkbox" id="post-status" class="js-switch form-control" disabled data-on-text="Published" data-off-text="Draft" />
+								</div> -->
+								<input type="hidden" id="post-status" name="post-status" value="draft" disabled>
+
+								<h6 class="text-semibold">Communication Medium</h6>
+								<div style="padding-left: 15px;">
+									Playroom <input type="checkbox" id="post-comm-playroom" class="js-switch form-control" disabled />
+									&nbsp;&nbsp;&nbsp;
+									Email <input type="checkbox" id="post-comm-email" class="js-switch form-control" disabled />
+								</div>
+
+								<div id="image-upload">
+									<h6 class="text-semibold">Cover Photo</h6>
+									<input type="file" id="post-cover-photo" class="form-control" disabled>
+									<span class="help-block">Accepted formats: gif, png, jpg, jpeg. Max file size 2Mb</span>
+									<img class="img-responsive" style="width:320px; height:240px" id="preview-cover-photo" src="/images/cover.jpg">
+								</div>
+								<div id="video-upload">
+									<h6 class="text-semibold">Video</h6>
+									<input type="file" id="post-video" class="form-control" disabled>
+									<span class="help-block">Accepted formats: mp4, avi. Max file size 10Mb</span>
+									<video id="preview-video" width="320" height="240" controls>
+									  Your browser does not support the video tag.
+									</video>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- <div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<h6 class="text-semibold">Content</h6>
+								<div class="wysiwyg"></div>
+							</div>
+						</div> -->
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close btn-link" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" disabled>Create</button>
+                        <input type="hidden" id="mode" value="create">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- /modal template -->
+
+</template>

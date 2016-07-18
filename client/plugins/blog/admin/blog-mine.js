@@ -1,6 +1,15 @@
+var myDropzone;
+
 Template.adminMyBlog.rendered = function(){
 	Session.set('selectedBlogId', -1);
 	//$('.js-switch').bootstrapSwitch();
+
+	myDropzone = new Dropzone('div#dropzoneDiv', { 
+		url: "#",
+		addRemoveLinks:true, 
+		autoProcessQueue:false,
+		maxFiles:4
+	});
 }
 
 Template.adminMyBlog.helpers({
@@ -105,6 +114,9 @@ Template.adminMyBlog.events({
 
 		NProgress.start();
 
+
+		console.log(myDropzone.files);
+		console.log(myDropzone.getQueuedFiles());
 		// var status = 'draft';
 
 		// if ($('#post-status').bootstrapSwitch('state')){

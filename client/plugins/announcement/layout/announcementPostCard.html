@@ -1,0 +1,25 @@
+<template name="announcementPostCard">
+	<div class="card">
+        <a class="img-card" href="/{{announcement_root}}/{{announcement_channel_path announcement_id}}/{{slug}}">
+            <img src="{{announcement_post_cover _id}}" />
+        </a>
+        <br />
+        <div class="card-content">
+            <h4 class="card-title">
+                <a href="/{{announcement_root}}/{{announcement_channel_path announcement_id}}/{{slug}}">
+                    {{title}}
+                </a>
+            </h4>
+            <div class="card-date">{{formatDateCustom created_at "Do MMM YYYY"}}</div>
+            <div class="card-content-preview">
+                {{announcement_post_content_preview content}}
+            </div>
+        </div>
+        <div class="card-footer">
+        by {{getFullname created_by}}
+            <!-- <a class="btn btn-link btn-block" href="/{{announcement_root}}/{{announcement_channel_path announcement_id}}/{{slug}}">
+                Read More
+            </a> -->
+        </div>
+    </div>
+</template>

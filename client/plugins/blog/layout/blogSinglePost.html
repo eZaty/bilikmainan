@@ -133,11 +133,11 @@
             <div style="margin-top: 20px; padding:10px; border: 1px solid #F5F5F5; background: #FFFFFF">
                 <img class="img-thumbnail profile-photo-mini pull-left" src="{{profile_s3 created_by}}">
                 <div>
-                    <b>{{getFullname created_by}}</b>
+                    <b>{{getFullname userId}}</b>
                     <br>
-                    <i class="comment-date">{{formatDate created_at}}</i>
+                    <i class="comment-date">{{formatDate createdAt}}</i>
                     <div style="margin-top: 10px; padding:10px; border: 0px solid #CCCCCC; background: #F5F5F5">
-                    {{text}}
+                    {{message}}
                     </div>
                 </div>
                 <div>
@@ -155,11 +155,11 @@
                 <div style="margin-left: 25px; margin-top: 10px; padding:10px; border: 1px solid #F5F5F5; background: #FFFFFF">
                     <img class="img-thumbnail profile-photo-mini pull-left" src="{{profile_s3 created_by}}">
                     <div>
-                        <b>{{getFullname created_by}}</b>
+                        <b>{{getFullname userId}}</b>
                         <br>
-                        <i class="comment-date">{{formatDate created_at}}</i>
+                        <i class="comment-date">{{formatDate createdAt}}</i>
                         <div style="margin-top: 10px; padding:10px; border: 0px solid #CCCCCC; background: #F5F5F5">
-                        {{text}}
+                        {{message}}
                         </div>
                     </div>
                     <div>

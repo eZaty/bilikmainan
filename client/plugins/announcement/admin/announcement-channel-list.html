@@ -1,0 +1,125 @@
+<template name="adminAnnouncementChannelList">
+
+	<!-- title -->
+	<div class="page-header">
+		<div class="page-header-content">
+			<div class="page-title">
+				<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Admin</span> - Announcement Channels List</h4>
+			</div>
+			<div class="heading-elements">
+				<div class="heading-btn-group">
+					<a href="#" data-toggle="modal" data-target="#modal-channel" class="btn bg-blue btn-labeled heading-btn add-channel"><b><i class="icon-task"></i></b> Add Channel</a>
+				</div>
+			</div>
+			<a class="heading-elements-toggle"><i class="icon-menu"></i></a>
+		</div>
+
+		<div class="breadcrumb-line">
+			<ul class="breadcrumb">
+				<li><a href="/__admin"><i class="icon-home2 position-left"></i> Admin</a></li>
+				<li><a href="/__admin/announcement/channels">Announcement</a></li>
+				<li class="active">Channels List</li>
+			</ul>
+			<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+		</div>
+	</div>
+	<!-- /title -->
+
+	<!-- content -->
+	<div class="content">
+		<div class="panel panel-flat">
+			<!-- <div class="panel-heading">
+				<div class="heading-elements">
+					<ul class="icons-list">
+                		<li><a data-action="collapse"></a></li>
+                		<li><a data-action="reload"></a></li>
+                		<li><a data-action="close"></a></li>
+                	</ul>
+            	</div>
+			<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div> -->
+
+			<div class="panel-body">
+				<ul class="media-list media-list-bordered">
+					{{#each channels}}
+					<li class="media">
+						<div class="media-left">
+							<a href="#"><img src="{{channel_cover_thumb _id}}" class="img-circle" alt=""></a>
+						</div>
+
+						<div class="media-body">
+							<ul class="icons-list pull-right">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										<i class="icon-three-bars"></i>
+										<span class="caret"></span>
+									</a>
+
+									<ul class="dropdown-menu dropdown-menu-right">
+										<li><a href="#" data-toggle="modal" data-target="#modal-channel" class="edit-channel" data-channelid="{{_id}}"><i class="icon-pencil pull-right"></i> Edit Channel</a></li>
+										<li><a href="#" class="delete-channel" data-channelid="{{_id}}"><i class="icon-trash pull-right"></i> Delete Channel</a></li>
+									</ul>
+								</li>
+							</ul>
+							<h6 class="media-heading"><strong><a href="/{{announcement_root}}/{{path}}" target="_blank">{{title}}</a></strong></h6>
+							Path: {{path}}
+						</div>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /content -->
+
+	<!-- modal template -->
+    <div id="modal-channel" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="form-channel">
+					<div class="modal-header bg-primary">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h6 class="modal-title">Add New Channel</h6>
+					</div>
+
+					<div class="modal-body">
+                        <h6 class="text-semibold">Channel Title</h6>
+						<input id="channel-title" type="text" value="" class="form-control">
+
+						<h6 class="text-semibold">Channel Path</h6>
+						<input id="channel-path" type="text" value="" class="form-control">
+
+						<h6 class="text-semibold">Channel Authors</h6>
+						<select id="channel-editors" multiple="multiple">
+						{{#each editors}}
+							<option value="{{id}}">{{name}}</option>
+						{{/each}}
+						</select>
+
+						<h6 class="text-semibold">Channel Email</h6>
+						<input id="channel-email" type="text" value="" class="form-control">
+
+						<h6 class="text-semibold">Cover Photo</h6>
+						<input type="file" id="channel-cover-photo" class="form-control">
+						<span class="help-block">Accepted formats: gif, png, jpg, jpeg. Max file size 2Mb</span>
+
+						<img class="img-responsive" style="width: 100%;" id="preview-cover-photo" src="/images/placeholder.jpg">
+
+						<h6 class="text-semibold">Footer Photo</h6>
+						<input type="file" id="channel-footer-photo" class="form-control">
+						<span class="help-block">Accepted formats: gif, png, jpg, jpeg. Max file size 2Mb</span>
+
+						<img class="img-responsive" style="width: 100%;" id="preview-footer-photo" src="/images/placeholder.jpg">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close btn-link" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <input type="hidden" id="mode" value="create">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /modal template -->
+
+</template>

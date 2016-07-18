@@ -1,0 +1,26 @@
+<template name="featuredAnnouncementPostCard">
+    <div class="item" style="background: url('{{announcement_post_cover _id}}') no-repeat center center fixed;   display: table;  background-size: 100%;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;  background-size: cover;">
+        <div class="text-vcenter">
+            <div class="announcement-title">
+                <h1 style="font-size: 16px; color: #FFFFFF;">
+                    <a href="/{{announcement_root}}/{{announcement_channel_path announcement_id}}/{{slug}}">{{title}}</a>
+                </h1>
+                <h5 style="color: #FFF;">{{formatDate created_at}}</h5>
+            </div>
+        </div>
+    </div>
+	<!-- <div class="card">
+        <a class="img-card" href="/{{announcement_root}}/{{announcement_channel_path announcement_id}}/{{slug}}">
+            <img src="{{announcement_post_cover _id}}" />
+        </a>
+        <br />
+        <div class="card-content">
+            <h4 class="card-title">
+                <a href="/{{announcement_root}}/{{announcement_channel_path announcement_id}}/{{slug}}">
+                    {{title}}
+                </a>
+            </h4>
+            <div class="card-date">{{formatDate created_at}}</div>
+        </div>
+    </div> -->
+</template>

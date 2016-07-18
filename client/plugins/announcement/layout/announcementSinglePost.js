@@ -1,4 +1,4 @@
-Template.blogSinglePost.rendered = function(){
+Template.announcementSinglePost.rendered = function(){
 	$(".btn-more").click(function() {
 		$('html, body').animate({
 			scrollTop: $("#article").offset().top
@@ -7,7 +7,6 @@ Template.blogSinglePost.rendered = function(){
 
 	Tracker.autorun(function(){
 		var editable = Session.get('CURRENT_USER_IS_EDITOR');
-
 		if (editable){
 
 			var editorCT;
@@ -19,7 +18,13 @@ Template.blogSinglePost.rendered = function(){
 				ContentTools.StylePalette.add([
 					new ContentTools.Style('Align Left', 'align-left', ['img']),
 					new ContentTools.Style('Align Right', 'align-right', ['img']),
-					new ContentTools.Style('Align Center', 'align-center', ['img'])
+					new ContentTools.Style('Align Center', 'align-center', ['img']),
+					new ContentTools.Style('Text White', 'text-white', ['h1', 'h2', 'p']),
+					new ContentTools.Style('Text Black', 'text-black', ['h1', 'h2', 'p']),
+					new ContentTools.Style('Text Red', 'text-red', ['h1', 'h2', 'p']),
+					new ContentTools.Style('Text Orange', 'text-orange', ['h1', 'h2', 'p']),
+					new ContentTools.Style('Text Green', 'text-green', ['h1', 'h2', 'p']),
+					new ContentTools.Style('Text Blue', 'text-blue', ['b'])
 				]);
 
 				editorCT.init('*[data-editable]', 'data-name');
@@ -27,7 +32,7 @@ Template.blogSinglePost.rendered = function(){
 				ContentTools.IMAGE_UPLOADER = imageUploader;
 
 				editorCT.bind('save', function (regions) {
-					$('#blog-post-content').html('');
+					$('#announcement-post-content').html('');
 
 					// Check that something changed
 					if (Object.keys(regions).length == 0) {
@@ -40,28 +45,28 @@ Template.blogSinglePost.rendered = function(){
 					// Collect the contents of each region into a FormData instance
 
 					var params = {
-						blog_id: $('#blog').val()
+						channel_id: $('#announcement-channel').val()
 					}
 
 					for (name in regions) {
 						if (regions.hasOwnProperty(name)) {
-							if (name=="blog-post-content"){
+							if (name=="announcement-post-content"){
 								params.content = regions[name];
 							}
-							if (name=="blog-post-title"){
+							if (name=="announcement-post-title"){
 								params.title = $(regions[name]).text();
 							}
 						}
 					}
 
-					var post_id = $('#blog-post').val();
+					var post_id = $('#announcement-post').val();
 
-					Meteor.call('updateBlogPost', post_id, params, function(error, result){
+					Meteor.call('updateAnnouncementPost', post_id, params, function(error, result){
 						editorCT.busy(false);
 
 						if(error){
 							console.log("error", error);
-							var msg = 'Failed to update blog post.';
+							var msg = 'Failed to update announcement post.';
 							ClientHelper.notify('danger', msg, true);
 
 							//new ContentTools.FlashUI('no');
@@ -70,7 +75,7 @@ Template.blogSinglePost.rendered = function(){
 						if (result){
 							//new ContentTools.FlashUI('ok');
 
-							var msg = 'Your blog post has been updated successfully.';
+							var msg = 'Your announcement post has been updated successfully.';
 							ClientHelper.notify('success', msg, true);
 						}
 					});
@@ -132,18 +137,18 @@ Template.blogSinglePost.rendered = function(){
 
 					var file = $('#upload-preview-image').cropper('getCroppedCanvas').toDataURL();
 					var newImage = new FS.File(file);
-					newImage.blogPostId = $('#blog-post').val();
-					newImage.fileType = 'blog_post_content_photo';
+					newImage.announcementPostId = $('#announcement-post').val();
+					newImage.fileType = 'announcement_post_content_photo';
 					newImage.status = 'uploading';
 
-					Blog_Images.insert(newImage, function(err, fileObj){
+					Announcement_Images.insert(newImage, function(err, fileObj){
 						dialog.busy(false);
 
 						if(err){
 							var msg = 'Failed to insert image.';
 							ClientHelper.notify('danger', msg, true);
 						} else {
-							var cursor = Blog_Images.find(fileObj._id);
+							var cursor = Announcement_Images.find(fileObj._id);
 
 							var liveQuery = cursor.observe({
 								changed: function(newImage, oldImage) {
@@ -151,7 +156,7 @@ Template.blogSinglePost.rendered = function(){
 										liveQuery.stop();
 
 										var msg = 'Image successfully inserted.';
-										var imgUrl = blog_post_content_photo(fileObj._id,'full');
+										var imgUrl = announcement_post_content_photo(fileObj._id,'full');
 
 										var cropRegion = $('#upload-preview-image').cropper("getData");
 
@@ -176,57 +181,67 @@ Template.blogSinglePost.rendered = function(){
 		});
 	}
 
-	Template.blogSinglePost.helpers({
+	Template.announcementSinglePost.helpers({
 		prev_post: function(id){
-			var post = Blog_Posts.findOne(id);
+			var post = Announcement_Posts.findOne(id);
 
 			if (post){
-				var prev = Blog_Posts.find({
-					blog_id: post.blog_id,
+				var prev = Announcement_Posts.find({
+					channel_id: post.channel_id,
 					status: 'published',
 					created_at: {
 						$lt: post.created_at
 					}
 				},{sort: {created_at: -1}, limit: 1});
 
-				var result;
+				if (prev){
+					var result;
 
-				prev.forEach(function (row) {
-					result = row;
-				});
+					prev.forEach(function (row) {
+						result = row;
+					});
 
-				return result;
+					return result;
+				}else{
+					return null;
+				}
 			}else{
 				return null;
 			}
 		},
 
 		next_post: function(id){
-			var post = Blog_Posts.findOne(id);
+			var post = Announcement_Posts.findOne(id);
 
 			if (post){
-				var next = Blog_Posts.find({
-					blog_id: post.blog_id,
+				var next = Announcement_Posts.find({
+					channel_id: post.channel_id,
 					status: 'published',
 					created_at: {
 						$gt: post.created_at
 					}
 				},{sort: {created_at: 1}, limit: 1});
 
-				var result;
+				if (next){
+					var result;
 
-				next.forEach(function (row) {
-					result = row;
-				});
+					next.forEach(function (row) {
+						result = row;
+					});
 
-				return result;
+					return result;
+				}else{
+					return null;
+				}
 			}else{
 				return null;
 			}
+
 		},
 
-		blog_post_cover: function(id){
-			return blog_post_cover_photo(id,'full');
+		announcement_channel_footer: function(cid){
+			//console.log(announcement_channel_footer_photo(cid,'full'));
+			return announcement_channel_footer_photo(cid,'full');
 		},
 
 		comments: function(id){
@@ -285,31 +300,37 @@ Template.blogSinglePost.rendered = function(){
 		},
 
 		isEditablePost: function(id){
-			var blog = Blogs.findOne({
+			var channel = Announcement_Channels.findOne({
 				_id: id,
 				'editors.user_id': Meteor.userId()
 			});
 
-			//var editable = (Roles.userIsInRole(Meteor.userId(), ['admin']) || blog);
+			var editable = (Roles.userIsInRole(Meteor.userId(), ['admin']) || channel);
 
-			// return editable;
+			return editable;
 
-			return (blog || (Roles.userIsInRole(Meteor.userId(), ['admin'])));
+			// 	if (channel){
+			// 		return true;
+			// 	}else{
+			// 		return false;
+			// 	}
+		},
 
-			// if (blog){
-			// 	console.log(id + ' is editable');
-			// 	return true;
-			// }else{
-			// 	console.log(id + ' is non editable');
-			// 	return false;
-			// }
+		isVideoPost: function(type){
+			console.log(type);
+			return (type=="video");
+		},
+
+		get_post_video: function(id){
+			var vid_url = announcement_post_video(id);
+			return vid_url;
 		}
 
 	});
 
-	Template.blogSinglePost.events({
+	Template.announcementSinglePost.events({
 
-		'submit #form-blog-post-comment': function(e) {
+		'submit #form-announcement-post-comment': function(e) {
 			e.preventDefault();
 			var elem = $(e.currentTarget);
 			var mode = $('#mode').val();
@@ -317,12 +338,12 @@ Template.blogSinglePost.rendered = function(){
 			NProgress.start();
 
 			var params = {
-				postId: $('#blog-post').val(),
+				postId: $('#announcement-post').val(),
 				message: $('#comment-text').val()
 			}
 
 			if (mode == "create"){
-				Meteor.call('addBlogComment', params, function(error, result){
+				Meteor.call('addAnnouncementComment', params, function(error, result){
 					if(error){
 						console.log("error", error);
 						var msg = 'Failed to submit your comment.';
@@ -337,9 +358,9 @@ Template.blogSinglePost.rendered = function(){
 					}
 				});
 			}else if (mode == "update"){
-				var blogPostCommentId = Session.get('currentBlogPostCommentId');
+				var announcementPostCommentId = Session.get('currentAnnouncementPostCommentId');
 
-				Meteor.call('updateBlogComment', blogPostCommentId, params, function(error, result){
+				Meteor.call('updateAnnouncementComment', announcementPostCommentId, params, function(error, result){
 					if(error){
 						console.log("error", error);
 						var msg = 'Failed to update your comment.';
@@ -355,11 +376,11 @@ Template.blogSinglePost.rendered = function(){
 					}
 				});
 			}else if (mode == "reply"){
-				var blogPostCommentId = Session.get('currentBlogPostCommentId');
+				var announcementPostCommentId = Session.get('currentAnnouncementPostCommentId');
 
-				params.replyTo = blogPostCommentId;
+				params.replyTo = announcementPostCommentId;
 
-				Meteor.call('addBlogComment', params, function(error, result){
+				Meteor.call('addAnnouncementComment', params, function(error, result){
 					if(error){
 						console.log("error", error);
 						var msg = 'Failed to submit your comment.';
@@ -388,7 +409,7 @@ Template.blogSinglePost.rendered = function(){
 			$('.btn-close').prop('disabled', false);
 			$('.close').prop('disabled', false);
 
-			Session.set('currentBlogPostCommentId', '');
+			Session.set('currentAnnouncementPostCommentId', '');
 		},
 
 		'click .edit-post-comment': function(e) {
@@ -399,13 +420,13 @@ Template.blogSinglePost.rendered = function(){
 			$('.modal-title').html('Update Comment');
 
 
-			var blogPostCommentId = elem.data('blogpostcommentid');
+			var announcementPostCommentId = elem.data('announcementpostcommentid');
 
-			var comment = Comments.findOne(blogPostCommentId);
+			var comment = Comments.findOne(announcementPostCommentId);
 
 			$('#comment-text').val(comment.text);
 
-			Session.set('currentBlogPostCommentId', blogPostCommentId);
+			Session.set('currentAnnouncementPostCommentId', announcementPostCommentId);
 		},
 
 		'click .reply-post-comment': function(e) {
@@ -416,24 +437,24 @@ Template.blogSinglePost.rendered = function(){
 			$('.modal-title').html('Reply to a Comment');
 
 
-			var blogPostCommentId = elem.data('blogpostcommentid');
+			var announcementPostCommentId = elem.data('announcementpostcommentid');
 
-			var comment = Comments.findOne(blogPostCommentId);
+			var comment = Comments.findOne(announcementPostCommentId);
 
 			$('#comment-text').val('');
 
-			Session.set('currentBlogPostCommentId', blogPostCommentId);
+			Session.set('currentAnnouncementPostCommentId', announcementPostCommentId);
 		},
 
 		'click .delete-post-comment': function(e) {
 			e.preventDefault();
 			NProgress.start();
 			var elem = $(e.currentTarget);
-			var blogPostCommentId = elem.data('blogpostcommentid');
+			var announcementPostCommentId = elem.data('announcementpostcommentid');
 
 			var notice = ClientHelper.confirm('danger', 'Are you sure want to delete your comment?');
 			notice.get().on('pnotify.confirm', function() {
-				Meteor.call('deleteBlogComment', blogPostCommentId, function(error, result){
+				Meteor.call('deleteAnnouncementComment', announcementPostCommentId, function(error, result){
 					if(error) {
 						console.log("error", error);
 						var msg = 'Failed to delete comment.';
@@ -446,5 +467,31 @@ Template.blogSinglePost.rendered = function(){
 				});
 			});
 			NProgress.done();
+		},
+
+		'click .btn-email-preview': function(e) {
+			Meteor.call('readEmailTemplate', $('#announcement-post').val(), function(error, result){
+				//console.log(result);
+				var startPos = result.indexOf("<!-- body -->") + 13;
+				var endPos = result.indexOf("<!-- /body -->");
+				var tpl = result.substring(startPos, endPos);
+				$('#modal-email-preview .modal-body').html(tpl);
+			});
+		},
+
+		'click .btn-publish': function(e){
+			var elem = $(e.currentTarget);
+
+			Meteor.call('publishAnnouncementPost', $('#announcement-post').val(), function(error, result){
+				if(error) {
+					console.log("error", error);
+					var msg = 'Failed to publish the announcement.';
+					ClientHelper.notify('danger', msg, true);
+				}
+				if(result){
+					var msg = 'Announcement has been published successfully.';
+					ClientHelper.notify('success', msg, true);
+				}
+			});
 		}
 	});

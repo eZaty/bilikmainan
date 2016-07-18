@@ -6,9 +6,33 @@ Meteor.publish('blog_posts', function() {
   return Blog_Posts.find();
 });
 
-Meteor.publish('blog_comments', function() {
-  return Blog_Comments.find();
-});
+// Meteor.publish('limit_blog_posts', function (skip, limit){
+//     check(skip, Number);
+//     check(limit, Number);
+//     return Blog_Posts.find({},{
+//         skip: skip,
+//         limit: limit,
+//         sort: {
+//             created_at: -1
+//         }
+//     });
+// });
+
+// Meteor.publish('blog_comments', function() {
+//   return Blog_Comments.find();
+// });
+
+// Meteor.publish('limit_blog_comments', function (skip, limit){
+//     check(skip, Number);
+//     check(limit, Number);
+//     return Blog_Comments.find({},{
+//         skip: skip,
+//         limit: limit,
+//         sort: {
+//             created_at: -1
+//         }
+//     });
+// });
 
 Meteor.publish('editors', function(userId) {
     return Meteor.users.find({
@@ -183,13 +207,14 @@ Meteor.methods({
     	var now = new Date();
 
     	var audit = {
-    		'created_at': now,
-    		'created_by': Meteor.userId() 
+    		'createdAt': now,
+    		'userId': Meteor.userId(),
+            'collection': 'blog_posts' 
     	}
 
     	var data = merge2JsonObjects(params, audit);
 
-        return Blog_Comments.insert(data);
+        return Comments.insert(data);
     },
 
     deleteBlogComment: function(id) {
@@ -197,7 +222,7 @@ Meteor.methods({
             throw new Meteor.Error(500, 'Error 500: Internal Server Error', 'User not logged in.');
         }
 
-        return Blog_Comments.remove(id);
+        return Comments.remove(id);
     },
 
     updateBlogComment: function(id, params) {
@@ -208,13 +233,14 @@ Meteor.methods({
         var now = new Date();
 
     	var audit = {
-    		'updated_at': now,
-    		'updated_by': Meteor.userId() 
-    	}
+    		'updatedAt': now,
+    		'userId': Meteor.userId(),
+            'collection': 'blog_posts' 
+        }
 
     	var data = merge2JsonObjects(params, audit);
 
-        return Blog_Comments.update(id, {
+        return Comments.update(id, {
             $set: data
 		});
 	},
@@ -358,6 +384,8 @@ Meteor.methods({
 
         console.log('publish post: ' + res);
 
+        var rex = /(<([^>]+)>)/ig;
+
         if (res){
             var img = Blog_Images.findOne({
                 blogPostId: id,
@@ -367,11 +395,13 @@ Meteor.methods({
             Meteor.call('addTimeline', {
                 collection: 'blog_posts',
                 postId: id,
+                postSlug: post.slug,
                 createdAt: now,
-                userId: blog._id, //Meteor.userId(),
-                userName: blog.path, //Meteor.user().profile.nickName,
+                blogId: blog._id, //Meteor.userId(),
+                blogPath: blog.path, //Meteor.user().profile.nickName,
                 title: post.title,
-                description: post.tags,
+                description: (post.content.replace(rex , "")).replace(/\s+/g, ' ').trim().substring(0,120) + " ...",
+                tags: post.tags,
                 photoKey: img.copies.blogImages.key
             }, function(error, result){
                 if (error)

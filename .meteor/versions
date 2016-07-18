@@ -4,6 +4,7 @@ accounts-ui@1.1.9
 accounts-ui-unstyled@1.1.12
 alanning:roles@1.2.15
 allow-deny@1.0.5
+anonyfox:scrape@0.0.10
 autoupdate@1.2.10
 babel-compiler@6.8.3
 babel-runtime@0.1.9_1
@@ -44,6 +45,7 @@ copleykj:livestamp@1.1.7
 cosmos:browserify@0.8.4
 ctjp:meteor-bootstrap-switch@3.3.1_5
 ctjp:meteor-bootstrap-switch-assets@3.3.1_1
+dbarrett:dropzonejs@4.2.1
 ddp@1.2.5
 ddp-client@1.2.8_1
 ddp-common@1.2.6
@@ -51,6 +53,7 @@ ddp-rate-limiter@1.0.5
 ddp-server@1.2.8_1
 deps@1.0.12
 diff-sequence@1.0.6
+digilord:sugarjs@1.4.1
 ecmascript@0.4.6_1
 ecmascript-runtime@0.2.11_1
 ejson@1.0.12
@@ -59,6 +62,7 @@ es5-shim@4.5.12_1
 faisalman:ua-parser-js@0.7.10
 fastclick@1.0.12
 fourseven:scss@3.4.3
+froatsnook:request@2.53.3
 gadicohen:headers@0.0.31
 geojson-utils@1.0.9
 gwendall:body-events@0.1.6
@@ -90,7 +94,6 @@ meteor-base@1.0.4
 meteorhacks:fast-render@2.14.0
 meteorhacks:inject-data@2.0.0
 meteorhacks:inject-initial@1.0.4
-meteorhacks:kadira@2.28.7
 meteorhacks:meteorx@1.4.1
 meteorhacks:picker@1.0.3
 meteorhacks:ssr@2.2.0
@@ -103,6 +106,7 @@ mobile-experience@1.0.4
 mobile-status-bar@1.0.12
 modules@0.6.4
 modules-runtime@0.6.4_1
+modweb:flipclock@0.0.1
 momentjs:moment@2.9.0
 mongo@1.1.9_1
 mongo-id@1.0.5
@@ -111,10 +115,12 @@ mrt:jquery-imagesloaded@0.0.2
 mrt:nprogress@0.2.0
 mrt:smart-publish@0.2.1
 msavin:mongol@2.0.1
+nefiltari:yaki@0.1.81
 new3rs:html2canvas@0.0.5
 npm-bcrypt@0.8.6_1
 npm-mongo@1.4.44_1
 observe-sequence@1.0.12
+okgrow:analytics@1.0.9
 ordered-dict@1.0.8
 pascoual:pdfkitx@0.0.3
 promise@0.7.2_1
@@ -148,3 +154,4 @@ underscorestring:underscore.string@3.3.4
 url@1.0.10
 webapp@1.2.9_1
 webapp-hashing@1.0.9
+wizonesolutions:underscore-string@1.0.0

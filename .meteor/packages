@@ -36,7 +36,6 @@ iron:router
 luisalmeida:unveil
 manuelschoebel:wait-on-lib
 meteorhacks:fast-render
-meteorhacks:kadira
 meteorhacks:ssr
 mfpierre:chartist-js
 momentjs:moment
@@ -58,3 +57,7 @@ blaze-html-templates
 session
 cfs:gridfs
 jonblum:jquery-cropper
+modweb:flipclock
+dbarrett:dropzonejs
+anonyfox:scrape
+okgrow:analytics

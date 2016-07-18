@@ -1,14 +1,16 @@
-BLOG_CONFIG = {};
-BLOG_CONFIG.root = "magz";
-BLOG_CONFIG.maxFeaturedPostsListing = 10;
+ANNOUNCEMENT_CONFIG = {};
+ANNOUNCEMENT_CONFIG.root = "announcement";
+ANNOUNCEMENT_CONFIG.maxFeaturedPostsListing = 10;
 
-Router.route('/' + BLOG_CONFIG.root + '/:blog/:slug', {
-    layoutTemplate: 'blogSinglePost',
+Router.route('/' + ANNOUNCEMENT_CONFIG.root + '/:channel/:slug', {
+    layoutTemplate: 'announcementSinglePost',
     waitOn: function() {
-        return [ Meteor.subscribe('blogs'),
-                    Meteor.subscribe('blog_posts'),
+        return [ Meteor.subscribe('announcement_channels'),
+                    Meteor.subscribe('announcement_posts'),
                     Meteor.subscribe('allUsers'),
-                    Meteor.subscribe('blog_images'),
+                    Meteor.subscribe('announcement_images'),
+                    Meteor.subscribe('announcement_videos'),
+                    Meteor.subscribe('announcement_mailing_lists'),
                     Meteor.subscribe('profiles'),
                     IRLibLoader.load('/scripts/spectrum.js'),
                     IRLibLoader.load('/scripts/fileinput.min.js')
@@ -18,12 +20,15 @@ Router.route('/' + BLOG_CONFIG.root + '/:blog/:slug', {
         if (!Meteor.userId()) {
             Router.go('/login');
         } else {
-            var blog = Blogs.findOne({"path": this.params.blog});
+            var channel = Announcement_Channels.findOne({"path": this.params.channel});
 
-            if (blog){
+            if (channel){
                 var isEditor = false;
                 Session.set('CURRENT_USER_IS_EDITOR', false);
-                var editors = blog.editors;
+                var editors = channel.editors;
+
+                // console.log('editors: ' + editors);
+                // console.log('i am ' + Meteor.userId());
 
                 for (i=0; i<editors.length; i++){
                     if (editors[i].user_id==Meteor.userId()){
@@ -38,7 +43,7 @@ Router.route('/' + BLOG_CONFIG.root + '/:blog/:slug', {
                 }
 
                 var params = {
-                    "blog_id": blog._id,
+                    "channel_id": channel._id,
                     "slug": this.params.slug
                 }
 
@@ -46,53 +51,51 @@ Router.route('/' + BLOG_CONFIG.root + '/:blog/:slug', {
                     params.status = "published";
                 }
 
-                var post = Blog_Posts.findOne(
+                var post = Announcement_Posts.findOne(
                     params
                 );
 
                 if (post){
                     Meteor.subscribe('comments', post._id);
-
-                    Session.set('currentBlogPost',post._id);
                     return post;
                 }else{
-                    console.log('post not found: ' + blog.path + '/' + this.params.slug);
-                    this.render("blogNotFound");
+                    console.log('post not found: ' + channel.path + '/' + this.params.slug);
+                    this.render("announcementNotFound");
                 }
             }else{
-                console.log('blog not found: ' + this.params.blog);
-                this.render("blogNotFound");
+                console.log('channel not found: ' + this.params.channel);
+                this.render("announcementNotFound");
             }
         }
     }
 });
 
 
-Router.route('/' + BLOG_CONFIG.root + '/:blog', {
-    layoutTemplate: 'blogAllPosts',
+Router.route('/' + ANNOUNCEMENT_CONFIG.root + '/:channel', {
+    layoutTemplate: 'announcementAllPosts',
     waitOn: function() {
         return [
             IRLibLoader.load('/scripts/jquery.easing.1.3.js'),
             IRLibLoader.load('/scripts/jquery.waypoints.min.js'),
             IRLibLoader.load('/scripts/modernizr-2.6.2.min.js'),
             IRLibLoader.load('/styles/animate.css'),
-            Meteor.subscribe('blogs'),
-            Meteor.subscribe('blog_posts'),
+            Meteor.subscribe('announcement_channels'),
+            Meteor.subscribe('announcement_posts'),
+            Meteor.subscribe('announcement_mailing_lists'),
             Meteor.subscribe('allUsers'),
-            Meteor.subscribe('blog_images'),
-            Meteor.subscribe('profiles')
+            Meteor.subscribe('announcement_images')
             ];
     },
     data: function(){
         if (!Meteor.userId()) {
             Router.go('/login');
         } else {
-            var blog = Blogs.findOne({"path": this.params.blog});
-            if (blog){
-                return blog;
+            var channel = Announcement_Channels.findOne({"path": this.params.channel});
+            if (channel){
+                return channel;
             }else{
-                console.log('blog not found: ' + this.params.blog);
-                this.render("blogNotFound");
+                console.log('channel not found: ' + this.params.channel);
+                this.render("announcementNotFound");
             }
         }
     },

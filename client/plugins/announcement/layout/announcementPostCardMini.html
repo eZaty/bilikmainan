@@ -1,0 +1,22 @@
+<template name="announcementPostCardMini">
+
+    <div class="card-mini" style="background: url('{{announcement_post_cover _id}}') no-repeat; background-size: 100% 100%; display: table;  height: 200px;  position: relative;  width: 100%; ">
+        <div class="text-vcenter">
+            <div class="announcement-title card-mini-title">
+                <a href="/{{announcement_root}}/{{announcement_channel_path channel_id}}/{{slug}}">
+                    {{title}}
+                </a>
+            </div>
+        </div>
+    </div>
+	<!-- <div class="card-mini">
+        <a class="img-card-mini" href="/{{announcement_root}}/{{announcement_channel_path announcement_id}}/{{slug}}">
+            <img src="{{announcement_post_cover _id}}" />
+        </a>
+        <h4 class="card-mini-title">
+            <a href="/{{announcement_root}}/{{announcement_channel_path announcement_id}}/{{slug}}">
+                {{title}}
+            </a>
+        </h4>
+    </div> -->
+</template>

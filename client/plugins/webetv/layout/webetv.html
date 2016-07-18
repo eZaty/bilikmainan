@@ -1,0 +1,93 @@
+<template name="webetv">
+	<!-- <script src="/scripts/jquery.vticker.min.js"></script> -->
+
+	<div id="webetv-logo" style="position:absolute; z-index: 2000; background-color: rgba(255,0,0,0); padding: 20px; left: 0px; top: 0px;">
+		<img src="/images/patterns/pattern5.png" align="left" style="width:40px; height: 40px; margin: 5px;">
+		<span style="font-weight:bolder; font-size: 35px; color: #FFF">playroom</span><span style="font-weight:bolder; font-size: 35px; color: #000">tv</span>
+	</div>
+	
+	<div id="webetv-contents" style="width:70%; height: 100%; float: left;">
+		<div id="webetv-carousel" class="carousel slide" data-ride="carousel" style="width:100%; height: 100%; float: left; background: #000000">
+		  
+		  	<div class="carousel-inner" role="listbox">
+		  	{{#each contents}}
+				<div class="item" id="item-{{postId}}">
+					{{#if isVideo this}}
+						<!-- <iframe title="YouTube video player" class="carousel-vid" id="vid-{{postId}}" type="text/html" src="http://www.youtube.com/embed/W-Q7RMpINVo?rel=0&autoplay=1&loop=1" frameborder="0" allowFullScreen></iframe> -->
+						<video class="carousel-vid" id="vid-{{postId}}">
+						  <source src="{{getVideo this}}" type="video/mp4">
+							Video not supported...
+						</video>
+					{{else}}
+			      		<img class="carousel-img" src="{{getPhoto this}}" alt="{{title}}">
+			      	{{/if}}
+			      <div class="carousel-caption" style="	vertical-align: middle;
+													    font-size:22px; width:100%; 
+													    background-color: rgba(0,0,0,0.7); 
+													    left: 0px; 
+													    bottom: 0px;">
+			        <span>
+			        	{{title}}
+		        	</span>
+			        <br>
+			        <span style="font-size:16px; color: #EEE; font-weight: normal">{{description}}</span>
+			      </div>
+			    </div>
+			{{/each}}
+	  		</div>
+		</div>
+		<div id="webetv-ticker" style="width:100%; height: 150px; bottom: 0px; float: left; background: #FFA500">
+			<div style="background: #000000; color: #ffff00;"><img src="/images/patterns/pattern1.png" align="left" style="width:15px; height: 15px; margin: 5px; "> What's Happening?</div>
+			<div id="newsticker" style="margin: 10px">
+				<ul>
+				{{#each RSSNewsItems}}
+					<li style="height: 150px;">
+					<b style="font-size:18px; color: #440044; font-weight:bolder;">{{title}}</b>
+					<br>
+					<i style="font-size:10px; color: #777;">{{pubDate}}</i>
+					<br>
+					<span style="font-size:15px; color: #000;">
+					{{description}}
+					</span>
+					</li>
+				{{/each}}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="webetv-comments" style="height: 100%; right: 0px; background: #4682b4; width: 500px; position: absolute;">
+		<div class="clock" style="background: #000000; margin: 0px; text-align:center"></div>
+		<div style="background: #000000; color: #ffff00; top: 5px; left: 5px; padding: 5px;">
+			<img src="/images/patterns/pattern2.png" align="left" style="width:15px; height: 15px; margin: 5px;"> Comments
+		</div>
+        <div id="panel-comment" class="panel-body">
+			<ul class="media-list comment-list content-group">
+                <li class="media date-step">
+                    <span>{{date}}</span>
+                </li>
+
+                {{#if Template.subscriptionsReady}}
+                {{#each getComments}}
+
+                    <!-- {{#if isExceedTime time}} -->
+                    <li class="time"><hr><div class="text-center text-muted"><span>{{commentTimestamp createdAt}}</span></div></li>
+                    <!-- {{/if}} -->
+
+                    <!-- {{#if isNotSameUser created_by}} -->
+                    <!-- <li><div class="media-annotation text-left">{{getFullname created_by}}</div></li> -->
+                    <!-- {{/if}} -->
+                    <li class="media">
+                        <div class="media-left">
+                            <img src="{{profile_s3 userId}}" class="img-circle" alt="" data-id={{_id}}>
+                        </div>
+                        <div class="media-body">
+                        	<div class="text-left"><b style="font-weight:bolder; font-size: 15px;">{{getFullname userId}}</b></div>
+                            <div id="msg-{{_id}}" class="media-content" data-popup="tooltip" data-placement="right" data-original-title="{{commentTimestamp createdAt}}">{{message}} &nbsp;</div>
+                        </div>
+                    </li>
+                {{/each}}
+                {{/if}}
+            </ul>
+        </div>
+	</div>
+</template>
