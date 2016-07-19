@@ -15,6 +15,13 @@ var Helpers = {
 					photoKey: gallery.copies.galleryImages.key
 				});
 
+				var prms = {
+	                'title': fileObj.title,
+	                'type': 'New Photo'
+	            }
+
+	            Meteor.call('pushNotification', prms);
+
 				return null;
 			} else {
 				setTimeout(function () {

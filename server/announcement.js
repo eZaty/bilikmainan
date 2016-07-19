@@ -752,38 +752,12 @@ Meteor.methods({
                 });
             }
 
-            // call fcm-push
-            // import { FCM } from 'meteor/meteor';
-            var FCM = require('fcm-push');
-            var fcm = new FCM('AIzaSyCKKXE9QnKGPyRVC3MK8BDBAGoPYqDYtT8');
-
-            var deviceToken = 'cMr_muxmFL0:APA91bHbbpocfOFjfh8xzjRUwnYhARy4_kiDDQsL2TfVitw-z8pA8bN4Ah7xJlwzHKskog6xhQEeLdzD9s93io2hDLJRjUoV3hfeFaKRxZTDxyLoXTr27sNKfbEVcB18rF6OuK9eJ4WE';
-            var message = 'New announcement: ' + post.title;
-
-            var message = {
-                to: deviceToken,
-                priority: 'high',
-                collapse_key: 'your_collapse_key',
-                data: {
-                    your_custom_data_key: 'your_custom_data_value'
-                },
-                notification: {
-                    title: 'Push notification test from playroom mobile',
-                    body: message,
-                    click_action: 'fcm.ACTION.HELLO',
-                    sound: 'default',
-                    color: '#ffffff'
-                }
-            };
-
-            fcm.send(message, function(err, response){
-                if (err) {
-                    console.log("Something has gone wrong!");
-                } else {
-                    console.log("Successfully sent with response: ", response);
-                }
-            });
-
+            var prms = {
+                'title': post.title,
+                'type': 'New Announcement'
+            }
+            
+            Meteor.call('pushNotification', prms);
         }else{
             throw new Meteor.Error(500, 'Error 500: Internal Server Error', 'Failed to update blog post status.');
         }

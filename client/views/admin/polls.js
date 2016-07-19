@@ -68,6 +68,13 @@ Template.adminPolls.events({
 					userId: Meteor.userId(),
 					userName: Meteor.user().profile.nickName
 				});
+
+				var prms = {
+	                'title': $('#question').val(),
+	                'type': 'New Poll'
+	            }
+
+	            Meteor.call('pushNotification', prms);
 			}
 			elem[0].reset();
 			$('.btn-close').click();

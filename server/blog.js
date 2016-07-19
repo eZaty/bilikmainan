@@ -409,6 +409,13 @@ Meteor.methods({
                 if (result)
                     return result;
             });
+
+            var prms = {
+                'title': post.title,
+                'type': 'New Blog Post'
+            }
+            
+            Meteor.call('pushNotification', prms);
         }else{
             throw new Meteor.Error(500, 'Error 500: Internal Server Error', 'Failed to update blog post status.');
         }        
