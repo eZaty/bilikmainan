@@ -16,7 +16,8 @@ Meteor.publish('limitUsers', function (skip, limit){
         fields: {
             profile: 1,
             username: 1,
-            roles: 1
+            roles: 1,
+            webeeidstatus: 1
         },
         skip: skip,
         limit: limit,
@@ -41,7 +42,8 @@ Meteor.publish('limitSearchUsers', function (query, skip, limit){
         fields: {
             profile: 1,
             username: 1,
-            roles: 1
+            roles: 1,
+            webeeidstatus: 1
         },
         skip: skip,
         limit: limit,
@@ -56,7 +58,8 @@ Meteor.publish('selectedUser', function(userId) {
         fields: {
             profile: 1,
             username: 1,
-            roles: 1
+            roles: 1,
+            webeeidstatus: 1
         }
     });
 });
@@ -84,7 +87,8 @@ Meteor.publish('user-roles', function(){
             fields: {
                 profile: 1,
                 username: 1,
-                roles: 1
+                roles: 1,
+                webeeidstatus: 1
             }
         }),
         Groups.find(),
@@ -158,6 +162,7 @@ Meteor.methods({
 
     updateWebeeIDStatus: function(userId, params){
         var user = Meteor.users.findOne(userId);
+        if(!user) return;
 
         if (params.webeeidstatus=="rejected"){
 
@@ -171,8 +176,8 @@ Meteor.methods({
             var html = SSR.render('emailTemplate', dataContext);
 
             Email.send({
-                from: "webe Playroom <playroom@packet-1.com>",
-                // from: "webe Playroom <playroom@webe.com.my>",
+                //from: "webe Playroom <playroom@packet-1.com>",
+                from: "webe Playroom <playroom@webe.com.my>",
                 to: user.profile.email,
                 subject: "webee ID Rejected",
                 html: html
@@ -197,6 +202,24 @@ Meteor.methods({
         //     });
         // }
 
+        if (params.webeeidstatus=="printed"){
+
+            // send email
+            var dataContext={
+              userNickname: user.profile.nickName,
+            };
+
+            SSR.compileTemplate('emailTemplate', Assets.getText('emailwebeeIDTemplate-printed.html'));
+            var html = SSR.render('emailTemplate', dataContext);
+
+            Email.send({
+                from: "webe Playroom <playroom@webe.com.my>",
+                to: user.profile.email,
+                subject: "webee ID ready for collection",
+                html: html
+            });
+        }
+
         if (params.webeeidstatus=="collected"){
             var now = new Date();
 
@@ -212,7 +235,6 @@ Meteor.methods({
             return Meteor.users.update(userId, {$set: data});
 
         }else{
-
             return Meteor.users.update(userId, {$set: params});
         }
     },
@@ -306,8 +328,8 @@ Meteor.methods({
             var html = SSR.render('emailTemplate', dataContext);
 
             Email.send({
-                from: "webe Playroom Admin <playroom@packet-1.com>",
-                // from: "webe Playroom <playroom@webe.com.my>",
+                //from: "webe Playroom Admin <playroom@packet-1.com>",
+                from: "webe Playroom <playroom@webe.com.my>",
                 to: user.profile.email,
                 subject: "webee ID Reminder",
                 html: html

@@ -303,6 +303,10 @@ Template.blogSinglePost.rendered = function(){
 			// 	console.log(id + ' is non editable');
 			// 	return false;
 			// }
+		},
+
+		isMobileDevice: function(){
+			return Session.get('isMobileDevice');
 		}
 
 	});

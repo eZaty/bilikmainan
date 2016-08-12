@@ -3,7 +3,6 @@ ANNOUNCEMENT_CONFIG.root = "announcement";
 ANNOUNCEMENT_CONFIG.maxFeaturedPostsListing = 10;
 
 Router.route('/' + ANNOUNCEMENT_CONFIG.root + '/:channel/:slug', {
-    layoutTemplate: 'announcementSinglePost',
     waitOn: function() {
         return [ Meteor.subscribe('announcement_channels'),
                     Meteor.subscribe('announcement_posts'),
@@ -17,6 +16,10 @@ Router.route('/' + ANNOUNCEMENT_CONFIG.root + '/:channel/:slug', {
                 ];
     },
     data: function(){
+        if (!this.ready()) return;
+        
+        Session.set('isMobileDevice', false);
+
         if (!Meteor.userId()) {
             Router.go('/login');
         } else {
@@ -57,16 +60,111 @@ Router.route('/' + ANNOUNCEMENT_CONFIG.root + '/:channel/:slug', {
 
                 if (post){
                     Meteor.subscribe('comments', post._id);
-                    return post;
+                    this.render('announcementSinglePost', { data: post });
                 }else{
-                    console.log('post not found: ' + channel.path + '/' + this.params.slug);
-                    this.render("announcementNotFound");
+                    this.render("announcementErrorPage", {
+                        data: {
+                            message: 'announcement not found: ' + channel.path + '/' + this.params.slug 
+                        }                        
+                    });
                 }
             }else{
-                console.log('channel not found: ' + this.params.channel);
-                this.render("announcementNotFound");
+                this.render("announcementErrorPage", {
+                    data: {
+                        message: 'channel not found: ' + this.params.channel 
+                    }                        
+                });
             }
         }
+    }
+});
+
+
+/* for mobile device */
+Router.route('/' + ANNOUNCEMENT_CONFIG.root + '/:channel/:slug/:userId/:deviceToken', {
+    waitOn: function() {
+        return [ Meteor.subscribe('devices'),
+                    Meteor.subscribe('announcement_channels'),
+                    Meteor.subscribe('announcement_posts'),
+                    Meteor.subscribe('allUsers'),
+                    Meteor.subscribe('announcement_images'),
+                    Meteor.subscribe('announcement_videos'),
+                    Meteor.subscribe('announcement_mailing_lists'),
+                    Meteor.subscribe('profiles'),
+                    IRLibLoader.load('/scripts/spectrum.js'),
+                    IRLibLoader.load('/scripts/fileinput.min.js')
+                ];
+    },
+    data: function(){
+        
+        if (!this.ready()) return;
+
+        var validDevice = Devices.findOne({
+            userId: this.params.userId,
+            deviceToken: this.params.deviceToken
+        });
+
+        if (validDevice || Meteor.userId()){
+            Session.set('isMobileDevice', true);
+
+            var channel = Announcement_Channels.findOne({"path": this.params.channel});
+
+            if (channel){
+                var isEditor = false;
+                Session.set('CURRENT_USER_IS_EDITOR', false);
+                var editors = channel.editors;
+
+                for (i=0; i<editors.length; i++){
+                    if (editors[i].user_id==Meteor.userId()){
+                        isEditor = true;
+                        Session.set('CURRENT_USER_IS_EDITOR', true);
+                    }
+                }
+
+                if (Roles.userIsInRole(Meteor.userId(), ['admin'])){
+                    isEditor = true;
+                    Session.set('CURRENT_USER_IS_EDITOR', true);
+                }
+
+                var params = {
+                    "channel_id": channel._id,
+                    "slug": this.params.slug
+                }
+
+                if (!isEditor){
+                    params.status = "published";
+                }
+
+                var post = Announcement_Posts.findOne(
+                    params
+                );
+
+                if (post){
+                    Meteor.subscribe('comments', post._id);
+
+                    this.render('announcementSinglePost', { data: post });
+                }else{
+                    this.render("announcementErrorPage", {
+                        data: {
+                            message: 'announcement not found: ' + channel.path + '/' + this.params.slug 
+                        }                        
+                    });
+                }
+            }else{
+                this.render("announcementErrorPage", {
+                    data: {
+                        message: 'channel not found: ' + this.params.channel 
+                    }                        
+                });
+            }
+        } else {
+            this.render("announcementErrorPage", {
+                data: {
+                    message: 'unauthorized access'
+                }
+            });
+        }
+
     }
 });
 
@@ -94,8 +192,11 @@ Router.route('/' + ANNOUNCEMENT_CONFIG.root + '/:channel', {
             if (channel){
                 return channel;
             }else{
-                console.log('channel not found: ' + this.params.channel);
-                this.render("announcementNotFound");
+                this.render("announcementErrorPage", {
+                    data: {
+                        message: 'channel not found: ' + this.params.channel 
+                    }                        
+                });
             }
         }
     },

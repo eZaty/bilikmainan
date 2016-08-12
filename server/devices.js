@@ -18,7 +18,7 @@ Meteor.methods({
         //var deviceToken = 'cMr_muxmFL0:APA91bHbbpocfOFjfh8xzjRUwnYhARy4_kiDDQsL2TfVitw-z8pA8bN4Ah7xJlwzHKskog6xhQEeLdzD9s93io2hDLJRjUoV3hfeFaKRxZTDxyLoXTr27sNKfbEVcB18rF6OuK9eJ4WE'; // kerol
         //var deviceToken = 'd8dTm19zcqQ:APA91bFcX7cob4GoNIFbR9exVdFiIGsHq-IkPAMs_nnTabnf4ggWQv6ag8l7k3eds-o10x04nt9rVOF33U1NqGgoYRmzDGL4PgR3RWvS4aSGIg86rVWT48owJwbFL1I2WZ-fhziTVXhY'; // fahmi
         //var deviceToken = 'fKYSHSTMPyQ:APA91bGlxVkdy6q68IQ8kQ7WEKhLcG_tJ8efK_NXnIDIG4R07uD9HFPifqK4V-MLon7TH5ssLrLzUhgSDEaMmOoR6DxTwVDPartl4N-Idh4qxdPAHY4FZgf1ZGc2fO0jjF9s0a3MNi3S'; //ikhsan
-        
+
         var devices = Devices.find();
 
         devices.forEach(function(device){
@@ -38,13 +38,14 @@ Meteor.methods({
                 }
             };
 
-            fcm.send(message, function(err, response){
+            fcm.send(message, Meteor.bindEnvironment(function(err, response){
                 if (err) {
                     console.log("Something has gone wrong!", err);
+                    // if(device._id) Devices.remove({ _id: device._id });
                 } else {
                     console.log("Successfully sent with response: ", response);
                 }
-            });
+            }));
         });
 	}
 });

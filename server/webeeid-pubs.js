@@ -1,21 +1,23 @@
 Meteor.smartPublish('pendingUsers', function (){
-    this.addDependency('users', '_id', function(user){
-        return Profiles.find({
-            userId: user._id
+    
+        this.addDependency('users', '_id', function(user){
+            return Profiles.find({
+                userId: user._id
+            });
         });
-    });
 
-    return Meteor.users.find({
-        'profile.greeting': {$exists : false}
-    },{
-        fields: {
-            profile: 1,
-            username: 1,
-            roles: 1,
-            webeeidstatus: 1
-        }
-    });
+        return Meteor.users.find({
+            'profile.greeting': {$exists : false}
+        },{
+            fields: {
+                profile: 1,
+                username: 1,
+                roles: 1,
+                webeeidstatus: 1
+            }
+        });
 });
+
 Meteor.publish('pendingUsers-count', function() {
     Counts.publish(this, 'pendingUsers', Meteor.users.find({
         'profile.greeting': {$exists : false}
@@ -26,25 +28,26 @@ Meteor.publish('pendingUsers-count', function() {
 
 
 Meteor.smartPublish('newUsers', function (){
-    this.addDependency('users', '_id', function(user){
-        return Profiles.find({
-            userId: user._id
+    
+        this.addDependency('users', '_id', function(user){
+            return Profiles.find({
+                userId: user._id
+            });
         });
-    });
 
-    return Meteor.users.find({
-        'profile.greeting': {$ne : null},
-        $or: [
-                {'webeeidstatus': {$exists: false}},
-                {'webeeidstatus': 'new'} ]
-    },{
-        fields: {
-            profile: 1,
-            username: 1,
-            roles: 1,
-            webeeidstatus: 1
-        }
-    });
+        return Meteor.users.find({
+            'profile.greeting': {$ne : null},
+            $or: [
+                    {'webeeidstatus': {$exists: false}},
+                    {'webeeidstatus': 'new'} ]
+        },{
+            fields: {
+                profile: 1,
+                username: 1,
+                roles: 1,
+                webeeidstatus: 1
+            }
+        });
 });
 Meteor.publish('newUsers-count', function() {
     Counts.publish(this, 'newUsers', Meteor.users.find({
@@ -58,24 +61,25 @@ Meteor.publish('newUsers-count', function() {
 
 
 Meteor.smartPublish('approvedUsers', function (){
-    this.addDependency('users', '_id', function(user){
-        return Profiles.find({
-            userId: user._id
+    
+        this.addDependency('users', '_id', function(user){
+            return Profiles.find({
+                userId: user._id
+            });
         });
-    });
 
-    return Meteor.users.find({
-        'webeeidstatus': {
-            $in: ['approved', 'accepted']
-        }
-    },{
-        fields: {
-            profile: 1,
-            username: 1,
-            roles: 1,
-            webeeidstatus: 1
-        }
-    });
+        return Meteor.users.find({
+            'webeeidstatus': {
+                $in: ['approved', 'accepted']
+            }
+        },{
+            fields: {
+                profile: 1,
+                username: 1,
+                roles: 1,
+                webeeidstatus: 1
+            }
+        });
 });
 Meteor.publish('approvedUsers-count', function() {
     Counts.publish(this, 'approvedUsers', Meteor.users.find({
@@ -88,24 +92,24 @@ Meteor.publish('approvedUsers-count', function() {
 
 
 Meteor.smartPublish('printedUsers', function (){
-    this.addDependency('users', '_id', function(user){
-        return Profiles.find({
-            userId: user._id
+        this.addDependency('users', '_id', function(user){
+            return Profiles.find({
+                userId: user._id
+            });
         });
-    });
 
-    return Meteor.users.find({
-        'webeeidstatus': {
-            $in: ['printed', 'completed']
-        }
-    },{
-        fields: {
-            profile: 1,
-            username: 1,
-            roles: 1,
-            webeeidstatus: 1
-        }
-    });
+        return Meteor.users.find({
+            'webeeidstatus': {
+                $in: ['printed', 'completed']
+            }
+        },{
+            fields: {
+                profile: 1,
+                username: 1,
+                roles: 1,
+                webeeidstatus: 1
+            }
+        });
 });
 Meteor.publish('printedUsers-count', function() {
     Counts.publish(this, 'printedUsers', Meteor.users.find({
@@ -118,59 +122,68 @@ Meteor.publish('printedUsers-count', function() {
 
 
 Meteor.smartPublish('rejectedUsers', function (){
-    this.addDependency('users', '_id', function(user){
-        return Profiles.find({
-            userId: user._id
+        this.addDependency('users', '_id', function(user){
+            return Profiles.find({
+                userId: user._id
+            });
         });
-    });
 
-    return Meteor.users.find({
-        'webeeidstatus': {
+        return Meteor.users.find({
             'webeeidstatus': 'rejected'
-        }
-    },{
-        fields: {
-            profile: 1,
-            username: 1,
-            roles: 1,
-            webeeidstatus: 1
-        }
-    });
+        },{
+            fields: {
+                profile: 1,
+                username: 1,
+                roles: 1,
+                webeeidstatus: 1
+            }
+        });
 });
+
 Meteor.publish('rejectedUsers-count', function() {
     Counts.publish(this, 'rejectedUsers', Meteor.users.find({
-        'webeeidstatus': {
-            'webeeidstatus': 'rejected'
-        }
+        'webeeidstatus': 'rejected'
     }));
 });
 
-
-
 Meteor.smartPublish('collectedUsers', function (){
-    this.addDependency('users', '_id', function(user){
-        return Profiles.find({
-            userId: user._id
+        this.addDependency('users', '_id', function(user){
+            return Profiles.find({
+                userId: user._id
+            });
         });
-    });
 
-    return Meteor.users.find({
-        'webeeidstatus': {
+        return Meteor.users.find({
             'webeeidstatus': 'collected'
-        }
-    },{
-        fields: {
-            profile: 1,
-            username: 1,
-            roles: 1,
-            webeeidstatus: 1
-        }
-    });
+        },{
+            fields: {
+                profile: 1,
+                username: 1,
+                roles: 1,
+                webeeidstatus: 1
+            }
+        });
 });
 Meteor.publish('collectedUsers-count', function() {
     Counts.publish(this, 'collectedUsers', Meteor.users.find({
-        'webeeidstatus': {
-            'webeeidstatus': 'collected'
-        }
+        'webeeidstatus': 'collected'
     }));
+});
+
+Meteor.smartPublish('updatedUser', function (userId){
+    
+        this.addDependency('users', '_id', function(user){
+            return Profiles.find({
+                userId: user._id
+            });
+        });
+
+        return Meteor.users.find({_id: userId}, {
+            fields: {
+                profile: 1,
+                username: 1,
+                roles: 1,
+                webeeidstatus: 1
+            }
+        });
 });

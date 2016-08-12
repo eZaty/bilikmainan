@@ -24,8 +24,9 @@
 	
 	<div id="startContent"></div>
 
-	{{#if announcementHasPosts _id}}
-	<div class="container-fluid announcementPostCards">
+	{{#if channelHasPosts _id}}
+
+	<div class="container announcementPostCards">
 	    <div class="row fh5co-post-entry">
 	    	{{#each posts _id}}
 	        <div class="col-xs-6 col-sm-6 col-md-4 animate-box">

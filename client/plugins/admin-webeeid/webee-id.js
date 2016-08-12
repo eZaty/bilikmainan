@@ -146,56 +146,30 @@ Template.adminWebeeID.helpers({
     },
 
 	nbUsers: function(){
-		// return Meteor.users.find().count();
         return Counts.get('users');
 	},
 
 	nbwebeeIDPending: function(){
-		// return Meteor.users.find({
-		// 	'profile.greeting': {$exists : false}
-		// }).count();
         return Counts.get('pendingUsers');
 	},
 
 	nbwebeeIDNew: function(){
-		// return Meteor.users.find({
-		// 	 'profile.greeting': {$ne : null},
-		// 	 $or: [
-        //         	 	{'webeeidstatus': {$exists: false}},
-		// 				{'webeeidstatus': 'new'} ]
-		// }).count();
         return Counts.get('newUsers');
 	},
 
 	nbwebeeIDApproved: function(){
-		// return Meteor.users.find({
-		// 	'webeeidstatus': {
-		// 		$in: ['approved','accepted']
-		// 	}
-		// }).count();
         return Counts.get('approvedUsers');
 	},
 
 	nbwebeeIDRejected: function(){
-		// return Meteor.users.find({
-		// 	'webeeidstatus': 'rejected'
-		// }).count();
         return Counts.get('rejectedUsers');
 	},
 
 	nbwebeeIDPrinted: function(){
-		// return Meteor.users.find({
-		// 	'webeeidstatus': {
-		// 		$in: ['printed', 'completed']
-		// 	}
-		// }).count();
         return Counts.get('printedUsers');
 	},
 
 	nbwebeeIDCollected: function(){
-		// return Meteor.users.find({
-		// 	'webeeidstatus': 'collected'
-		// }).count();
         return Counts.get('collectedUsers');
 	},
 
@@ -214,7 +188,7 @@ Template.adminWebeeID.helpers({
 
 Template.adminWebeeID.events({
     'click #tab-new': function() {
-        Meteor.subscribe('newUsers');
+    	Meteor.subscribe('newUsers');
     },
     'click #tab-approved': function() {
         Meteor.subscribe('approvedUsers');
@@ -231,18 +205,47 @@ Template.adminWebeeID.events({
 
 
 	'click .btn-approve': function(e){
+
 		var elem = $(e.currentTarget);
 		var userId = elem.data('userid');
 
+		const selectedUserSubscription = Meteor.subscribe('updatedUser', userId);
+
+		Tracker.autorun(() => {
+		  const isReady = selectedUserSubscription.ready();
+		  // console.log(`Subscription is ${isReady ? 'ready' : 'not ready'}`);  
+		});
+
 		var params = {
-            "webeeidstatus": "approved"
+            "webeeidstatus": "approved" 
         }
-        Meteor.call('updateWebeeIDStatus', userId, params);
+
+        Meteor.call('updateWebeeIDStatus', userId, params, function(error, result){
+			if (error){
+				var msg = 'Failed to approved.';
+				ClientHelper.notify('danger', msg, true);
+			}
+
+			if (result){
+				var msg = 'Approval process successful.';
+				ClientHelper.notify('success', msg, true);
+				NProgress.done();
+			}
+        });
+
+
 	},
 
 	'click .btn-collect': function(e){
 		var elem = $(e.currentTarget);
 		var userId = elem.data('userid');
+
+		const selectedUserSubscription = Meteor.subscribe('updatedUser', userId);
+
+		Tracker.autorun(() => {
+		  const isReady = selectedUserSubscription.ready();
+		  // console.log(`Subscription is ${isReady ? 'ready' : 'not ready'}`);  
+		});
 
 		var params = {
             "webeeidstatus": "collected"
@@ -261,8 +264,15 @@ Template.adminWebeeID.events({
 	},
 
     'click .btn-to-printed': function(e){
-		var elem = $(e.currentTarget);
+    	var elem = $(e.currentTarget);
 		var userId = elem.data('userid');
+
+		const selectedUserSubscription = Meteor.subscribe('updatedUser', userId);
+
+		Tracker.autorun(() => {
+		  const isReady = selectedUserSubscription.ready();
+		  // console.log(`Subscription is ${isReady ? 'ready' : 'not ready'}`);  
+		});
 
 		var params = {
             "webeeidstatus": "printed"
@@ -273,6 +283,13 @@ Template.adminWebeeID.events({
 	'click .btn-reject': function(e){
 		var elem = $(e.currentTarget);
 		var userId = elem.data('userid');
+
+		const selectedUserSubscription = Meteor.subscribe('updatedUser', userId);
+
+		Tracker.autorun(() => {
+		  const isReady = selectedUserSubscription.ready();
+		  // console.log(`Subscription is ${isReady ? 'ready' : 'not ready'}`);  
+		});
 
 		Session.set("currentUserToReject", userId);
 	},
@@ -295,7 +312,6 @@ Template.adminWebeeID.events({
 
 		Meteor.call('sendWebeeIDReminder',function(error, result){
 			if (error){
-				console.log("error", error);
 				var msg = 'Failed to send reminder.';
 				ClientHelper.notify('danger', msg, true);
 			}
@@ -316,7 +332,6 @@ Template.adminWebeeID.events({
 
 		Meteor.call('sendWebeeIDIndividualReminder', userId, function(error, result){
 			if (error){
-				console.log("error", error);
 				var msg = 'Failed to send reminder.';
 				ClientHelper.notify('danger', msg, true);
 			}
@@ -332,6 +347,13 @@ Template.adminWebeeID.events({
     'click .btn-print': function(e){
 		var elem = $(e.currentTarget);
 		var userId = elem.data('userid');
+
+		const selectedUserSubscription = Meteor.subscribe('updatedUser', userId);
+
+		Tracker.autorun(() => {
+		  const isReady = selectedUserSubscription.ready();
+		  // console.log(`Subscription is ${isReady ? 'ready' : 'not ready'}`);  
+		});
 
 		var user = Meteor.users.findOne(userId);
 
@@ -429,7 +451,7 @@ Template.adminWebeeID.events({
 								docx.font(myfont_bold)
 									.fill('#FFFFFF')
 									.fontSize(13)
-                                    .text(mainText, 20, cHeight - 115);
+                                    .text(mainText.toLowerCase(), 20, cHeight - 115);
 
 								docx.rect(0,153,cWidth, 20)
 									.fill('#'+backgroundColor);
@@ -532,7 +554,22 @@ Template.adminWebeeID.events({
 									            "webeeidstatus": "printed"
 									        }
 
-									        Meteor.call('updateWebeeIDStatus', userId, params);
+									        console.log("printed: " + userId);
+
+									        Meteor.call('updateWebeeIDStatus', userId, params, function(error, result){
+												// if (error){
+												// 	console.log("error", error);
+												// 	var msg = 'Failed to update status to "printed"';
+												// 	ClientHelper.notify('danger', msg, true);
+												// }
+
+												// if (result){
+												// 	var notice = ClientHelper.confirm('success', 'Do you want to notify the user?');
+												// 	notice.get().on('pnotify.confirm', function() {
+														
+												// 	});
+												// }
+									        });
 										});
 									});
 								}

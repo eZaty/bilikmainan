@@ -69,8 +69,8 @@ a.btn-more:hover{
 }
 
 .announcementPostCards{
-  margin-top: 0px; 
-  background: rgba(255,255,255,1);
+  margin-top: 30px; 
+  /*background: rgba(255,255,255,1);*/
 }
 .announcementPostCards .card {
   display: block;

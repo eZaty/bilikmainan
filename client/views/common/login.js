@@ -86,7 +86,7 @@ Template.login.events({
             var msg = ClientHelper.alertDanger("Please provide your password");
             $('.alertBox').html(msg);
             NProgress.done();
-        } else if(loginId == 'playroom') {
+        } else if(loginId == 'playroom' || loginId == 'viewer') {
             Meteor.loginWithPassword(loginId, password,
                 function(err){
                     if(err) {

@@ -91,7 +91,11 @@
 
 </style>
 
-    {{> announcementHead}}
+    {{#if isMobileDevice}}
+        <div></div>
+    {{else}}
+        {{> announcementHead}}
+    {{/if}}
 
     {{#if isVideoPost type}}
 
@@ -127,9 +131,14 @@
 
                     <h3>{{formatDateCustom created_at "Do MMM YYYY"}}</h3>
 
-                    <p>
-                        <a href="#" class="btn btn-lg btn-more">Read More</a>
-                    </p>
+                    {{#if isMobileDevice}}
+                        <div></div>
+                    {{else}}
+                        <p>
+                            <a href="#" class="btn btn-lg btn-more">Read More</a>
+                        </p>
+                    {{/if}}
+                    
                 </div>
             </div>
         </div>

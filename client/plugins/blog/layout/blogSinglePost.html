@@ -60,7 +60,11 @@
 
 </style>
 
-    {{> blogHead}}
+    {{#if isMobileDevice}}
+        <div></div>
+    {{else}}
+        {{> blogHead}}
+    {{/if}}
 
     
     <div id="home" class="home" style="background: url('{{blog_post_cover _id}}') no-repeat center center fixed;   display: table;  height: 100%;  position: relative;  width: 100%;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;  background-size: cover;">
@@ -74,9 +78,13 @@
 
                 <h3>{{formatDateCustom created_at "Do MMM YYYY"}}</h3>
 
-                <p>
-                    <a href="#" class="btn btn-lg btn-more">Read More</a>
-                </p>
+                {{#if isMobileDevice}}
+                    <div></div>
+                {{else}}
+                    <p>
+                        <a href="#" class="btn btn-lg btn-more">Read More</a>
+                    </p>
+                {{/if}}
             </div>
         </div>
     </div>

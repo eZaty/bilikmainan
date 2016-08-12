@@ -58,12 +58,12 @@ Template.announcementAllPosts.rendered = function(){
 
 Template.announcementAllPosts.helpers({
 	posts: function(id) {
-	    var announcement = Announcement_Channels.findOne(id);
+	    var channel = Announcement_Channels.findOne(id);
 
-        if (announcement){
+        if (channel){
 			var isEditor = false;
 
-	        var editors = announcement.editors;
+	        var editors = channel.editors;
 
 	        // for (i=0; i<editors.length; i++){
 	        //     if (editors[i].user_id==Meteor.userId()){
@@ -72,7 +72,7 @@ Template.announcementAllPosts.helpers({
 	        // }
 
 	        var params = {
-	            "announcement_id": announcement._id
+	            "channel_id": id
 	        }
 
 	        if (!isEditor){
@@ -89,20 +89,20 @@ Template.announcementAllPosts.helpers({
 	        );
 	        
 	        Session.set("nb_posts", posts.count());
-	        
+
 			return posts;
 			
 		}else{
 
 		}
 	},
-	announcementHasPosts: function(id){
-		var announcement = Announcement_Channels.findOne(id);
+	channelHasPosts: function(id){
+		var channel = Announcement_Channels.findOne(id);
 
-        if (announcement){
+        if (channel){
         	var isEditor = false;
 
-	        var editors = announcement.editors;
+	        var editors = channel.editors;
 			for (i=0; i<editors.length; i++){
 	            if (editors[i].user_id==Meteor.userId()){
 	                isEditor = true;
@@ -110,7 +110,7 @@ Template.announcementAllPosts.helpers({
 	        }
 
 			var params = {
-	            "announcement_id": id
+	            "channel_id": id
 	        }
 
 	        if (!isEditor){

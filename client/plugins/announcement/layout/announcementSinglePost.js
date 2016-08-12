@@ -317,13 +317,17 @@ Template.announcementSinglePost.rendered = function(){
 		},
 
 		isVideoPost: function(type){
-			console.log(type);
+			console.log("type", type);
 			return (type=="video");
 		},
 
 		get_post_video: function(id){
 			var vid_url = announcement_post_video(id);
 			return vid_url;
+		},
+
+		isMobileDevice: function(){
+			return Session.get('isMobileDevice');
 		}
 
 	});

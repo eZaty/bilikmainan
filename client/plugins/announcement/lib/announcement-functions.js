@@ -40,8 +40,7 @@ announcement_post_cover_photo = function(id, size){
 announcement_post_video = function(id){
     var video = Announcement_Videos.findOne({
         announcementPostId: id,
-        fileType: 'announcement_post_video',
-        //status: 'stored'
+        fileType: 'announcement_post_video'
     }, {
         sort: {uploadedAt: -1, limit:1}
     }); 

@@ -10,6 +10,15 @@ Meteor.startup(function(){
               title: "Playroom Admin",
               department: "Service Innovation",
               roles: ['admin']
+          },
+          {
+              name:"Viewer",
+              username: 'viewer',
+              password: 'Viewer!',
+              email: "viewer@packet-1.com",
+              title: "Viewer",
+              department: "Service Innovation",
+              roles: []
           }
     ];
     _.each(users, function (user) {
