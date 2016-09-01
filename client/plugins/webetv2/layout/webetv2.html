@@ -1,0 +1,125 @@
+<template name="webetv2">
+	<!-- <script src="/scripts/jquery.vticker.min.js"></script> -->
+
+	<div class="container" id="tv-root" style="width:100%">
+		<div class="row" style="background-color: #000000; top: 0px; position: fixed; z-index: 1200; width: 100%;">
+			<div style="width:100%; background-color: #000000;">
+				<div style="float:left; width:25%;" >
+					<a href="/webetv2">
+						<img src="/images/patterns/pattern5.png" align="left" style="width:40px; height: 40px; margin-top: 20px; margin-left:20px;">
+					</a>
+				</div>
+				<div style="float:left; width:50%; text-align:center; padding-top: 15px;">
+					<span style="font-weight:bolder; font-size: 40px; color: #FFF; font-family: 'Panton ExtraBold';">webe</span><span style="font-weight:normal; font-size: 20px; color: #FFF; top: -15px; left: -5px; position: relative;">&trade;</span><span style="font-weight:normal; font-size: 40px; color: #FFF; left: -5px; position: relative;">playroomTV</span>
+				</div>
+				<div style="float:right; width:25%; color: #FFFFFF;">
+					<div class="clock">
+						<div id="Date">xxx</div>
+
+						<ul>
+							<li id="hours"> </li>
+						    <li id="point">:</li>
+						    <li id="min"> </li>
+						    <li id="point">:</li>
+						    <li id="sec"> </li>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div id="webetv-carousel" class="carousel slide" data-ride="carousel" style="width:100%; height: 100%; float: left; background: #000000">
+		  
+		  	<div class="carousel-inner" role="listbox">
+			  	{{#each contents}}
+					<div class="item" id="item-{{postId}}">
+						{{#if isVideo this}}
+							<!-- <iframe title="YouTube video player" class="carousel-vid" id="vid-{{postId}}" type="text/html" src="http://www.youtube.com/embed/W-Q7RMpINVo?rel=0&autoplay=1&loop=1" frameborder="0" allowFullScreen></iframe> -->
+							<video class="carousel-vid" id="vid-{{postId}}">
+							  <source src="{{getVideo this}}" type="video/mp4">
+								Video not supported...
+							</video>
+						{{else}}
+				      		<img class="carousel-img" src="{{getPhoto this}}" alt="{{title}}">
+				      	{{/if}}
+				      <div class="carousel-caption" style="	vertical-align: middle;
+														    font-size:22px; width:100%; 
+														    background-color: rgba(0,0,0,0.7); 
+														    left: 0px; 
+														    bottom: 0px;">
+				        <span>
+				        	{{title}}
+			        	</span>
+				        <br>
+				        <span style="font-size:16px; color: #EEE; font-weight: normal">{{description}}</span>
+				      </div>
+				    </div>
+				{{/each}}
+		  		</div>
+			</div>
+		</div>
+
+		<div class="row" style="background: #4682b4; padding-top: 20px;">
+			<div id="webetv-comments" style="background: #4682b4; width: 100%; padding: 0px; height: 1500px;">
+				<!-- <div style="background: #000000; color: #ffff00; top: 5px; left: 5px; padding: 5px;">
+					<img src="/images/patterns/pattern2.png" align="left" style="width:15px; height: 15px; margin: 5px;"> Comments
+				</div> -->
+				<ul>
+				  {{#transition in="bounceIn" out="bounceOut"}}
+				    {{#if Template.subscriptionsReady}}
+		                {{#each getComments}}
+		                <div class="row" style="padding: 10px;">
+
+							<div class="col-sm-1 col-md-1" style="padding-top: 13px">
+								<div class="thumbnail">
+									<img class="img-responsive user-photo" src="{{profile_s3 userId}}">
+								</div><!-- /thumbnail -->
+							</div><!-- /col-sm-1 -->
+
+							<div class="col-sm-11 col-md-11">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<div class="row">
+											<div style="float:left; font-weight:bolder; font-size: 25px; font-family:'Panton ExtraBold'">{{getFullname userId}}</div>
+											<div style="float:right; font-weight:bolder; font-size: 20px; font-family:'Panton Bold'">{{commentTimestamp createdAt}}</div>
+										</div>
+									</div>
+									<div class="panel-body">
+										<span style="font-size: 20px;">{{message}}</span>
+									</div><!-- /panel-body -->
+								</div><!-- /panel panel-default -->
+							</div><!-- /col-sm-5 -->
+						</div>
+				    	{{/each}}
+	                {{/if}}
+				  {{/transition}}
+				</ul>
+
+		        
+			</div>
+		</div>
+
+		<div class="row">
+			<div id="webetv-ticker" style="height: 200px; background: #FF7700; bottom: 0px; position: fixed; width:100%; ">
+				<!-- <div style="background: #000000; color: #ffff00;"><img src="/images/patterns/pattern1.png" align="left" style="width:15px; height: 15px; margin: 5px; "> What's Happening?</div> -->
+				<div id="newsticker" style="margin: 10px">
+					<ul>
+					{{#each RSSNewsItems}}
+						<li style="height: 200px;">
+						<b style="font-size:30px; color: #440044; font-weight:bolder; font-family: 'Panton ExtraBold'">{{title}}</b>
+						<br>
+						<i style="font-size:18px; color: #444;">{{formatDateCustom pubDate "Do MMM YYYY"}}</i>
+						<br>
+						<span style="font-size:22px; color: #000;">
+						{{description}}
+						</span>
+						</li>
+					{{/each}}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

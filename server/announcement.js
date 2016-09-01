@@ -263,19 +263,6 @@ Meteor.methods({
         }
 
         var data = merge2JsonObjects(params, audit);
-        // var data2 = {
-        //     channelId: data.channel_id,
-        //     description: data.content,
-        //     updatedAt: data.updated_at
-        // }
-        //
-        // // console.log('data--', id, data);
-        //
-        // Timelines.update({
-        //     postId: id
-        // }, {
-        //     $set: data2
-        // });
 
         return Announcement_Posts.update(id, {
             $set: data
@@ -616,7 +603,7 @@ Meteor.methods({
             $set: params
         });
 
-        console.log('publish announcement: ' + res);
+        //console.log('publish announcement: ' + res);
 
         if (res){
             var img;
@@ -737,8 +724,7 @@ Meteor.methods({
                     channelPath: channel.path, //Meteor.user().profile.nickName,
                     announcementType: post.type,
                     title: post.title,
-                    description: (post.content.replace(rex , "")).replace(/\ +/g, ' ').trim(),
-                    // description: (post.content.replace(rex , "")).substring(0,100).replace(/\s+/g, ' ').trim() + " ...",
+                    description: (post.content.replace(rex , "")).replace(/\s+/g, ' ').trim(),
                     tags: post.tags,
                     photoKey: vid.copies.announcementVideos.key
                 }, function(error, result){
@@ -756,9 +742,8 @@ Meteor.methods({
                     channelId: channel._id, //Meteor.userId(),
                     channelPath: channel.path, //Meteor.user().profile.nickName,
                     announcementType: post.type,
-                    title: post.title.replace(/\ +/g, ' ').replace(/\n+/g, '\n').trim(),
-                    description: (post.content.replace(rex , "")).replace(/\ +/g, ' ').replace(/\n+/g, '\n').trim(),
-                    // description: (post.content.replace(rex , "")).replace(/\s+/g, ' ').trim().substring(0,120) + " ...",
+                    title: post.title,
+                    description: (post.content.replace(rex , "")).replace(/\s+/g, ' ').trim(), //.substring(0,120) + " ...",
                     tags: post.tags,
                     photoKey: img.copies.announcementImages.key
                 }, function(error, result){

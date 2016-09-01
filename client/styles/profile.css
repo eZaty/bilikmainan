@@ -71,7 +71,7 @@
     left: 150px;
     background-color: #fff;
 }
-.file-preview-frame {
+#profInfo .file-preview-frame {
     width: 100% !important;
 }
 .profile-thumb {

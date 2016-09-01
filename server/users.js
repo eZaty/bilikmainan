@@ -166,7 +166,7 @@ Meteor.methods({
 
         if (params.webeeidstatus=="rejected"){
 
-            // send email
+            //send email
             var dataContext={
                 userNickname: user.profile.nickName,
                 comment: params.webeeidcomment
@@ -203,15 +203,15 @@ Meteor.methods({
         // }
 
         if (params.webeeidstatus=="printed"){
-
+        
             // send email
             var dataContext={
               userNickname: user.profile.nickName,
             };
-
+        
             SSR.compileTemplate('emailTemplate', Assets.getText('emailwebeeIDTemplate-printed.html'));
             var html = SSR.render('emailTemplate', dataContext);
-
+        
             Email.send({
                 from: "webe Playroom <playroom@webe.com.my>",
                 to: user.profile.email,

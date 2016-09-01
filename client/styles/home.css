@@ -25,26 +25,26 @@
 }
 @media (min-width: 769px){
 	.vid {
-		height: 333px;
+		height: 443px;
 	}
 	.vid video {
-		top: -133px;
+		top: -20px;
 	}
 }
 @media (min-width: 1025px) {
 	.vid {
-		height: 430px;
+		height: 540px;
 	}
 	.vid video {
-		top: -172px;
+		top: -60px;
 	}
 }
 @media (min-width: 1200px) {
 	.vid {
-		height: 504px;
+		height: 614px;
 	}
 	.vid video {
-		top: -200px;
+		top: -90px;
 	}
 }
 .vid {
@@ -257,7 +257,8 @@ span.atwebe {
 	min-height: 200px;
 	padding: 20px;
 	background-color: #17294E;
-	margin-top: 76px;
+	/*margin-top: 76px;*/
+	margin-top: 10px;
 }
 
 
@@ -289,13 +290,15 @@ span.atwebe {
 }
 
 .main-footer {
-	min-height: 250px;
+	/*min-height: 250px;*/
 }
 .main-footer .pattern {
 	background: top center url('/images/footer.png') no-repeat;
 	background-size: 100% auto;
 	margin-top: 10px;
-	min-height: 88px;
+	margin-bottom: 0px;
+	/*min-height: 88px;*/
+	min-height: 55px;
 }
 .main-footer .text-muted {
 	color: #D6D6E0;

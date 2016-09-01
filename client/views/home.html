@@ -10,89 +10,142 @@
             <!-- <source src="https://webe-community-video.s3.amazonaws.com/webe/video/webe_home.webm" type="video/webm">
             <source src="https://webe-community-video.s3.amazonaws.com/webe/video/webe_home.mp4" type="video/mp4">
             <source src="https://webe-community-video.s3.amazonaws.com/webe/video/webe_home.ogv" type="video/ogv"> -->
-            <source src="/videos/webe_playroom.mp4" type="video/mp4" />
-            <source src="/videos/webe_playroom.webm" type="video/webm" />
-            <source src="/videos/webe_playroom.ogv" type="video/ogv" />
+            <source src="http://webe-playroom.s3.amazonaws.com/videos/comms/Webe%20playkit%20video%20720.mp4" type="video/mp4" />
+            <!-- <source src="/videos/webe_playroom.webm" type="video/webm" />
+            <source src="/videos/webe_playroom.ogv" type="video/ogv" /> -->
         </video>
     </section>
     <!-- /content -->
 
 
-    <div class="content">
-        <div class="container">
-            <h2 class="text-center content-group">
-                <img src="{{quoteImage}}">
-            </h2>
+    <h2 class="text-center" style="margin-top: 10px;">
+        <img src="{{quoteImage}}">
+    </h2>
 
+    <div class="content" style="padding: 0px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12" id="latest-announcement">
+                    <!-- <h1 style="background: url('/images/patterns/pattern1.png') no-repeat; background-size: 30px auto; padding-left: 40px; color: rgb(240, 90, 41)">  Latest Announcements</h1> -->
+                    {{#each announcements}}
+                    <div class="col-md-3 col-sm-6" style="padding: 15px;">
+                        <div class="panel panel-default announcement-card" style="padding:0px;">
+                              <div class="panel-body" style="padding:0px">
+                                <div class="announcement-cover" style="width: 100%; height: 200px; background: url('{{announcement_post_cover _id}}') no-repeat center; background-size: cover;">
+                                </div>
+                              </div>
+                              <div class="panel-footer" style="padding: 0px;">
+                                    <div class="home-announcement-title" style="width:100%; padding: 10px; font-size: 20px; font-weight: bolder; font-family: 'Panton Black'">
+                                        {{title}}
+                                    </div>
+                                    <div class="home-announcement-posted-by" style="text-align:right; width: 100%; padding-left: 10px; padding-right: 10px; margin-top: -10px; margin-bottom: 25px;">
+                                        posted on {{formatDateCustom created_at "DD/MM/YYYY"}} by <b style="color:#FF0080; font-family: 'Panton ExtraBold'">{{user_nickname created_by}}</b>
+                                    </div>
+                                    <div>
+                                        <a class="btn" style="width:100%; background-color:#006633; color: #FFFFFF;" href="/{{announcement_root}}/{{announcement_channel_path channel_id}}/{{slug}}">read more</a>
+                                    </div>
+                                
+                              </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                
+            </div>
+        <!-- </div>
+    </div>
+
+    <div class="content">
+        <div class="container"> -->
             <!-- modules block -->
             <div id="modules-block" class="row">
                 <!-- first row -->
-                <div class="col-md-4">
+                <div class="col-md-30">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <a href="https://magz-playroom.webe.com.my/news" data-internalonly="news" target="_blank" class="module module-internal col-md-12">
-                                    <div class="module-highlights lazy" data-src="/images/modules/highlights.jpg">
-                                        <div class="bg-layer">
-                                            highlights
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <a href="/webeme" class="module col-md-12">
-                                    <div class="module-webeme">
-                                        <div class="bg-layer">
-                                            webeme
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        <a href="/playbook" target="_blank" class="module col-md-12">
-                            <div class="module-playbook tall">
+                        <a href="https://magz-playroom.webe.com.my/news" data-internalonly="news" target="_blank" class="module module-internal col-md-12">
+                            <div class="module-highlights lazy" data-src="/images/modules/highlights.jpg">
                                 <div class="bg-layer">
-                                    playbook
+                                    highlights
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="buzzhcd" href="http://packetnet.greenpacket.com/HCDPortal/Lists/Ticketing%20System%20for%20HCD/AllItems.aspx" class="module module-internal col-md-12">
+                            <div class="module-buzz">
+                                <div class="bg-layer">
+                                    buzzhcd
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="engage+u" href="https://magz-playroom.webe.com.my/engage" class="module module-internal col-md-6">
+                            <div class="module-engage">
+                                <div class="bg-layer">
+                                    engage+u
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="scool" href="http://packetnet.greenpacket.com/lnd/default2.aspx" class="module module-internal col-md-6">
+                            <div class="module-scool">
+                                <div class="bg-layer">
+                                    scool
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-15">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <a href="https://magz-playroom.webe.com.my/marketbeats" data-internalonly="marketbeats" target="_blank" class="module module-internal col-md-12">
-                                    <div class="module-marketbeats">
-                                        <div class="bg-layer">
-                                            marketbeats
-                                        </div>
-                                    </div>
-                                </a>
+                        <a href="/playbook" target="_blank" class="module col-md-12">
+                            <div class="module-playbook">
+                                <div class="bg-layer">
+                                    playbook
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <a href="http://ccpuan.com" target="_blank" class="module col-md-12">
-                                    <div class="module-ccpuan">
-                                        <div class="bg-layer">
-                                            cc's blog
-                                        </div>
-                                    </div>
-                                </a>
+                        </a>
+                        <a target="_blank" href="http://www.jobstreet.com.my/career/webe.htm" class="module col-md-12">
+                            <div class="module-career tall">
+                                <div class="bg-layer">
+                                    career
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
+                <div class="col-md-30">
+                    <div class="row">
+                        <a href="https://magz-playroom.webe.com.my/marketbeats" data-internalonly="marketbeats" target="_blank" class="module module-internal col-md-12">
+                            <div class="module-marketbeats">
+                                <div class="bg-layer">
+                                    marketbeats
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="facilities" href="http://packetnet.greenpacket.com/effi" class="module module-internal col-md-6">
+                            <div class="module-facilities">
+                                <div class="bg-layer">
+                                    facilities
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="toolkit" href="http://packetnet.greenpacket.com/emptoolkit/default.aspx" class="module module-internal col-md-6">
+                            <div class="module-toolkit">
+                                <div class="bg-layer">
+                                    toolkit
+                                </div>
+                            </div>
+                        </a>
+                        <a target="_blank" data-internalonly="selfservice" href="http://192.168.250.91/eSolution/Login.aspx" class="module module-internal col-md-12">
+                            <div class="module-selfservice">
+                                <div class="bg-layer">
+                                    selfservice
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
             </div>
             <!-- /modules block -->
-
         </div>
     </div>
 

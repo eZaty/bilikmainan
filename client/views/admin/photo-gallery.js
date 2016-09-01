@@ -1,41 +1,3 @@
-var Helpers = {
-	checkS3: function(fileObj) {
-		var gallery = Galleries.findOne(fileObj._id);
-		if(gallery.copies) {
-			if(gallery.copies.galleryImages) {
-
-				Meteor.call('addTimeline', {
-					collection: 'galleries',
-					postId: fileObj._id,
-					createdAt: gallery.uploadedAt,
-					userId: Meteor.userId(),
-					userName: Meteor.user().profile.nickName,
-					title: fileObj.title,
-					description: fileObj.description,
-					photoKey: gallery.copies.galleryImages.key
-				});
-
-				var prms = {
-	                'title': fileObj.title,
-	                'type': 'New Photo'
-	            }
-
-	            Meteor.call('pushNotification', prms);
-
-				return null;
-			} else {
-				setTimeout(function () {
-					Helpers.checkS3(fileObj);
-				}, 1000);
-			};
-		} else {
-			setTimeout(function () {
-				Helpers.checkS3(fileObj);
-			}, 1000);
-		}
-	}
-}
-
 Template.adminPhotoGallery.onRendered(function() {
 	ClientHelper.activeMenu('adminPhotoGallery', 'adminMobile');
 	ClientHelper.startLazy();
@@ -110,28 +72,14 @@ Template.adminPhotoGallery.onRendered(function() {
 		width: 'auto'
 	});
 
-	$('.file-input').fileinput({
-		browseLabel: 'Browse',
-		browseClass: 'btn btn-default',
-		removeLabel: '',
-		uploadAsync: true,
-		browseIcon: '<i class="icon-plus22 position-left"></i> ',
-		removeClass: 'btn btn-danger btn-icon',
-		removeIcon: '<i class="icon-cancel-square"></i> ',
-		layoutTemplates: {
-			caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' + '<span class="icon-file-plus kv-caption-icon"></span><div class="file-caption-name"></div>\n' + '</div>'
-		},
-		initialCaption: "No file selected",
-		allowedFileExtensions: ["jpg", "jpeg", "gif", "png"]
-	});
-
+	$('.file-input').fileinput();
 });
 
 Template.adminPhotoGallery.helpers({
-	galleries: function() {
-		return Galleries.find({}, {
+	albums: function() {
+		return Albums.find({}, {
 			sort: {
-				uploadedAt: -1
+				created_at: -1
 			}
 		});
 	},
@@ -163,6 +111,22 @@ Template.adminPhotoGallery.helpers({
 		}
 	},
 
+	getPhotosCount: function(id) {
+		return Galleries.find({album_id: id}).count();
+	},
+
+	getFirstPhotoThumb: function(id) {
+		var photo = Galleries.findOne({album_id: id},
+			{
+				sort: {
+					uploadedAt: 1,
+					limit: 1
+				}
+			});
+
+		return photo.S3Url('galleryThumbs');
+	},
+
 	getFormattedSize: function(size) {
 		return (parseInt(size)/1024).toFixed(2);
 	}
@@ -173,56 +137,131 @@ Template.adminPhotoGallery.events({
 		e.preventDefault();
 	},
 
+	'change #upload-photo': function(e){
+		if ($('#upload-photo').get(0).files.length<=0){
+			$('#btnUpload').attr('disabled','disabled');
+		}
+		else{
+			$('#btnUpload').removeAttr('disabled');
+		}
+	},
+
 	'submit #form-photo': function(e) {
 		e.preventDefault();
 		var elem = $(e.currentTarget);
 		NProgress.start();
 		if ($('#upload-photo').val() != ''){
-			var file = $('#upload-photo').get(0).files[0];
-			var newFile = new FS.File(file);
-			newFile.userId = Meteor.userId();
-			newFile.title = $('#title').val();
-			// newFile.video = $('#video').val();
-			newFile.description = $('#description').val();
+			var d = new Date().getTime();
 
-			Galleries.insert(newFile, function(err, fileObj){
-				if(err) console.log(err);
-				else {
-					var tags = $('#tags').val().trim().split(",");
+			var album_uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+				var r = (d + Math.random()*16)%16|0;
+				d = Math.floor(d/16);
+				return (c=='x' ? r:(r&0x7|0x8)).toString(16);
+			});
 
-					if (tags.length>0){
-						for(i=0; i< tags.length; i++){
-							var tag = tags[i].trim();
-							if (tag != ""){
-								var params = {
-									tag: tag,
-									obj: 'gallery-photo',
-									obj_id: fileObj._id
-								}
+			var params = {
+				title: $('#title').val()
+			}
 
-								Meteor.call('addTag', params, function(error, result){
-									if(error){
-										console.log("error adding tag: " + tag, error);
-									}
-									if(result){
-										elem[0].reset();
-										$('#uniform-upload-photo .filename').html('No file selected');
-										$('.btn-close').click();
-										$.uniform.update();
-									}
-								});
+			Meteor.call('addAlbum', params, function(error, result){
+				if (error){}
+
+				if (result){
+					var album = Albums.findOne(result);
+
+					var uploadedPhotos = [];
+
+					for (i=0; i<$('#upload-photo').get(0).files.length; i++){
+						var file = $('#upload-photo').get(0).files[i];
+						var newFile = new FS.File(file);
+						newFile.userId = Meteor.userId();
+						newFile.album_id = album._id;
+
+						Galleries.insert(newFile, function(err, fileObj){
+							if(err){
+								uploadedPhotos.push(null);
+								console.log(err);
 							}
-						}
-					} else {
-						elem[0].reset();
-						$('#uniform-upload-photo .filename').html('No file selected');
-						$('.btn-close').click();
-						$.uniform.update();
+							else {
+								
+								// var tags = $('#tags').val().trim().split(",");
+
+								// if (tags.length>0){
+								// 	for(i=0; i< tags.length; i++){
+								// 		var tag = tags[i].trim();
+								// 		if (tag != ""){
+								// 			var params = {
+								// 				tag: tag,
+								// 				obj: 'gallery-photo',
+								// 				obj_id: fileObj._id
+								// 			}
+
+								// 			Meteor.call('addTag', params, function(error, result){
+								// 				if(error){
+								// 					console.log("error adding tag: " + tag, error);
+								// 				}
+								// 				if(result){
+								// 					elem[0].reset();
+								// 					$('#uniform-upload-photo .filename').html('No file selected');
+								// 					$('.btn-close').click();
+								// 					$.uniform.update();
+								// 				}
+								// 			});
+								// 		}
+								// 	}
+								// } else {
+								// 	elem[0].reset();
+								// 	$('#uniform-upload-photo .filename').html('No file selected');
+								// 	$('.btn-close').click();
+								// 	$.uniform.update();
+								// }
+								var intervalHandle = Meteor.setInterval(function () {
+                                    if (fileObj.hasStored("galleryImages")) {
+                                        var photo = {
+											key: fileObj.copies.galleryImages.key
+										}
+
+										uploadedPhotos.push(photo);
+
+										Meteor.clearInterval(intervalHandle);
+                                    }
+                                }, 1000);
+							}
+						});
 					}
 
-					Helpers.checkS3(fileObj);
+					var intervalHandle2 = Meteor.setInterval(function () {
+                        if (uploadedPhotos.length>=$('#upload-photo').get(0).files.length) {
+                            Meteor.call('addTimeline', {
+								collection: 'albums',
+								postId: album._id,
+								albumTitle: album.title,
+								createdAt: album.created_at,
+								userId: Meteor.userId(),
+								userName: Meteor.user().profile.nickName,
+								photos: uploadedPhotos
+							});
+
+							var prms = {
+				                'title': result.title,
+				                'type': 'New Photo Album'
+				            }
+				            
+				            //Meteor.call('pushNotification', prms);
+
+				            elem[0].reset();
+				            var msg = 'Album successfully created.';
+							ClientHelper.notify('success', msg, true);
+							$('#uniform-upload-photo .filename').html('No file selected');
+							$('.btn-close').click();
+							$.uniform.update();
+
+							Meteor.clearInterval(intervalHandle2);
+                        }
+                    }, 1000);
 				}
 			});
+
 			NProgress.done();
 		}
 	},
@@ -240,21 +279,21 @@ Template.adminPhotoGallery.events({
 		}
 	},
 
-	'click .delete-photo': function(e) {
+	'click .delete-album': function(e) {
 		e.preventDefault();
 		var elem = $(e.currentTarget);
-		var galleryId = elem.data('id');
-		var notice = ClientHelper.confirm('danger', 'Are you sure want to delete this photo?');
+		var albumId = elem.data('id');
+		var notice = ClientHelper.confirm('danger', 'Are you sure want to delete this album?');
 		notice.get().on('pnotify.confirm', function() {
-			Meteor.call('deleteGallery', galleryId, function(error, result){
+			Meteor.call('deleteAlbum', albumId, function(error, result){
 				if(error) {
 					console.log("error", error);
-					var msg = 'Failed to delete photo.';
+					var msg = 'Failed to delete album.';
 					ClientHelper.notify('danger', msg, true);
 				}
 				if(result){
-					Meteor.call('deleteTimeline', galleryId);
-					var msg = 'Photo has been removed from gallery.';
+					
+					var msg = 'Album has been removed.';
 					ClientHelper.notify('success', msg, true);
 				}
 			});

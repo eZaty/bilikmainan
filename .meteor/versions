@@ -154,4 +154,5 @@ underscorestring:underscore.string@3.3.4
 url@1.0.10
 webapp@1.2.9_1
 webapp-hashing@1.0.9
+webtempest:animate@0.1.9
 wizonesolutions:underscore-string@1.0.0

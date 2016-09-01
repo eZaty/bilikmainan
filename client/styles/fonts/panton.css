@@ -40,3 +40,24 @@
   font-weight: bold;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Panton ExtraBold';
+  src: url('fonts/panton/Panton-ExtraBold.ttf')  format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Panton Black';
+  src: url('fonts/panton/Panton-Black.ttf')  format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Panton Heavy';
+  src: url('fonts/panton/Panton-Heavy.ttf')  format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}

@@ -37,15 +37,24 @@ Meteor.methods({
         var index = 0;
 
         _.each(feedData.items, function(item){
-            console.log(item.title);
+            //console.log(item);
 
-            var pubDate = item.pubDate;
+            //var pubDate = new Date().toJSON().slice(0,10);
+
+            var pubDate = new Date();
+            //var pubDate = moment(date); //.format("DD/MM/YYYY");
+            
+            //var pubDate = new Date();//""; //item.pubDate;
+
+            console.log("date: " + pubDate);
 
             var newsItemCount = RSS_News.find({
                 'pubDate': pubDate
             }).count();
 
             if (newsItemCount==0){
+                item.pubDate = pubDate;
+                
                 RSS_News.insert(item);
             }
         });

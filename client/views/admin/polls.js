@@ -7,6 +7,10 @@ Template.adminPolls.helpers({
 		return Polls.find();
 	},
 
+	pollLength: function() {
+		return 45;
+	},
+
 	getUser: function(userId) {
 		var usr = Meteor.users.findOne(userId);
 		if(usr != undefined) return usr.profile.nickName;
@@ -20,7 +24,7 @@ Template.adminPolls.helpers({
 Template.adminPolls.events({
 
 	'submit #form-submit': function(e) {
-		console.log('masuk');
+		// console.log('masuk');
 		e.preventDefault();
 		var elem = $(e.currentTarget);
 		NProgress.start();
