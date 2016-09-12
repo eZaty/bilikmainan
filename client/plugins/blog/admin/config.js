@@ -9,12 +9,13 @@ Router.route('/' + BLOG_CONFIG.root + '/:blog/:slug', {
                     Meteor.subscribe('allUsers'),
                     Meteor.subscribe('blog_images'),
                     Meteor.subscribe('profiles'),
+                    Meteor.subscribe('attachments'),
                     IRLibLoader.load('/scripts/spectrum.js'),
                     IRLibLoader.load('/scripts/fileinput.min.js')
                 ];
     },
     data: function(){
-        if (!this.ready()) return;
+        //if (!this.ready()) return;
 
         Session.set('isMobileDevice', false);
 
@@ -84,6 +85,7 @@ Router.route('/' + BLOG_CONFIG.root + '/:blog/:slug/:userId/:deviceToken', {
                     Meteor.subscribe('allUsers'),
                     Meteor.subscribe('blog_images'),
                     Meteor.subscribe('profiles'),
+                    Meteor.subscribe('attachments'),
                     IRLibLoader.load('/scripts/spectrum.js'),
                     IRLibLoader.load('/scripts/fileinput.min.js')
                 ];
@@ -175,7 +177,8 @@ Router.route('/' + BLOG_CONFIG.root + '/:blog', {
             Meteor.subscribe('blog_posts'),
             Meteor.subscribe('allUsers'),
             Meteor.subscribe('blog_images'),
-            Meteor.subscribe('profiles')
+            Meteor.subscribe('profiles'),
+            Meteor.subscribe('attachments')
             ];
     },
     data: function(){

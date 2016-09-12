@@ -76,25 +76,20 @@ Template.home.helpers({
         return photos;
     },
 
-    substring: function(title) {
-        var max = 50;
-        return title.length > max ? title.substring(0, max) + '...' : title;
-    },
-
     posts: function() {
         var posts = Blog_Posts.find(
             {
                 status: "published"
-            },
+            }, 
             {
-                sort:
+                sort: 
                 {
                     created_at: -1
                 },
                 limit: 2
             }
         );
-
+        
         return posts;
     },
 
@@ -102,16 +97,16 @@ Template.home.helpers({
         var posts = Announcement_Posts.find(
             {
                 status: "published"
-            },
+            }, 
             {
-                sort:
+                sort: 
                 {
                     created_at: -1
                 },
                 limit: 4
             }
         );
-
+        
         return posts;
     }
 });

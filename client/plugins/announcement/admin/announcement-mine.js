@@ -194,7 +194,8 @@ Template.adminMyAnnouncement.events({
 		}
 
 		if (mode == "create"){
-			params.content = '<p>Start editing here...</p>';
+			//params.content = '<p>Start editing here...</p>';
+			params.content = '';
 
 			Meteor.call('addAnnouncementPost', params, function(error, result){
 				if(error){

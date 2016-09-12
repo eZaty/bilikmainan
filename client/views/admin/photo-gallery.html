@@ -8,7 +8,7 @@
 			</div>
 			<div class="heading-elements">
 				<div class="heading-btn-group">
-					<a href="#" data-toggle="modal" data-target="#modal-create" class="btn bg-blue btn-labeled heading-btn"><b><i class="icon-task"></i></b> Add album</a>
+					<a href="#" data-toggle="modal" data-target="#modal-create" class="add-album btn bg-blue btn-labeled heading-btn"><b><i class="icon-task"></i></b> Add album</a>
 				</div>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 						</td>
 						<td><a href="#">{{album.title}}</a></td>
 						<td><a href="#">{{getUser album.created_by}}</a></td>
-						<td>{{formatDate album.created_at}}</td>
+						<td>{{formatDateCustom album.created_at "DD/MM/YYYY"}}</td>
 						<td>
 							{{getPhotosCount album._id}}
 							<!-- {{getFormattedSize gallery.copies.galleryImages.size}} KB
@@ -67,11 +67,15 @@
 									</a>
 
 									<ul class="dropdown-menu dropdown-menu-right">
-										<!-- <li><a href="#"><i class="icon-pencil7"></i> Edit file</a></li>
-										<li><a href="#"><i class="icon-copy"></i> Copy file</a></li>
-										<li><a href="#"><i class="icon-eye-blocked"></i> Unpublish</a></li>
-										<li class="divider"></li> -->
-										<li><a href="#" class="delete-album" data-id="{{album._id}}"><i class="icon-bin"></i> Move to trash</a></li>
+										<li><a href="#" data-toggle="modal" data-target="#modal-create" class="edit-album" data-id="{{album._id}}"><i class="icon-pencil pull-right"></i> Edit Album</a></li>
+
+										{{#if isPublished album._id}}
+											<li><a href="#" class="unpublish" data-id="{{album._id}}"><i class="icon-star pull-right"></i> Unpublish</a></li>
+										{{else}}
+											<li><a href="#" class="publish" data-id="{{album._id}}"><i class="icon-star pull-right"></i> Publish</a></li>
+										{{/if}}
+
+										<li><a href="#" class="delete-album" data-id="{{album._id}}"><i class="icon-bin"></i> Remove Album</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -97,16 +101,27 @@
 					</div>
 
 					<div class="modal-body">
+						<h6 class="text-semibold">Channel</h6>
+						<select id="channel" class="form-control">
+							<option value="-1" selected="selected">Select a channel</option>
+							{{#each channels}}
+							<option value="{{_id}}">{{title}}</option>
+							{{/each}}
+						</select>
+
 						<h6 class="text-semibold">Title</h6>
 						<input id="title" type="text" value="" class="form-control" placeholder="Album title">
 
 						<h6 class="text-semibold">Photos</h6>
-						<input id="upload-photo" name="upload-photo[]" type="file" class="file-input" data-show-upload="false" multiple>
+						<input id="upload-photo" name="upload-photo[]" type="file" class="file-input" data-show-upload="false" data-allowed-file-extensions='["png", "jpg", "jpeg", "gif", "tiff"]' multiple>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-close btn-link" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="btnUpload" disabled="disabled">Upload</button>
+                        <!-- <button type="submit" class="btn btn-primary" id="btnUpload" disabled="disabled">Upload</button> -->
+                        <button type="submit" class="btn btn-primary" id="btnUpload">Create</button>
+
+                        <input type="hidden" id="mode" value="create">
                     </div>
                 </form>
             </div>

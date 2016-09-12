@@ -120,3 +120,53 @@ Template.registerHelper('isAdminWebeeID', function(id) {
         return Roles.userIsInRole(Meteor.userId(), ['admin', 'admin-webeeid']);
     }
 });
+
+Template.registerHelper('channel_cover', function(id){
+    channel_cover_photo(id,'full');
+});
+
+Template.registerHelper('channel_path', function(id){
+    var channelId = id;
+
+    if (!id){
+        channelId = Session.get('selectedChannelId');
+    }
+    
+    var channel = Channels.findOne(channelId);
+
+    if (channel){
+        return channel.path;
+    }else{
+        return '[undefined]';
+    }
+});
+
+Template.registerHelper('getChannelName', function(id){
+    var channel = Channels.findOne(id);
+
+    if (channel){
+        return channel.title
+    }else{
+        return "-"
+    }
+});
+
+// bulletin_channel_footer_photo = function(id, size){
+//     var photo = Bulletin_Images.findOne({
+//         channelId: id,
+//         fileType: 'bulletin_channel_footer_photo',
+//         //status: 'stored'
+//     }, {
+//         sort: {uploadedAt: -1, limit:1}
+//     });
+
+//     if (photo) {
+//         if(size == 'full')
+//             return photo.S3Url('bulletinImages');
+//         else
+//             return photo.S3Url('bulletinThumbs');
+//         //return '/cfs/files/images/' + photo._id + '?store='+type;
+//     }else{
+//         return '/images/placeholder.jpg';
+//     }
+// }

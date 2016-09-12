@@ -138,12 +138,19 @@
 								<img class="img-responsive" style="width:320px; height:240px" id="preview-cover-photo" src="/images/placeholder.jpg">
 							</div>
 							<div class="col-sm-12 col-md-6 col-lg-6">
+								<h6 class="text-semibold">Attachment</h6>
+								<input type="file" id="post-attachment" class="form-control" disabled>
+								<span class="help-block">Accepted formats: zip, docx, doc, pdf, xlsx, xls, ppt, pptx. Max file size 20Mb. If you need to upload multiple files, please put them into a zip file.</span>
+								<span style="color: red; font-weight: bold" id="attachment-msg"></span>
+								<div id="currentAttachment"></div>
+							</div>
+							<!-- <div class="col-sm-12 col-md-6 col-lg-6">
 								<h6 class="text-semibold">Attachment(s)</h6>
 								<span class="help-block">Accepted formats: zip, docx, pdf, xlsx, pptx. Max file size 10Mb</span>
-								<div id="dropzoneDiv" class="dropzone"></div>
+								<div id="dropzoneDiv" class="dropzone"></div> -->
 								<!-- {{> dropzone id='dropzoneDiv2' url='/dd' addRemoveLinks=true autoProcessQueue=false maxFiles=4}} -->
-								<span style="color: red; font-weight: bold" id="upload-msg"></span>
-							</div>
+								<!-- <span style="color: red; font-weight: bold" id="upload-msg"></span>
+							</div> -->
 						</div>
 
 

@@ -4,12 +4,12 @@ Template.adminMyBlog.rendered = function(){
 	Session.set('selectedBlogId', -1);
 	//$('.js-switch').bootstrapSwitch();
 
-	myDropzone = new Dropzone('div#dropzoneDiv', { 
-		url: "#",
-		addRemoveLinks:true, 
-		autoProcessQueue:false,
-		maxFiles:4
-	});
+	// myDropzone = new Dropzone('div#dropzoneDiv', { 
+	// 	url: "#",
+	// 	addRemoveLinks:true, 
+	// 	autoProcessQueue:false,
+	// 	maxFiles:4
+	// });
 }
 
 Template.adminMyBlog.helpers({
@@ -115,8 +115,8 @@ Template.adminMyBlog.events({
 		NProgress.start();
 
 
-		console.log(myDropzone.files);
-		console.log(myDropzone.getQueuedFiles());
+		// console.log(myDropzone.files);
+		// console.log(myDropzone.getQueuedFiles());
 		// var status = 'draft';
 
 		// if ($('#post-status').bootstrapSwitch('state')){
@@ -133,7 +133,8 @@ Template.adminMyBlog.events({
 		}
 
 		if (mode == "create"){
-			params.content = '<p>Start editing here...</p>';
+			//params.content = '<p>Start editing here...</p>';
+			params.content = '';
 
 			Meteor.call('addBlogPost', params, function(error, result){
 				if(error){
@@ -154,6 +155,23 @@ Template.adminMyBlog.events({
 				      Blog_Images.insert(newCover, function(err, fileObj){
 				          if(err){
 				          	msg += '<br>Cover photo not uploaded.';
+				          } else {
+				              elem[0].reset();
+				              //$('#uniform-upload-cover .filename').html('No file selected');
+				          }
+				      });
+				    }
+
+				    if ($('#post-attachment').val()!=""){
+				      var attachment = $('#post-attachment').get(0).files[0];
+				      var newAttachment = new FS.File(attachment);
+				      newAttachment.postId = result;
+				      newAttachment.fileType = 'blog_post_attachment';
+				      newAttachment.status = 'uploading';
+
+				      Attachments.insert(newAttachment, function(err, fileObj){
+				          if(err){
+				          	msg += '<br>Attachment not uploaded.';
 				          } else {
 				              elem[0].reset();
 				              //$('#uniform-upload-cover .filename').html('No file selected');
@@ -211,7 +229,6 @@ Template.adminMyBlog.events({
 	                            }
 	                        }
 	                    });
-				  		
 				      //$('#uniform-upload-cover .filename').html('No file selected');
 				  }
 				});
@@ -232,6 +249,27 @@ Template.adminMyBlog.events({
 					}
 				});
 			}
+
+			if ($('#post-attachment').val()!=""){
+            	Meteor.call('deleteAttachment',blogPostId, function(err, res){
+
+				});
+				
+			      var attachment = $('#post-attachment').get(0).files[0];
+			      var newAttachment = new FS.File(attachment);
+			      newAttachment.postId = blogPostId;
+			      newAttachment.fileType = 'blog_post_attachment';
+			      newAttachment.status = 'uploading';
+
+			      Attachments.insert(newAttachment, function(err, fileObj){
+			          if(err){
+			          	msg += '<br>Attachment not uploaded.';
+			          } else {
+			              elem[0].reset();
+			              //$('#uniform-upload-cover .filename').html('No file selected');
+			          }
+			      });
+		    }
 		}
 		NProgress.done();
 	},
@@ -255,6 +293,8 @@ Template.adminMyBlog.events({
 		$('#post-blog').prop('disabled', false);
 		$('.btn-close').prop('disabled', false);
 		$('.close').prop('disabled', false);
+
+		$('#currentAttachment').html("");
 
 		Session.set('currentBlogPostId', '');
 	},
@@ -293,6 +333,16 @@ Template.adminMyBlog.events({
 
 		$('#form-blog-post input,textarea,button,select').prop('disabled', false);
 		$('#post-slug').prop('disabled', true);
+
+		var attachment = Attachments.findOne({
+			postId: blogPostId
+		});
+
+		if (attachment){
+			$('#currentAttachment').html("<a href='"+attachment.S3Url('attachment')+"' target='_blank'>"+attachment.original.name+"</a>");
+		}else{
+			$('#currentAttachment').html("");
+		}
 
 		Session.set('currentBlogPostId', blogPostId);
 	},

@@ -56,24 +56,5 @@ Meteor.methods({
          });
          Meteor.call('removeAllObjectTags', id, function(err, res){});
          return true;
-    },
-
-    removeAllAlbumPhotos: function(id){
-        if(!Meteor.userId()) {
-            throw new Meteor.Error(500, 'Error 500: Internal Server Error', 'User not logged in');
-        }
-
-        var photos = Galleries.find({
-            album_id: id
-        });
-
-
-        if (photos){
-            photos.forEach(function (photo) {
-                Galleries.remove(photo._id);
-            });
-        }else{
-            throw new Meteor.Error(500, 'Error 500: Internal Server Error', 'Album does not have any photo.');
-        }
     }
 });

@@ -517,65 +517,65 @@ Meteor.methods({
         });
     },
 
-    readEmailTemplate: function(id){
-        var announcement = Announcement_Posts.findOne(id);
-
-        // check whether user is announcement's valid editor
-        var channel = Announcement_Channels.findOne({
-            _id: announcement.channel_id
-        },{
-            'editors.user_id': Meteor.userId()
-        });
-
-        if (!channel){
-            throw new Meteor.Error(500, 'Error 500: Internal Server Error', 'Current user is not editor of the announcement');
-        }
-
-        var now = new Date();
-
-        var params = {
-            'status': 'published',
-            'updated_at': now,
-            'updated_by': Meteor.userId()
-        }
-
-        var content = announcement.content;
-        // var find = "src='/";
-        // var re = new RegExp(find, 'g');
-
-        // content = content.replace(re, "src='http://localhost:3000/");
-
-        // find = 'src="/';
-        // re = new RegExp(find, 'g');
-
-        // content = content.replace(re, 'src="http://localhost:3000/');
-
-        var photo = Announcement_Images.findOne({
-            announcementPostId: id,
-            fileType: 'announcement_post_cover_photo',
-            //status: 'stored'
-        }, {
-            sort: {uploadedAt: -1, limit:1}
-        });
-
-        var fphoto = Announcement_Images.findOne({
-            channelId: channel._id,
-            fileType: 'announcement_channel_footer_photo'
-        }, {
-            sort: {uploadedAt: -1, limit:1}
-        });
-
-        var dataContext={
-            content: content,
-            cover: photo.S3Url('announcementImages'),
-            footer: fphoto.S3Url('announcementImages')
-        };
-
-        SSR.compileTemplate('emailTemplate', Assets.getText('emailTemplate.html'));
-        var html = SSR.render('emailTemplate', dataContext);
-
-        return html;
-    },
+    // readEmailTemplate: function(id){
+    //     var announcement = Announcement_Posts.findOne(id);
+    //
+    //     // check whether user is announcement's valid editor
+    //     var channel = Announcement_Channels.findOne({
+    //         _id: announcement.channel_id
+    //     },{
+    //         'editors.user_id': Meteor.userId()
+    //     });
+    //
+    //     if (!channel){
+    //         throw new Meteor.Error(500, 'Error 500: Internal Server Error', 'Current user is not editor of the announcement');
+    //     }
+    //
+    //     var now = new Date();
+    //
+    //     var params = {
+    //         'status': 'published',
+    //         'updated_at': now,
+    //         'updated_by': Meteor.userId()
+    //     }
+    //
+    //     var content = announcement.content;
+    //     // var find = "src='/";
+    //     // var re = new RegExp(find, 'g');
+    //
+    //     // content = content.replace(re, "src='http://localhost:3000/");
+    //
+    //     // find = 'src="/';
+    //     // re = new RegExp(find, 'g');
+    //
+    //     // content = content.replace(re, 'src="http://localhost:3000/');
+    //
+    //     var photo = Announcement_Images.findOne({
+    //         announcementPostId: id,
+    //         fileType: 'announcement_post_cover_photo',
+    //         //status: 'stored'
+    //     }, {
+    //         sort: {uploadedAt: -1, limit:1}
+    //     });
+    //
+    //     var fphoto = Announcement_Images.findOne({
+    //         channelId: channel._id,
+    //         fileType: 'announcement_channel_footer_photo'
+    //     }, {
+    //         sort: {uploadedAt: -1, limit:1}
+    //     });
+    //
+    //     var dataContext={
+    //         content: content,
+    //         cover: photo.S3Url('announcementImages'),
+    //         footer: fphoto.S3Url('announcementImages')
+    //     };
+    //
+    //     SSR.compileTemplate('emailTemplate', Assets.getText('emailTemplate.html'));
+    //     var html = SSR.render('emailTemplate', dataContext);
+    //
+    //     return html;
+    // },
 
     publishAnnouncementPost: function(id) {
         var post = Announcement_Posts.findOne(id);

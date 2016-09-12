@@ -1,0 +1,47 @@
+<template name="bulletinAllPosts">
+	{{> homeHead}}
+
+	<div id="home" class="home" style="background: url('{{bulletin_channel_cover _id}}') no-repeat center center fixed;   display: table;  height: 100%;  position: relative;  width: 100%;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;  background-size: cover;">
+        <div class="text-vcenter">
+            <div class="bulletin-title">
+                <h1>{{title}}</h1>
+                <p>
+                    <a href="#startContent" class="btn btn-lg btn-more">View Posts</a>
+                </p>
+                
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div style="background: #FFFF00; width: 100%; margin-top: 0px; padding-top: 10px; padding-bottom: 10px;">
+	    <div class="container bulletinPostCards featuredPosts">
+	    	<div class="row">
+	    	<h1>Featured Posts</h1>
+	    	{{>featuredPosts}}
+	    	</div>
+	    </div>
+    </div> -->
+	
+	<div id="startContent"></div>
+
+	{{#if channelHasPosts _id}}
+
+	<div class="container bulletinPostCards">
+	    <div class="row fh5co-post-entry">
+	    	{{#each posts _id}}
+	        <div class="col-xs-6 col-sm-6 col-md-4 animate-box">
+	        	{{>bulletinPostCard this}}
+	        </div>
+	        {{/each}}
+	    </div>
+	</div>
+	{{else}}
+	<div class="container">
+		<h1>Welcome to <b>{{title}}</b>'s Bulletin page.</h1>
+
+		<p>There is no bulletin submitted.</p>
+	</div>
+	{{/if}}
+
+	{{>footer}} 
+</template>

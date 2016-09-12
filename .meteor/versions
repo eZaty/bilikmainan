@@ -111,6 +111,7 @@ momentjs:moment@2.9.0
 mongo@1.1.9_1
 mongo-id@1.0.5
 mongo-livedata@1.0.12
+mrt:bootstrap3-wysihtml5@0.3.3
 mrt:jquery-imagesloaded@0.0.2
 mrt:nprogress@0.2.0
 mrt:smart-publish@0.2.1

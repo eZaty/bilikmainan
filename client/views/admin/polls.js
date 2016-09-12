@@ -7,10 +7,6 @@ Template.adminPolls.helpers({
 		return Polls.find();
 	},
 
-	pollLength: function() {
-		return 45;
-	},
-
 	getUser: function(userId) {
 		var usr = Meteor.users.findOne(userId);
 		if(usr != undefined) return usr.profile.nickName;
@@ -18,13 +14,16 @@ Template.adminPolls.helpers({
 
 	formatDate: function(date) {
 		return moment(date).format('MMM Do YYYY');
+	},
+
+	channels: function() {
+		return Channels.find();
 	}
 });
 
 Template.adminPolls.events({
 
 	'submit #form-submit': function(e) {
-		// console.log('masuk');
 		e.preventDefault();
 		var elem = $(e.currentTarget);
 		NProgress.start();
@@ -59,16 +58,19 @@ Template.adminPolls.events({
 			options: options,
 			total: (j-1)
 		}
+
 		Meteor.call('addPoll', params, function(error, result){
 			if(error) console.log("error", error);
 			else if(result) {
 				// -- timeline
+				var channelText = $("#channel option:selected").text();
+
 				Meteor.call('addTimeline', {
 					collection: 'polls',
 					postId: result,
 					createdAt: params.createdAt,
 					ending: params.ending,
-					channel: params.channel,
+					channel: channelText,
 					userId: Meteor.userId(),
 					userName: Meteor.user().profile.nickName
 				});
@@ -77,7 +79,7 @@ Template.adminPolls.events({
 	                'title': $('#question').val(),
 	                'type': 'New Poll'
 	            }
-
+	            
 	            Meteor.call('pushNotification', prms);
 			}
 			elem[0].reset();

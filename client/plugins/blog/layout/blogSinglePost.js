@@ -307,8 +307,24 @@ Template.blogSinglePost.rendered = function(){
 
 		isMobileDevice: function(){
 			return Session.get('isMobileDevice');
-		}
+		},
 
+		getAttachmentLink: function(id){
+			var attachment = Attachments.findOne({
+				_id : id
+			});
+
+			return attachment.S3Url('attachment');
+		},
+
+		attachment: function(id){
+			var attachment = Attachments.findOne({
+				postId : id
+			});
+
+			if (attachment)
+				return attachment;
+		}
 	});
 
 	Template.blogSinglePost.events({

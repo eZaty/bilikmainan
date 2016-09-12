@@ -1,0 +1,440 @@
+/* general styles */
+html, body { height: 100%;  width: 100%; }
+
+/* padded section */
+.pad-section { padding: 50px 0; }
+.pad-section img { width: 100%; }
+/* vertical-centered text */
+.text-vcenter { display: table-cell;  text-align: center;  vertical-align: bottom; }
+.text-vcenter p { color: #FFF; }
+.text-vcenter h1 { font-size: 6vw;  font-weight: 500;  margin: 0;  padding: 0; color: #FFF; padding-bottom: 20px;}
+.text-vcenter h3 { font-size: 3vw;  margin: 0;  padding: 0; color: #FFF; padding-bottom: 10px;}
+
+@media screen and (min-width: 480px) {
+	.text-vcenter { display: table-cell;  text-align: center;  vertical-align: bottom;}
+	.text-vcenter h1 { font-size: 26px;  font-weight: 500;  margin: 0;  padding: 0; color: #FFF; padding-bottom: 20px;}
+	.text-vcenter h3 { font-size: 15px;  margin: 0;  padding: 0; color: #FFF; padding-bottom: 10px;}
+}
+
+div.bulletin-title{
+	background: rgba(0,0,0,0.5);
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+a.btn-more{
+	background: rgba(255,255,255,0.3);
+	border: 1px solid #FFF;
+	padding: 20px;
+	margin-top: 20px;
+	color: #000;
+}
+
+a.btn-more:hover{
+	background: rgba(0,0,0,0.5);
+	border: 1px solid #FFF;
+	padding: 20px;
+	margin-top: 20px;
+	color: #FFF;
+}
+
+#email-preview-modal-dialog.fullscreen, #mailing-list-modal-dialog.fullscreen {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#email-preview-modal-content.fullscreen, #mailing-list-modal-content.fullscreen {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}
+
+#email-preview-modal-content .modal-body {
+  padding: 0;
+}
+
+#bulletin-modal-dialog.fullscreen {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#bulletin-modal-content.fullscreen {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}
+
+.bulletinPostCards{
+  margin-top: 30px; 
+  /*background: rgba(255,255,255,1);*/
+}
+.bulletinPostCards .card {
+  display: block;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    transition: box-shadow .25s;
+}
+.bulletinPostCards .card:hover {
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.bulletinPostCards .img-card {
+  width: 100%;
+  height:200px;
+  border-top-left-radius:2px;
+  border-top-right-radius:2px;
+  display:block;
+    overflow: hidden;
+}
+.bulletinPostCards .img-card img{
+  width: 100%;
+  height: 200px;
+  object-fit:cover;
+  transition: all .25s ease;
+}
+.bulletinPostCards .card-content {
+  padding:15px;
+  text-align:left;
+}
+.bulletinPostCards .card-title {
+  margin-top:0px;
+  font-weight: 500;
+  font-size: 20px; /*5vw;*/
+}
+.bulletinPostCards .card-title a {
+  /*color: #333;*/
+  text-decoration: none !important;
+}
+.bulletinPostCards .card-footer {
+  border-top: 0px solid #D4D4D4;
+  padding: 15px;
+}
+.bulletinPostCards .card-footer a {
+  text-decoration: none !important;
+  padding:10px;
+  font-weight:600;
+  text-transform: uppercase
+}
+.bulletinPostCards .card-date {
+  color: #777;
+  font-size: 12px;
+  text-decoration: none !important;
+}
+
+.bulletinPostCards .card-content-preview {
+  margin-top: 10px;
+  text-decoration: none !important;
+}
+
+.bulletinPostCards .text-vcenter { display: table-cell;  text-align: center;  vertical-align: middle; }
+.bulletinPostCards .text-vcenter h1 { font-size: 6vw;  font-weight: 500;  margin: 0;  padding: 0; color: #FFF; padding-bottom: 20px;}
+.bulletinPostCards .text-vcenter h3 { font-size: 3vw;  margin: 0;  padding: 0; color: #FFF; padding-bottom: 10px;}
+
+.bulletinPostCards .bulletin-title{
+  background: rgba(0,0,0,0.5);
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.bulletinPostCards .card-mini {
+  display: block;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    transition: box-shadow .25s;
+}
+.bulletinPostCards .card-mini:hover {
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.bulletinPostCards .img-card-mini {
+  width: 100%;
+  height:200px;
+  border-top-left-radius:2px;
+  border-top-right-radius:2px;
+  display:block;
+    overflow: hidden;
+}
+.bulletinPostCards .img-card-mini img{
+  width: 100%;
+  height: 200px;
+  object-fit:cover;
+  transition: all .25s ease;
+}
+.bulletinPostCards .card-mini-title {
+  margin-top:auto;
+  margin-bottom: auto;
+  font-weight: 500;
+  font-size: 5vw;
+}
+.bulletinPostCards .card-mini-title a {
+  color: #FFF;
+  text-decoration: none !important;
+}
+
+.profile-photo-mini.pull-left{
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;  
+}
+
+.profile-photo-mini.pull-right{
+  width: 60px;
+  height: 60px;
+  margin-left: 10px;  
+}
+
+.comment-date{
+  font-size: 12px;
+  color: #777;
+}
+
+.bulletin-post-date{
+  font-size: 12px;
+  color: #777;
+}
+
+@media screen and (max-width: 480px) {
+  .main-footer{
+    margin-top: 0px;
+  }
+
+  .bulletinPostCards{
+    margin-top: 0px;
+    padding-top: 10px; 
+    background-color: #111;
+  }
+  .bulletinPostCards .card {
+    margin: 0px;
+    margin-bottom: 10px;
+    line-height: 1;  
+    border-radius: 5px;
+    transition: box-shadow .25s;
+  }
+  .bulletinPostCards .card-content-preview {
+    display: none;
+  }
+
+  .bulletinPostCards .card-date {
+    font-size: 11px;
+    color: #ccc;
+  }
+
+  .bulletinPostCards .card-title {
+    margin-top:-20px;
+    font-weight: 500;
+    font-size: 4vw;
+  }
+
+  .bulletinPostCards .img-card {
+    width: 100%;
+    height:100px;
+  }
+  .bulletinPostCards .img-card img{
+    height: 100px;
+  }
+  .bulletinPostCards .card-content {
+    padding:7px;
+    font-size: 12px;
+    text-align:left;
+    background-color: #333;
+  }
+  .bulletinPostCards .card {
+    background-color: #333;
+  }
+  .bulletinPostCards .card-footer {
+    color: #CCC;
+    font-size: 11px;
+    padding: 7px;
+    border-top: 0px;
+  }
+}
+
+
+
+#fh5co-offcanvas {
+  background: rgba(0,0,0,0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 700px;
+  z-index: 99999;
+  overflow-y: auto;
+  opacity: 0;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  #fh5co-offcanvas {
+    /*padding-top: 30px;*/
+    width: 270px;
+  }
+}
+#fh5co-offcanvas .fh5co-close-offcanvas {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  font-size: 30px;
+  width: 30px;
+  overflow: hidden;
+  color: #cccccc;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+@media screen and (max-width: 768px) {
+  #fh5co-offcanvas .fh5co-close-offcanvas {
+    /*top: 5px;*/
+  }
+}
+#fh5co-offcanvas .fh5co-close-offcanvas:hover {
+  width: 85px;
+  color: #FFF;
+}
+#fh5co-offcanvas .fh5co-close-offcanvas > span {
+  width: 100px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
+#fh5co-offcanvas .fh5co-close-offcanvas > span > span {
+  top: 10px;
+  right: -8px;
+  position: relative;
+  font-size: 18px;
+  vertical-align: top;
+}
+#fh5co-offcanvas .fh5co-box {
+  float: left;
+  margin-bottom: 30px;
+  width: 100%;
+}
+#fh5co-offcanvas .fh5co-menu,
+#fh5co-offcanvas .fh5co-bio {
+  width: 50%;
+  padding: 50px;
+}
+@media screen and (max-width: 768px) {
+  #fh5co-offcanvas .fh5co-menu,
+  #fh5co-offcanvas .fh5co-bio {
+    width: 100%;
+    padding: 30px;
+  }
+}
+#fh5co-offcanvas .fh5co-bio {
+  text-align: center;
+  float: left;
+}
+#fh5co-offcanvas .fh5co-bio figure {
+  text-align: center;
+  display: block;
+  margin-bottom: 30px;
+}
+#fh5co-offcanvas .fh5co-bio img {
+  width: 180px;
+  margin: 0 auto;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+#fh5co-offcanvas .fh5co-bio p {
+  font-size: 16px;
+}
+#fh5co-offcanvas .heading {
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #cccccc;
+  margin-bottom: 30px;
+}
+#fh5co-offcanvas .fh5co-menu {
+  float: right;
+}
+#fh5co-offcanvas .fh5co-menu ul {
+  padding: 0;
+  margin: 0;
+}
+#fh5co-offcanvas .fh5co-menu ul li {
+  padding: 0;
+  margin: 0 0 10px 0;
+  list-style: none;
+  display: block;
+}
+#fh5co-offcanvas .fh5co-menu ul li a {
+  color: #000;
+}
+.js .to-animate, .js
+.to-animate-2, .js
+.animate-box {
+  opacity: 0;
+}
+
+.fh5co-animated {
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@media screen and (min-width: 480px) {
+  .bulletinPostCards .card-title {
+    margin-top:0px;
+    font-weight: 500;
+    font-size: 22px;
+  }
+
+  .bulletinPostCards .card-mini-title {
+    margin-top:auto;
+    margin-bottom: auto;
+    font-weight: 500;
+    font-size: 22px;
+  }
+
+  .bulletinPostCards .text-vcenter { display: table-cell;  text-align: center;  vertical-align: middle; }
+  .bulletinPostCards .text-vcenter h1 { font-size: 26px;  font-weight: 500;  margin: 0;  padding: 0; color: #FFF; padding-bottom: 20px;}
+  .bulletinPostCards .text-vcenter h3 { font-size: 15px;  margin: 0;  padding: 0; color: #FFF; padding-bottom: 10px;}
+}
+
+/* COLOR */
+.text-white{
+  color: #FFFFFF;
+}
+.text-black{
+  color: #000000;
+}
+.text-red{
+  color: #FF0000;
+}
+.text-orange{
+  color: #FF9900;
+}
+.text-green{
+  color: #99CC00;
+}
+.text-blue{
+  color: #0000FF;
+}
+
+#bulletin-footer{
+  background-color: rgba(255,255,255,1);
+  margin-top: 0px;
+}
+
+#bulletin-footer .main-footer{
+  margin-top: 0px;
+}
+
+#article{
+  background-color: rgba(255,255,255,1);
+  padding-bottom: 30px;
+}
+

@@ -1,0 +1,66 @@
+<template name="scoolTrainingList">
+{{> homeHead}}
+
+<!-- <div id="home" class="home" style="background: #FF0000 url('/images/header-generic.jpg') no-repeat center center fixed;   display: table;  position: relative;  width: 100%; height: 400px;"> -->
+<div id="home" class="home" style="background: url('/images/modules/webeme/scool.jpg') no-repeat center center fixed;   display: table;  height: 50%;  position: relative;  width: 100%;  -webkit-background-size: cover;  -moz-background-size: cover;  -o-background-size: cover;  background-size: cover;">
+    <div class="text-vcenter">
+        <div class="blog-title">
+            <h1>List of Trainings</h1>
+            <p>
+                
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+	<table class="table table-striped">
+		<thead>
+		<tr>
+			<!-- <th>#</th> -->
+			<th>Start</th>
+			<th>End</th>
+			<th>Type</th>
+			<th>Title</th>
+			<th>Pax</th>
+			<th>Venue</th>
+			<th>Status</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{#each trainings}}
+			<tr>
+				<!-- <td>
+					{{no}}
+				</td> -->
+				<td>
+					{{start}}
+				</td>
+				<td>
+					{{end}}
+				</td>
+				<td>
+					{{type}}
+				</td>
+				<td>
+					{{title}}
+				</td>
+				<td>
+					{{pax}}
+				</td>
+				<td>
+					{{venue}}
+				</td>
+				<td>
+					{{status}}
+				</td>
+			</tr>
+		{{/each}}
+		</tbody>
+	</table>
+
+</div>
+
+{{>footer}}
+
+</template>

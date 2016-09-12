@@ -96,6 +96,15 @@
                     {{{content}}}
                 </div>
             </div>
+            {{#with attachment _id}}
+            <div class="row">
+                <div class="well">
+                <b style="font-family:'Panton Black';">Attachment:</b>
+                <br>
+                <a href="{{getAttachmentLink _id}}" target="_blank">{{original.name}}</a>
+                </div>
+            </div>
+            {{/with}}
         </div>
     </article>
 

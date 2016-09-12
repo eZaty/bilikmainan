@@ -14,7 +14,7 @@ blog_post_cover_photo = function(id, size){
         //status: 'stored'
     }, {
         sort: {uploadedAt: -1, limit:1}
-    }); 
+    });
 
     if (photo) {
         if(size == 'full')
