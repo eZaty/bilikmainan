@@ -1,10 +1,12 @@
 Meteor.startup(function () {
 
     LDAP_DEFAULTS.url = 'ldap://192.168.250.216';
+    // LDAP_DEFAULTS.url = 'ldap://192.168.220.81';
     LDAP_DEFAULTS.port = 389;
     // LDAP_DEFAULTS.dn = '';
     LDAP_DEFAULTS.createNewUser = true;
     LDAP_DEFAULTS.base = 'dc=greenpacket,dc=com';
+    // LDAP_DEFAULTS.base = 'dc=webedigital,dc=my';
 
     LDAP_DEFAULTS.searchResultsProfileMap = [
         {

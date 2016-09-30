@@ -1,5 +1,7 @@
 Template.adminPolls.onRendered(function() {
 	ClientHelper.activeMenu('adminPolls', 'adminPolls');
+	var table = $('#pollTable').DataTable();
+	table.column(0).visible(false);
 });
 
 Template.adminPolls.helpers({

@@ -1,5 +1,7 @@
 Template.scoolTrainingList.rendered = function(){
-
+	var table = $('#scoolTrainingTable').DataTable();
+	table.column(0).visible(false);
+	table.column(7).visible(false);
 }
 
 Template.scoolTrainingList.helpers({

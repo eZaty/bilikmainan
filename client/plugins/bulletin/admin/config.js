@@ -17,7 +17,7 @@ Router.route('/' + BULLETIN_CONFIG.root + '/:channel/:slug', {
                 ];
     },
     data: function(){
-        if (!this.ready()) return;
+        //if (!this.ready()) return;
         
         Session.set('isMobileDevice', false);
 

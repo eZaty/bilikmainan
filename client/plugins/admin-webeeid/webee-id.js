@@ -7,6 +7,19 @@ Tracker.autorun(function(){
 
 Template.adminWebeeID.rendered = function(){
 	$('#webeeIDTabs').tab('show');
+
+	var table = $('#pendingTable').DataTable();
+	table.column(0).visible(false);
+	table.column(1).visible(false);
+
+	table = $('#collectedTable').DataTable();
+	table.column(0).visible(false);
+	table.column(1).visible(false);
+
+	table = $('#printedTable').DataTable();
+	table.column(0).visible(false);
+	table.column(1).visible(false);
+
 }
 
 Template.adminWebeeID.helpers({
@@ -304,6 +317,62 @@ Template.adminWebeeID.events({
 		}else{
 			$('#card-' + userId + ' .card-info').show();
 			$('#card-' + userId + ' .card-details').addClass('hidden');
+		}
+	},
+
+	'click .preview-opener': function(e){
+		var elem = $(e.currentTarget);
+		var userId = elem.data('userid');
+
+		var user = Meteor.users.findOne(userId);
+
+		if (user){
+			var details = user.profile.name + '<br>' +
+						  'wb' + user.profile.webeeId + '<br>' +
+						  user.profile.email + '<br>' +
+						  user.profile.phone + '<br>' +
+						  user.profile.title + ' @ ' + user.profile.department;
+
+			$('#modal-webee-id-preview .card-container .card-preview').attr('id', 'card-'+userId);
+
+			$('#modal-webee-id-preview .card-container .card-preview').css('background-color', '#' + user.profile.color);
+
+			$('#modal-webee-id-preview .card-container .card-preview .photo-container').css('background-color', '#' + user.profile.color);
+
+			$('#modal-webee-id-preview .card-container .card-info .greeting').html(user.profile.greeting);
+
+			$('#modal-webee-id-preview .card-container .card-info .name').html(user.profile.nickName);
+
+			$('#modal-webee-id-preview .card-container .card-info .webeeid').html('wb' + user.profile.webeeId);
+
+			$('#modal-webee-id-preview .card-container .card-info .pattern img').attr('src', '/images/patterns/' + user.profile.pattern + '.png');
+
+			$('#modal-webee-id-preview .card-container .card-details').html(details);
+
+			$('#modal-webee-id-preview .btn-user-details').attr('data-userid', userId);
+			$('#modal-webee-id-preview .btn-collect').attr('data-userid', userId);
+			$('#modal-webee-id-preview .btn-renew').attr('data-userid', userId);
+
+			var photo = Profiles.findOne({
+		        userId: userId
+		    }, {
+		        sort: {uploadedAt: -1, limit:1}
+		    });
+
+			//console.log('photo',photo);
+			if (photo){
+				$('#modal-webee-id-preview .card-container .card-preview .photo-container .photo img').attr('src', photo.S3Url('profileImages'));
+			}else{
+				$('#modal-webee-id-preview .card-container .card-preview .photo-container .photo img').attr('src', '/images/default-id.png');
+			}
+
+			if ($('#card-' + userId + ' .card-info').is(':visible')){
+				$('#card-' + userId + ' .card-info').hide();
+				$('#card-' + userId + ' .card-details').removeClass('hidden');
+			}else{
+				$('#card-' + userId + ' .card-info').show();
+				$('#card-' + userId + ' .card-details').addClass('hidden');
+			}
 		}
 	},
 

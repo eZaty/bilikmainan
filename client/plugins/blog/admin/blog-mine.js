@@ -2,14 +2,14 @@ var myDropzone;
 
 Template.adminMyBlog.rendered = function(){
 	Session.set('selectedBlogId', -1);
-	//$('.js-switch').bootstrapSwitch();
 
-	// myDropzone = new Dropzone('div#dropzoneDiv', { 
-	// 	url: "#",
-	// 	addRemoveLinks:true, 
-	// 	autoProcessQueue:false,
-	// 	maxFiles:4
-	// });
+	var table = $('#blogTable').DataTable();
+	table.column(0).visible(false);
+	table.column(1).visible(false);
+	table.column(2).visible(false);
+	table.column(3).visible(false);
+	table.column(4).visible(false);
+	table.column(5).visible(false);
 }
 
 Template.adminMyBlog.helpers({

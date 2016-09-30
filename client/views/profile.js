@@ -208,7 +208,7 @@ Template.profile.events({
 
             var status = Meteor.user().webeeidstatus;
 
-            if(!status || status == 'new' || status == 'rejected'){
+            if(!status || status == 'new' || status == 'approved' || status == 'rejected'){
                 status = 'new';
             }
 

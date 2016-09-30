@@ -14,37 +14,46 @@ Template.adminMyBulletin.rendered = function(){
 
 	$('#post-content').wysihtml5();
 
+	var table = $('#bulletinTable').DataTable();
+	table.column(0).visible(false);
+	table.column(1).visible(false);
+	table.column(2).visible(false);
+	table.column(3).visible(false);
+	table.column(4).visible(false);
+	table.column(5).visible(false);
+	table.column(6).visible(false);
+
 	//$('.js-switch').bootstrapSwitch();
 }
 
 Template.adminMyBulletin.helpers({
-	posts: function() {
-		var channels;
+	// posts: function() {
+	// 	var channels;
 
-		if (Roles.userIsInRole(Meteor.userId(), ['admin'])){
-			channels = Channels.find();
-		}else{
-		 	channels = Channels.find({
-				'editors.user_id': Meteor.userId()
-			});
-		}
+	// 	if (Roles.userIsInRole(Meteor.userId(), ['admin'])){
+	// 		channels = Channels.find();
+	// 	}else{
+	// 	 	channels = Channels.find({
+	// 			'editors.user_id': Meteor.userId()
+	// 		});
+	// 	}
 
-		if (channels){
-			var channelIds = [];
+	// 	if (channels){
+	// 		var channelIds = [];
 			
-			channels.forEach(function (row) {
-	            channelIds.push(row._id);
-	        }); 
+	// 		channels.forEach(function (row) {
+	//             channelIds.push(row._id);
+	//         }); 
 
-			return Bulletin_Posts.find({
-				channel_id: {
-					$in: channelIds
-				}
-			},{sort: {created_at: -1}});
-		}else{
-			return null;
-		}
-	},
+	// 		return Bulletin_Posts.find({
+	// 			channel_id: {
+	// 				$in: channelIds
+	// 			}
+	// 		},{sort: {created_at: -1}});
+	// 	}else{
+	// 		return null;
+	// 	}
+	// },
 	post_types: function() {
 		return Bulletin_Post_Types.find({},{sort: {title: 1}});
 	},
@@ -200,8 +209,6 @@ Template.adminMyBulletin.events({
 			content: $('#post-content').val(),
 			mediums: mediums
 		}
-
-		//console.log(params);
 
 		if (mode == "create"){
 			//params.content = '<p>Start editing here...</p>';

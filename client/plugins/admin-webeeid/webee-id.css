@@ -4,7 +4,7 @@
 }
 .webee-id-admin .card-preview {
     color: #1f376b;
-    border: 1px #ccc solid;
+    border: 0px #ccc solid;
     border-radius: 5px;
     height: 439px; /* 350 x 1.58588235 */
     width: 290px !important;
@@ -90,4 +90,17 @@
     left: 15px;
     color: white;
     /*visibility: hidden;*/
+}
+
+#modal-webee-id-preview{
+    /*position: relative;*/
+}
+
+#modal-webee-id-preview .card-container{
+    height: 475px;
+    /*overflow: auto;*/
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    /*transform: translate(-50%, -50%);*/
 }

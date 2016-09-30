@@ -76,6 +76,7 @@ Template.login.events({
         var loginId = e.target.loginId.value.toLowerCase();
         var password = e.target.loginPassword.value;
         var domain = 'greenpacket';
+        // var domain = 'webedigital';
         // console.log(loginId, password);
 
         if (loginId == ""){

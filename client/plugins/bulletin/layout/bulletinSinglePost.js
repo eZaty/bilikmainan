@@ -5,7 +5,9 @@ Template.bulletinSinglePost.rendered = function(){
 		}, 1000);
 	});
 
-	Tracker.autorun(function(){
+	console.log('rendered');
+
+	//Tracker.autorun(function(){
 		// var editable = Session.get('CURRENT_USER_IS_EDITOR');
 		// if (editable){
 
@@ -178,7 +180,7 @@ Template.bulletinSinglePost.rendered = function(){
 		// 			});
 		// 		}
 		// 	}
-		});
+		//});
 	}
 
 	Template.bulletinSinglePost.helpers({

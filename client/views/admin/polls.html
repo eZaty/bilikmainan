@@ -27,47 +27,10 @@
 	<!-- content -->
 	<div class="content">
 		<!-- Media library -->
-		<div class="panel panel-white">
-			<table class="table table-striped media-library table-lg">
-				<thead>
-					<tr>
-						<th><input type="checkbox"></th>
-						<th>Question</th>
-						<th>Option</th>
-						<th>Author</th>
-						<th>Start</th>
-						<th>Ending</th>
-						<th>Channel</th>
-						<th class="text-center">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{{#each poll in polls}}
-					<tr>
-						<td><input type="checkbox"></td>
-						<td><a href="#">{{poll.question}}</a></td>
-						<td>{{poll.total}}</td>
-						<td>{{getUser poll.userId}}</td>
-						<td>{{formatDate poll.createdAt}}</td>
-						<td>{{formatDate poll.ending}}</td>
-						<td>{{getChannelName poll.channel}}</td>
-						<td class="text-center">
-							<ul class="icons-list">
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-										<i class="icon-menu9"></i>
-									</a>
-
-									<ul class="dropdown-menu dropdown-menu-right">
-										<li><a href="#" class="delete-poll" data-id="{{poll._id}}"><i class="icon-bin"></i> Move to trash</a></li>
-									</ul>
-								</li>
-							</ul>
-						</td>
-					</tr>
-					{{/each}}
-				</tbody>
-			</table>
+		<div class="panel panel-flat">
+			<div class="panel-body">
+				{{> tabular id="pollTable" table=TabularTables.Polls class="table striped"}}
+			</div>
 		</div>
 		<!-- /media library -->
 	</div>

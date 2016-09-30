@@ -63,6 +63,10 @@ Template.adminUserList.onCreated(function() {
 Template.adminUserList.onRendered(function() {
 	ClientHelper.activeMenu('adminUserList', 'adminUsers');
 	ClientHelper.startLazy();
+
+	var table = $('#userTable').DataTable();
+	table.column(0).visible(false);
+	table.column(1).visible(false);
 });
 
 Template.adminUserList.helpers({

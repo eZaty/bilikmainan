@@ -12224,7 +12224,7 @@ a.plupload_disabled:focus {
   border-top: 1px solid #bbbbbb;
 }
 .dataTables_length {
-  float: right;
+  float: left;
   display: inline-block;
   margin: 0 0 20px 20px;
 }
@@ -12248,7 +12248,7 @@ a.plupload_disabled:focus {
 .dataTables_filter {
   position: relative;
   display: block;
-  float: left;
+  float: right;
   margin: 0 0 20px 20px;
 }
 .dataTables_filter > label {

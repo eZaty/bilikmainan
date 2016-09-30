@@ -1,0 +1,25 @@
+<template name="userTableButtons">
+<div style="width:100%; text-align: right;">
+	<ul class="icons-list pull-right">
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				<i class="icon-three-bars"></i>
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu dropdown-menu-right">
+				{{#each group in groups}}
+				{{#if hasRole group.slug roles}}
+				<li><a href="#" class="revoke" data-role="{{group.slug}}" data-userid="{{_id}}"><i class="icon-user-tie pull-right text-warning"></i> <span class="text-warning">Revoke {{group.name}} role</span></a></li>
+				{{else}}
+				<li><a href="#" class="promote" data-role="{{group.slug}}" data-userid="{{_id}}"><i class="icon-user-tie pull-right"></i> Set as {{group.name}}</a></li>
+				{{/if}}
+				{{/each}}
+
+				<li class="divider"></li>
+				<li><a href="#" class="migrate-photo" data-userid="{{_id}}"><i class="icon-warning pull-right"></i> Migrate photo</a></li>
+				<li><a href="#" class="delete-user" data-userid="{{_id}}"><i class="icon-trash pull-right"></i> Delete user</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</template>

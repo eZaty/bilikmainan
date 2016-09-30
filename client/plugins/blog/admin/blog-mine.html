@@ -26,67 +26,8 @@
 	<!-- content -->
 	<div class="content">
 		<div class="panel panel-flat">
-			<!-- <div class="panel-heading">
-				<div class="heading-elements">
-					<ul class="icons-list">
-                		<li><a data-action="collapse"></a></li>
-                		<li><a data-action="reload"></a></li>
-                		<li><a data-action="close"></a></li>
-                	</ul>
-            	</div>
-			<a class="heading-elements-toggle"><i class="icon-menu"></i></a></div> -->
-
 			<div class="panel-body">
-				<ul class="media-list media-list-bordered">
-					{{#each posts}}
-					<li class="media">
-						<div class="media-left">
-							<a href="#"><img src="{{blog_post_cover_thumb _id}}" class="img-circle" alt=""></a>
-						</div>
-
-						<div class="media-body">
-							<ul class="icons-list pull-right">
-								{{#if isFeatured _id}}
-								<li><span class="label label-info">Featured</span></li>
-								{{/if}}
-
-								{{#if isPublished _id}}
-								<li><span class="label label-success">Published</span></li>
-								{{/if}}
-								{{#if isDraft _id}}
-								<li><span class="label label-warning">Draft</span></li>
-								{{/if}}
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-										<i class="icon-three-bars"></i>
-										<span class="caret"></span>
-									</a>
-
-									<ul class="dropdown-menu dropdown-menu-right">
-										<li><a href="#" data-toggle="modal" data-target="#modal-blog-post" class="edit-post" data-blogpostid="{{_id}}"><i class="icon-pencil pull-right"></i> Edit Post</a></li>
-
-										{{#if isFeatured _id}}
-											<li><a href="#" class="revoke-featured" data-blogpostid="{{_id}}"><i class="icon-star pull-right"></i> Revoke "Featured"</a></li>
-										{{else}}
-											<li><a href="#" class="set-featured" data-blogpostid="{{_id}}"><i class="icon-star pull-right"></i> Set as "Featured"</a></li>
-										{{/if}}
-
-										{{#if isPublished _id}}
-											<li><a href="#" class="unpublish" data-blogpostid="{{_id}}"><i class="icon-star pull-right"></i> Unpublish</a></li>
-										{{else}}
-											<li><a href="#" class="publish" data-blogpostid="{{_id}}"><i class="icon-star pull-right"></i> Publish</a></li>
-										{{/if}}
-
-										<li><a href="#" class="delete-post" data-blogpostid="{{_id}}"><i class="icon-trash pull-right"></i> Delete Post</a></li>
-									</ul>
-								</li>
-							</ul>
-							<h6 class="media-heading"><span class="label label-default">{{blog_path blog_id}}</span> <strong><a href="/{{blog_root}}/{{blog_path blog_id}}/{{slug}}" target="_blank">{{title}}</a></strong></h6>
-							{{getFullname created_by}} - <i class="blog-post-date">{{formatDate created_at}}</i>
-						</div>
-					</li>
-					{{/each}}
-				</ul>
+				{{> tabular id="blogTable" table=TabularTables.BlogMine class="table striped"}}
 			</div>
 		</div>
 	</div>

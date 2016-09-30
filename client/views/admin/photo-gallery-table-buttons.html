@@ -1,0 +1,22 @@
+<template name="albumTableButtons">
+<div style="width:100%; text-align: right;">
+	<ul class="icons-list pull-right">
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				<i class="icon-three-bars"></i>
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li><a href="#" data-toggle="modal" data-target="#modal-create" class="edit-album" data-id="{{_id}}"><i class="icon-pencil pull-right"></i> Edit Album</a></li>
+
+				{{#if isPublished _id}}
+					<li><a href="#" class="unpublish" data-id="{{_id}}"><i class="icon-star pull-right"></i> Unpublish</a></li>
+				{{else}}
+					<li><a href="#" class="publish" data-id="{{_id}}"><i class="icon-star pull-right"></i> Publish</a></li>
+				{{/if}}
+				<li><a href="#" class="delete-album" data-id="{{_id}}"><i class="icon-trash pull-right"></i> Delete Album</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</template>

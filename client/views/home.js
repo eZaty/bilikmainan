@@ -1,12 +1,11 @@
 Template.home.rendered = function(){
-    $("#js-rotating").Morphext({
-        animation: "fadeInLeft",
-        // separator: "|",
-        speed: 2000,
-        complete: function () {
-
-        }
-    });
+    // $("#js-rotating").Morphext({
+    //     animation: "fadeInLeft",
+    //     // separator: "|",
+    //     speed: 2000,
+    //     complete: function () {
+    //     }
+    // });
 
     var wall = new Freewall("#freewall");
     wall.reset({
@@ -49,7 +48,7 @@ Template.home.rendered = function(){
 
     $(".home-announcement-posted-by").height(postedByMaxHeight);
 
-    // $('#modal-poplayer').modal('show');
+    $('#video-div').html('<video id="bgvids" width="100%" height="100%" autoplay="true" loop="true" muted="true" poster=""><source src="http://webe-playroom.s3.amazonaws.com/videos/comms/Webe%20Raya%20Event.mp4" type="video/mp4" /></video>');
 }
 
 Template.home.helpers({
@@ -80,16 +79,16 @@ Template.home.helpers({
         var posts = Blog_Posts.find(
             {
                 status: "published"
-            }, 
+            },
             {
-                sort: 
+                sort:
                 {
                     created_at: -1
                 },
                 limit: 2
             }
         );
-        
+
         return posts;
     },
 
@@ -97,16 +96,16 @@ Template.home.helpers({
         var posts = Announcement_Posts.find(
             {
                 status: "published"
-            }, 
+            },
             {
-                sort: 
+                sort:
                 {
                     created_at: -1
                 },
                 limit: 4
             }
         );
-        
+
         return posts;
     }
 });
